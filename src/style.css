@@ -1,59 +1,141 @@
 :root {
-  /* Colors & Effects */
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow: rgba(0, 0, 0, 0.1) 0 0.625rem 0.9375rem -0.1875rem, 
-            rgba(0, 0, 0, 0.05) 0 0.25rem 0.375rem -0.125rem;
-
-  /* Typography */
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  /* Fluid Typography using clamp(min, preferred, max) */
-  /* Scales from 16px at 320px width to 18px at 1200px width */
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --accent-gradient: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
+  --sans: system-ui, -apple-system, sans-serif;
   
-  line-height: 145%;
-  letter-spacing: 0.011rem;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 0.625rem 0.9375rem -0.1875rem, 
-              rgba(0, 0, 0, 0.25) 0 0.25rem 0.375rem -0.125rem;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  /* Fluid Typography */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--sans);
-  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+/* --- MOBILE VIEW (Default) --- */
+.view-mobile {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* This container ensures the logo and p are dead center of the screen */
+.home-content {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertical Center */
+  align-items: center;     /* Horizontal Center */
+  text-align: center;
+  gap: 2rem;
+}
+
+.home-logo {
+  width: 100%;
+  max-width: 16rem;
+  height: auto;
+}
+
+.home-tagline {
+  font-size: 1.1rem;
+  max-width: 20rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Button pinned to bottom in mobile */
+.cta-button {
+  width: 100%;
+  max-width: 24rem;
+  margin: 0 auto; /* Centers the button horizontally */
+  padding: 1rem;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* --- DESKTOP VIEW --- */
+.view-desktop {
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 48rem) {
+  .view-mobile {
+    display: none;
+  }
+
+  .view-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4rem 10%;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--text-h);
+    margin: 0 0 1rem 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+  }
+
+  /* Fixed Desktop Button Alignment */
+  .hero-actions {
+    display: flex;
+    flex-direction: row; /* Ensure horizontal on desktop */
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .cta-primary, .cta-secondary {
+    min-width: 12rem; /* Consistent width for both buttons */
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .cta-primary {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+  }
+
+  .cta-secondary {
+    background: transparent;
+    border: 2px solid #e1007a;
+    color: #e1007a;
+  }
+
+  .cta-primary:hover, .cta-secondary:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-banner {
+    width: 100%;
+    max-width: 65rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+  }
 }
