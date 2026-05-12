@@ -57,3 +57,84 @@ body {
   font-family: var(--sans);
   min-height: 100vh;
 }
+
+/* --- Mobile-First Navbar (Base) --- */
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #242424;
+  border-bottom: 0.0625rem solid #646cff;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 2vh, 1rem);
+}
+
+.nav-btn {
+  /* Fluid padding and font size for buttons */
+  padding: clamp(0.6rem, 2vh, 1rem) 1.2rem;
+  font-size: clamp(0.9rem, 1rem + 0.1vw, 1.1rem);
+  
+  font-weight: 500;
+  font-family: inherit;
+  color: #fff;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  border: 0.0625rem solid transparent;
+  border-radius: 0.5rem;
+  width: 100%; /* Full width on mobile */
+  text-align: center;
+}
+
+/* --- Breakpoint 1: Tablet (768px +) --- */
+@media (min-width: 48rem) {
+  .navbar {
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem 5%;
+  }
+
+  .nav-buttons {
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+
+  .nav-btn {
+    width: auto; /* Shrink to fit content */
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* --- Breakpoint 2: Desktop (1024px +) --- */
+@media (min-width: 64rem) {
+  .navbar {
+    padding: 1.5rem 10%;
+  }
+
+  .nav-buttons {
+    gap: clamp(1.5rem, 3vw, 3rem); /* Fluid gap between buttons */
+  }
+
+  .nav-btn:hover {
+    border-color: #646cff;
+    background-color: #2a2a2a;
+    transform: translateY(-0.125rem); /* Subtle lift effect */
+  }
+}
+
+/* Utility / Global Button States */
+.nav-btn:focus,
+.nav-btn:focus-visible {
+  outline: 0.25rem auto -webkit-focus-ring-color;
+  outline-offset: 0.125rem;
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+  background-color: #333;
+}
