@@ -4,29 +4,149 @@ export function setupHome(): HTMLElement {
 
   container.innerHTML = `
     <!-- MOBILE VIEW (Matches Welcome.png) -->
-    <div class="view-mobile">
-      <div class="home-content">
-        <img src="Welcome.png" alt="IT-ALUMNI Logo" class="home-logo">
-        <p class="home-tagline">
-          Connectant i empoderant a la nostra comunitat global d’alumnes
-        </p>
-      </div>
-      <button class="cta-button">Uneix-te</button>
-    </div>
+    <main>
+        <div class="view-mobile">
+            <div class="home-content">
+                <img src="Logo+letters" alt="IT-ALUMNI Logo" class="home-logo">
+                <p class="home-tagline">
+                Connectant i empoderant a la nostra comunitat global d’alumnes
+                </p>
+            </div>
+            <button class="cta-button">Uneix-te</button>
+        </div>
 
     <!-- DESKTOP VIEW (Matches Laptop.jpg) -->
-    <div class="view-desktop">
-      <div class="hero-section">
-        <h1 class="hero-title">Benvingut, Alumni</h1>
-        <p class="hero-subtitle">La comunitat que et manté connectat amb el teu futur.</p>
-        <div class="hero-actions">
-          <button class="cta-primary">Uneix-te</button>
-          <button class="cta-secondary">Saber-ne més</button>
-        </div>
-        <img src="Laptop.jpg" alt="Alumni Group" class="hero-banner">
-      </div>
-      <!-- Add your features-grid here if needed -->
-    </div>
+        <div class="view-desktop">
+    <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="hero-title">Benvingut, Alumni</h1>
+                <p class="hero-subtitle">La comunitat que et manté connectat amb el teu futur.</p>
+                <div class="hero-actions">
+                <button class="cta-primary">Uneix-te</button>
+                <button class="cta-secondary">Saber-ne més</button>
+                </div>
+                <img src="Laptop.jpg" alt="Alumni Group" class="hero-banner">
+            </div>
+    <!-- Features Section -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <img src="icon-networking.png" alt="Networking" class="feature-img">
+                    <p>Connecta amb una xarxa global de professionals.</p>
+                    <button class="feature-btn">Apunta't ja!</button>
+                </div>
+
+                <div class="feature-item">
+                    <img src="icon-jobs.png" alt="Jobs" class="feature-img">
+                    <p>Accedeix a ofertes de feina exclusives.</p>
+                    <button class="feature-btn">Apunta't ja!</button>
+                </div>
+
+                <div class="feature-item">
+                    <img src="icon-events.png" alt="Events" class="feature-img">
+                    <p>Participa en tallers i esdeveniments.</p>
+                    <button class="feature-btn">Apunta't ja!</button>
+                </div>
+            </div>
+    <!-- Testimonials Section -->
+            <section class="testimonials-section">
+                <h6 class="section-title">"T'ensenyem el que opinen els nostres súper-usuaris!"</h6>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                    <div class="card-header">
+                        <img src="mikel.png" alt="Mikel" class="avatar">
+                        <div class="user-meta">
+                        <h3>Mikel</h3>
+                        <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>"Gràcies a IT Alumni vaig aconseguir la feina dels meus somnis en el món tech amb el seu increïble programa de mentoria."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                    <div class="card-header">
+                        <img src="emma.png" alt="Emma" class="avatar">
+                        <div class="user-meta">
+                        <h3>Emma</h3>
+                        <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>“La meva xarxa d'aquesta comunitat ha estat clau: va revolucionar la meva carrera i em va mostrar camins insospitats."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                    <div class="card-header">
+                        <img src="laia.png" alt="Laia" class="avatar">
+                        <div class="user-meta">
+                        <h3>Laia</h3>
+                        <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>"IT Alumni em va donar les eines i l’autoestima per fer realitat el meu somni d’emprendre."</p>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="control-btn">‹</button>
+                    <button class="control-btn">›</button>
+                </div>
+            </section>
+
+
+        </div><!-- End of Desktop View -->
+    </main>
+        <!-- Footer Section -->
+            <footer class="main-footer">
+                <!-- Newsletter Section -->
+                <div class="footer-newsletter">
+                    <h3>"No et perdis res, subscriu-te!"</h3>
+                    <div class="newsletter-input-group">
+                    <div class="input-wrapper">
+                        <span class="icon">✉</span>
+                        <input type="email" placeholder="El teu email">
+                    </div>
+                    <button class="newsletter-btn">Subscriu-te</button>
+                    </div>
+                </div>
+
+                <!-- Main Navigation Row -->
+                <div class="footer-main-nav">
+                    <div class="footer-logo">
+                    <img src="Welcome.png" alt="ALUMNI" class="footer-logo-img">
+                    </div>
+                    <nav class="footer-links">
+                    <a href="#">Sobre nosaltres</a>
+                    <a href="#">Funcionalitats</a>
+                    <a href="#">Centre d'ajuda</a>
+                    <a href="#">Contacta'ns</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Oportunitats laborals</a>
+                    </nav>
+                </div>
+
+                <hr class="footer-divider">
+
+                <!-- Bottom Utility Bar -->
+                <div class="footer-bottom">
+                    <div class="language-selector">
+                    <select>
+                        <option>Català</option>
+                        <option>English</option>
+                    </select>
+                    </div>
+                    
+                    <div class="footer-legal">
+                    <p>© 2024 Brand, Inc. • Privadesa • Termes d'ús</p>
+                    <p>• Mapa del lloc</p>
+                    </div>
+
+                    <div class="social-icons">
+                    <a href="#" class="social-link">FB</a>
+                    <a href="#" class="social-link">IN</a>
+                    <a href="#" class="social-link">YT</a>
+                    </div>
+                </div>
+            </footer>
   `;
 
   return container;
