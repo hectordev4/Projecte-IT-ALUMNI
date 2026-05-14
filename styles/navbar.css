@@ -1,0 +1,160 @@
+/* Add/Update inside your @media (min-width: 48rem) block */
+
+.main-navbar {
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.75rem 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligns logo to the left side of the nav */
+  width: 12rem; /* Set a fixed area for the logo container */
+  height: 100%;
+}
+
+.logo-img {
+  /* Set default as 80% of the container's width */
+  width: 80%; 
+  height: auto;
+  
+  /* Smooth scaling when the navbar or container changes size */
+  max-width: 100%;
+  object-fit: contain;
+  
+  /* Performance and quality hint */
+  image-rendering: -webkit-optimize-contrast;
+  
+  /* Hover effect to match your premium feel (optional) */
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+}
+
+/* Inside @media (min-width: 48rem) */
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Inside @media (min-width: 48rem) in style.css */
+
+.nav-links li {
+  position: relative;
+  padding: 0.5rem 0;
+  overflow: hidden; /* Keeps the line contained */
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+/* Pink letters for active page - no permanent line */
+.nav-links li.active a {
+  color: #e1007a;
+}
+
+/* --- THE SLIDING LINE --- */
+.nav-links li::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Adjusted to sit right at the bottom edge */
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #e1007a;
+  border-radius: 4px 4px 0 0;
+  
+  /* Start hidden via scale */
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* MOTION FROM LEFT TO RIGHT:
+   When we hover, the line starts growing from the left (0% origin) */
+.nav-links li:hover::after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+}
+
+/* MOTION FROM RIGHT TO LEFT:
+   When we stop hovering, the line shrinks toward the right (100% origin)
+   This creates a "passing through" effect when moving the mouse across links */
+.nav-links li::after {
+  transform-origin: 100% 50%;
+}
+
+
+/* --- BUTTON HOVER EFFECTS --- */
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-outline, .btn-gradient {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy feel */
+}
+
+.btn-outline {
+  border: 1.5px solid #e1007a;
+  color: #e1007a;
+  background: white;
+}
+
+.btn-gradient {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(225, 0, 122, 0.2);
+}
+
+/* Hover States */
+.nav-actions button:hover {
+  transform: translateY(-3px) scale(1.05); /* Slight lift and grow */
+}
+
+.btn-outline:hover {
+  background: #fff0f7;
+  border-color: #e1007a;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 15px rgba(225, 0, 122, 0.1);
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(225, 0, 122, 0.3);
+}
+
+.nav-actions button:active {
+  transform: translateY(-1px) scale(1);
+}

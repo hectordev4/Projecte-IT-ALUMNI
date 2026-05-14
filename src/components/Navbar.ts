@@ -1,32 +1,24 @@
+import '../../styles/navbar.css';
 
 
-export function setupNavbar() {
+export function setupNavbar(): HTMLElement {
   const nav = document.createElement('nav');
-  nav.className = 'navbar';
-
-  const navItems = [
-    { name: 'Home', href: '#' },
-    { name: 'Networking', href: '#networking' },
-    { name: 'Jobs', href: '#jobs' }
-  ];
-
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'nav-buttons';
-
-  navItems.forEach(item => {
-    const btn = document.createElement('button');
-    btn.textContent = item.name;
-    btn.className = 'nav-btn';
-    
-    // Simple click handler for demonstration
-    btn.onclick = () => {
-      console.log(`Navigating to ${item.name}`);
-      // Handle routing logic here
-    };
-
-    buttonContainer.appendChild(btn);
-  });
-
-  nav.appendChild(buttonContainer);
+  nav.className = 'main-navbar';
+  nav.innerHTML = `
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="../../public/icons/logo-letters.png" alt="ALUMNI" class="logo-img">
+      </div>
+      <ul class="nav-links">
+        <li class="active"><a href="#">Inici</a></li>
+        <li><a href="#">Xarxa</a></li>
+        <li><a href="#">Oportunitats de feina</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn-outline">📥 Apunta't</button>
+        <button class="btn-gradient">👤 Com et veuen?</button>
+      </div>
+    </div>
+  `;
   return nav;
 }
