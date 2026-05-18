@@ -1,4 +1,5 @@
 import { setupNavbar } from '../components/Navbar';
+import { setupFooter } from '../components/footer';
 import { setupWelcome } from '../pages/Welcome';
 import { setupHome } from '../pages/Home';
 
@@ -86,8 +87,8 @@ export class PageManager {
       viewport.id = 'page-viewport';
       this.appContainer.appendChild(viewport);
 
-      // C. Build and append our global dark-themed newsletter bottom footer layout frame
-      this.appContainer.appendChild(this.createFooterElement());
+      // C. Inject your own custom footer DOM component seamlessly!
+      this.appContainer.appendChild(setupFooter());
     }
 
     // Clear out ONLY the inner content space, keeping Navbar and Footer safe from unmounting
@@ -118,36 +119,6 @@ export class PageManager {
 
     // Sync state: Ensure the navbar active text highlights update immediately
     this.updateNavbarActiveState(route);
-  }
-
-  /**
-   * Internal template layout production factory. Encapsulates the core structural elements
-   * of the dark footer blueprint, ensuring high readability and modular scaling.
-   * * @returns An instantiated dark-themed global footer HTMLElement block.
-   */
-  private createFooterElement(): HTMLElement {
-    const footer = document.createElement('footer');
-    footer.className = 'main-footer';
-    footer.innerHTML = `
-      <div class="footer-newsletter">
-        <h3>"No et perdis res, subscriu-te!"</h3>
-        <div class="newsletter-input-group">
-          <div class="input-wrapper">
-            <span>✉</span><input type="email" placeholder="El teu email">
-          </div>
-          <button class="newsletter-btn">Subscriu-te</button>
-        </div>
-      </div>
-      <div class="footer-bottom-bar" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #333; padding-top:2rem; margin-top:4rem;">
-         <img src="Welcome.png" alt="IT Alumni Logo" style="height:2.5rem; filter:invert(1);">
-         <nav style="display:flex; gap:1.5rem; color:#888; font-size: 0.9rem;">
-            <span>Sobre nosaltres</span>
-            <span>Contacta'ns</span>
-            <span>FAQs</span>
-         </nav>
-      </div>
-    `;
-    return footer;
   }
 
   /**
