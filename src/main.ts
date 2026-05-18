@@ -1,14 +1,8 @@
 import './style.css';
 import { PageManager } from './managers/pageManager';
-import { setupNavbar } from './components/Navbar';
 
+// 1. Fire up the manager engine targeting your root div
 const pageManager = new PageManager('app');
-const appElement = document.getElementById('app');
 
-if (appElement) {
-  // 1. Inject the Navbar at the very top level first
-  appElement.prepend(setupNavbar(pageManager));
-  
-  // 2. Let the manager decide whether to show 'welcome' or 'home'
-  pageManager.initialize();
-}
+// 2. Let the manager handle the split-second routing decisions
+pageManager.initialize();
