@@ -6,7 +6,7 @@ export function setupWelcome(pageManager: PageManager): HTMLElement {
 
   container.innerHTML = `
     <div class="home-content">
-      <img src="Welcome.png" alt="Logo" class="home-logo">
+      <img src="/icons/logo-letters.png" alt="Logo" class="home-logo">
       <p class="home-tagline">
         Connectant i empoderant a la nostra comunitat global d’alumnes
       </p>
