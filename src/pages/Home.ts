@@ -25,25 +25,26 @@ export function setupHome(): HTMLElement {
                 <button class="cta-primary">Uneix-te</button>
                 <button class="cta-secondary">Saber-ne més</button>
                 </div>
-                <img src="Laptop.jpg" alt="Alumni Group" class="hero-banner">
+                <img src="/img/coworking-space.webp" alt="Alumni Group" class="hero-banner">
             </div>
     <!-- Features Section -->
+            <h6 class="section-title">"Què guanyes en formar-ne part?"</h6>
             <div class="features-grid">
                 <div class="feature-item">
-                    <img src="icon-networking.png" alt="Networking" class="feature-img">
-                    <p>Connecta amb una xarxa global de professionals.</p>
+                    <img src="/icons/icon-hat.png" alt="Share important moments" class="feature-img">
+                    <p>Comparteix i no perdis el contacte: Puja els teus moments importants, explica com va tot i queda amb els companys. Una xarxa per estar més a prop.</p>
                     <button class="feature-btn">Apunta't ja!</button>
                 </div>
 
                 <div class="feature-item">
-                    <img src="icon-jobs.png" alt="Jobs" class="feature-img">
-                    <p>Accedeix a ofertes de feina exclusives.</p>
+                    <img src="/icons/icon-comments.png" alt="Exchange ideas and knowledge" class="feature-img">
+                    <p>Participa en discussions: Intercanvia coneixements, punts de vista i opinions sobre temes que t'interessen.</p>
                     <button class="feature-btn">Apunta't ja!</button>
                 </div>
 
                 <div class="feature-item">
-                    <img src="icon-events.png" alt="Events" class="feature-img">
-                    <p>Participa en tallers i esdeveniments.</p>
+                    <img src="/icons/icon-add.png" alt="Inter-xarxa" class="feature-img">
+                    <p>Xarxa Alumni: Connecta amb companys de promoció, fes noves amistats i crea records per durar tota la vida</p>
                     <button class="feature-btn">Apunta't ja!</button>
                 </div>
             </div>
@@ -54,7 +55,7 @@ export function setupHome(): HTMLElement {
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                     <div class="card-header">
-                        <img src="mikel.png" alt="Mikel" class="avatar">
+                        <img src="/img/girl.png" alt="Mikel" class="avatar">
                         <div class="user-meta">
                         <h3>Mikel</h3>
                         <div class="stars">★★★★★</div>
@@ -65,7 +66,7 @@ export function setupHome(): HTMLElement {
 
                     <div class="testimonial-card">
                     <div class="card-header">
-                        <img src="emma.png" alt="Emma" class="avatar">
+                        <img src="/img/boy.png" alt="Emma" class="avatar">
                         <div class="user-meta">
                         <h3>Emma</h3>
                         <div class="stars">★★★★★</div>
@@ -76,7 +77,7 @@ export function setupHome(): HTMLElement {
 
                     <div class="testimonial-card">
                     <div class="card-header">
-                        <img src="laia.png" alt="Laia" class="avatar">
+                        <img src="/img/boy.png" alt="Laia" class="avatar">
                         <div class="user-meta">
                         <h3>Laia</h3>
                         <div class="stars">★★★★★</div>
@@ -112,7 +113,7 @@ export function setupHome(): HTMLElement {
                 <!-- Main Navigation Row -->
                 <div class="footer-main-nav">
                     <div class="footer-logo">
-                    <img src="Welcome.png" alt="ALUMNI" class="footer-logo-img">
+                    <img src="/icons/logo-letters.png" alt="ALUMNI" class="footer-logo-img">
                     </div>
                     <nav class="footer-links">
                     <a href="#">Sobre nosaltres</a>

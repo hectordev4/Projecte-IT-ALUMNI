@@ -166,7 +166,7 @@ body {
 
 .feature-img {
   width: 100%;
-  max-width: 4rem; /* Adjust icon size as needed */
+  max-width: 2rem; /* Adjust icon size as needed */
   height: auto;
 }
 
@@ -214,8 +214,8 @@ body {
 }
 
 .section-title {
-  font-size: 2.2rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 400;
   margin-bottom: 4rem;
   color: var(--text-h);
 }
@@ -254,6 +254,7 @@ body {
   height: 4.5rem;
   border-radius: 50%;
   object-fit: cover;
+  background-color: #ff9fcd;
 }
 
 .user-meta h3 {
@@ -370,7 +371,7 @@ body {
 
 .footer-logo-img {
   height: 2.5rem;
-  filter: brightness(0) invert(1); /* Makes the logo white */
+  
 }
 
 .footer-links {
