@@ -5,15 +5,7 @@ export function setupHome(): HTMLElement {
   container.innerHTML = `
     <!-- MOBILE VIEW (Matches Welcome.png) -->
     <main>
-        <div class="view-mobile">
-            <div class="home-content">
-                <img src="Logo+letters" alt="IT-ALUMNI Logo" class="home-logo">
-                <p class="home-tagline">
-                Connectant i empoderant a la nostra comunitat global d’alumnes
-                </p>
-            </div>
-            <button class="cta-button">Uneix-te</button>
-        </div>
+
 
     <!-- DESKTOP VIEW (Matches Laptop.jpg) -->
         <div class="view-desktop">
