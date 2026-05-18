@@ -1,3 +1,5 @@
+import '../../styles/footer.css';
+
 export function setupFooter(): HTMLElement {
   const container = document.createElement('footer');
   container.className = 'main-footer';
