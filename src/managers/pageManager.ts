@@ -1,10 +1,7 @@
 import { setupHome } from '../pages/Home';
-// import { setupNetworking } from '../pages/Networking';
-// import { setupJobs } from '../pages/Jobs';
+import { setupWelcome } from '../pages/Welcome'; // Import the new component
 
-
-// Define the type and export it
-export type PageRoute = 'home' | 'networking' | 'jobs';
+export type PageRoute = 'welcome' | 'home' | 'networking' | 'jobs';
 
 export class PageManager {
   private appContainer: HTMLElement;
@@ -17,41 +14,51 @@ export class PageManager {
     this.appContainer = container;
   }
 
-  /**
-   * Switches the visible page view and syncs the Navbar
-   */
+  public initialize(): void {
+    const isMobile = window.innerWidth < 768;
+    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash') === 'true';
+
+    if (isMobile && !hasSeenSplash) {
+      this.switchPage('welcome');
+    } else {
+      this.switchPage('home');
+    }
+  }
+
   public switchPage(route: PageRoute): void {
-    // 1. Find the content wrapper inside #app if it exists, otherwise use #app directly
-    // This leaves the Navbar intact if it's prepended to #app
-    let contentViewport = document.querySelector('.home-page-wrapper') as HTMLElement;
-    
-    if (!contentViewport) {
-      contentViewport = this.appContainer;
+    this.appContainer.innerHTML = '';
+
+    // Handle Navbar visibility toggling natively based on target route
+    const navbar = document.querySelector('.main-navbar') as HTMLElement;
+    if (navbar) {
+      navbar.style.display = route === 'welcome' ? 'none' : '';
     }
 
-    // 2. Clear out only the view area
-    contentViewport.innerHTML = '';
-
-    // 3. Render the requested component inside the active viewport block
     switch (route) {
-      case 'home':
-        contentViewport.appendChild(setupHome());
+      case 'welcome':
+        // Append the extracted modular Welcome node, passing 'this' manager instance
+        this.appContainer.appendChild(setupWelcome(this));
         break;
+
+      case 'home':
+        this.appContainer.appendChild(setupHome());
+        break;
+
       case 'networking':
-        contentViewport.innerHTML = `
+        this.appContainer.innerHTML = `
           <div class="view-desktop" style="padding:5rem; text-align:center;">
             <h2>Networking Hub coming soon!</h2>
           </div>`;
         break;
+
       case 'jobs':
-        contentViewport.innerHTML = `
+        this.appContainer.innerHTML = `
           <div class="view-desktop" style="padding:5rem; text-align:center;">
             <h2>Job Board coming soon!</h2>
           </div>`;
         break;
     }
 
-    // 4. Update visual active state links
     this.updateNavbarActiveState(route);
   }
 
@@ -61,15 +68,15 @@ export class PageManager {
 
     navLinks.forEach(link => link.classList.remove('active'));
 
-    const routeMap: Record<PageRoute, number> = {
+    const routeMap: Record<Exclude<PageRoute, 'welcome'>, number> = {
       home: 0,
       networking: 1,
       jobs: 2
     };
 
-    const activeIndex = routeMap[route];
-    if (navLinks[activeIndex]) {
-      navLinks[activeIndex].classList.add('active');
+    if (route !== 'welcome') {
+      const activeIndex = routeMap[route];
+      if (navLinks[activeIndex]) navLinks[activeIndex].classList.add('active');
     }
   }
 }
