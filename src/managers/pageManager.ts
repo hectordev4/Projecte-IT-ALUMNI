@@ -1,7 +1,5 @@
 import { setupNavbar } from '../components/Navbar';
-import { setupFooter } from '../components/footer';
 import { setupWelcome } from '../pages/Welcome';
-import { setupHome } from '../pages/Home';
 
 /**
  * Valid application routes.
@@ -55,7 +53,7 @@ export class PageManager {
   /**
    * Executes the core view changes. Handles structural mounting differences
    * between the un-nested immersive welcome page and standard nested page views.
-   * * @param route - The destination PageRoute string token target.
+   * @param route - The destination PageRoute string token target.
    */
   public switchPage(route: PageRoute): void {
     
@@ -88,7 +86,7 @@ export class PageManager {
       this.appContainer.appendChild(viewport);
 
       // C. Inject your own custom footer DOM component seamlessly!
-      this.appContainer.appendChild(setupFooter());
+      //this.appContainer.appendChild(setupFooter());
     }
 
     // Clear out ONLY the inner content space, keeping Navbar and Footer safe from unmounting
@@ -97,7 +95,11 @@ export class PageManager {
     // Choose and mount the active page component inside the dedicated main viewport frame
     switch (route) {
       case 'home':
-        viewport.appendChild(setupHome());
+        viewport.innerHTML = `
+          <div class="view-desktop" style="padding:5rem; text-align:center;">
+            <h2>Home (Proximament)</h2>
+            <p style="color: var(--text); margin-top:1rem;">Benvingut!</p>
+          </div>`;
         break;
         
       case 'networking':
@@ -122,31 +124,39 @@ export class PageManager {
   }
 
   /**
-   * Scans the tracking menu items inside the visible Navigation Bar, balances state,
-   * strips old selection references, and attaches the active pink class properties
-   * to the current matching index page path text node.
-   * * @param route - The current active PageRoute enum destination target context pointer.
+   * Scans visible navigational modules, wipes selection classes, and re-attaches
+   * pink highlights on active paths. Now accepts 'profile' and updates mobile items.
+   * FIXED: Changed visibility access modifier from private to public so Navbar.ts can use it!
+   * @param route - The current active PageRoute string or 'profile' placeholder.
    */
-  private updateNavbarActiveState(route: PageRoute): void {
-    // Query list items based on the tracking selector rule hook set in Navbar
-    const navLinks = document.querySelectorAll('.nav-links li');
-    if (!navLinks.length) return; // Silent return if navbar is hidden or unmounted (e.g. welcome view)
+  public updateNavbarActiveState(route: PageRoute | 'profile'): void {
+    // A. Clear and sync desktop top links
+    const desktopLinks = document.querySelectorAll('.nav-links li');
+    desktopLinks.forEach(link => link.classList.remove('active'));
 
-    // Reset visual highlight profiles across all links
-    navLinks.forEach(link => link.classList.remove('active'));
+    // B. FIXED: Re-added the mobile item selectors to sync mobile view tracking state
+    const mobileItems = document.querySelectorAll('.mobile-nav-item');
+    mobileItems.forEach(item => item.classList.remove('active'));
 
-    // Structural index key identifier mapping (Synchronized with index nodes in Navbar.ts)
-    const routeMap: Record<Exclude<PageRoute, 'welcome'>, number> = {
+    // FIXED: Extended the allowed mapper keys to include the mock 'profile' token block safely
+    const routeMap: Record<Exclude<PageRoute | 'profile', 'welcome'>, number> = {
       home: 0,
       networking: 1,
-      jobs: 2
+      jobs: 2,
+      profile: 3
     };
 
-    // Apply the active state class hook only to valid subviews
     if (route !== 'welcome') {
       const activeIndex = routeMap[route];
-      if (navLinks[activeIndex]) {
-        navLinks[activeIndex].classList.add('active');
+      
+      // Sync desktop selection indicators
+      if (desktopLinks[activeIndex]) {
+        desktopLinks[activeIndex].classList.add('active');
+      }
+      
+      // Sync mobile selection indicators
+      if (mobileItems[activeIndex]) {
+        mobileItems[activeIndex].classList.add('active');
       }
     }
   }
