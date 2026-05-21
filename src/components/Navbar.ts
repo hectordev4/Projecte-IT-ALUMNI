@@ -27,22 +27,22 @@ export function setupNavbar(pageManager: PageManager): HTMLElement {
 
     <nav class="mobile-bottom-navbar">
       <div class="mobile-nav-item" data-route="home">
-        <img src="/icons/home.png" alt="Home" class="nav-img">
+        <img src="/icons/Home.svg" alt="Home" class="nav-img">
         <span>Home</span>
       </div>
       
       <div class="mobile-nav-item" data-route="networking">
-        <img src="/icons/networking.png" alt="Networking" class="nav-img">
+        <img src="/icons/Networking.svg" alt="Networking" class="nav-img">
         <span>Networking</span>
       </div>
       
       <div class="mobile-nav-item" data-route="jobs">
-        <img src="/icons/jobs.png" alt="Job Portal" class="nav-img">
+        <img src="/icons/Jobs.svg" alt="Job Portal" class="nav-img">
         <span>Job Portal</span>
       </div>
       
       <div class="mobile-nav-item" data-route="profile">
-        <img src="/icons/profile.png" alt="Profile" class="nav-img">
+        <img src="/icons/Profile.svg" alt="Profile" class="nav-img">
         <span>Profile</span>
       </div>
     </nav>

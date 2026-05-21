@@ -33,20 +33,42 @@
   transition: color 0.2s ease;
 }
 
+/* ==========================================================================
+   MOBILE ACTIVE/INACTIVE STATES (Targeted Fix for Fuchsia Home Icon)
+   ========================================================================== */
+
+/* 1. Base style for all mobile images: force them to slate gray by default */
 .mobile-nav-item .nav-img {
   width: 1.5rem;
   height: 1.5rem;
   object-fit: contain;
-  transition: transform 0.2s ease;
+  
+  /* Strips color and softens the icon to a uniform inactive gray */
+  filter: grayscale(100%) brightness(0.6);
+  opacity: 0.6;
+  
+  transition: all 0.2s ease;
 }
 
-/* Active State Colors for Mobile Tabs */
+/* 2. Global text highlight for whichever item is active */
 .mobile-nav-item.active {
   color: #e1007a;
 }
 
-.mobile-nav-item.active .nav-img {
-  transform: scale(1.05);
+/* 3. The Active Home Icon Fix: Remove the filters so its native #e1007a shines */
+.mobile-nav-item[data-route="home"].active .nav-img {
+  filter: none; /* Disables the gray filter entirely */
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* 4. Fallback filter for the other icons (Networking, Jobs, Profile) 
+      if their raw files aren't already fuchsia */
+.mobile-nav-item:not([data-route="home"]).active .nav-img {
+  transform: scale(1.08);
+  opacity: 1;
+  /* Cleaner, adjusted matrix calculation to lean more fuchsia/pink than red */
+  filter: invert(15%) sepia(85%) saturate(7400%) brightness(90%) contrast(100%) hue-rotate(310deg);
 }
 
 /* Hide desktop menu layout component by default on mobile devices */
