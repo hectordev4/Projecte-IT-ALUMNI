@@ -1,5 +1,4 @@
 import './style.css';
-import { setupHome } from './pages/Home';
 import { setupFooter } from './components/footer';
 
 // Use a simple conditional check (Type Guard)
@@ -9,7 +8,6 @@ if (appElement) {
   // Clear any existing content safely
   appElement.innerHTML = ''; 
   // Append the new structure
-  appElement.appendChild(setupHome());
   appElement.appendChild(setupFooter());
 } else {
   // Helpful developer warning if the HTML isn't set up right
