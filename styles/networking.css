@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOBILE VIEWS (Default Baseline Layout System)
+   MOBILE VIEWS (Default Baseline Page Layout)
    ========================================================================== */
 .networking-mobile-container {
   display: flex;
@@ -86,45 +86,6 @@
   gap: 0.75rem;
 }
 
-.alumni-profile-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid #f0edf2;
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
-}
-
-.profile-card-details h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #08060d;
-  margin: 0 0 0.35rem 0;
-}
-
-.profile-class-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  color: #a19ba8;
-  margin-bottom: 0.5rem;
-}
-
-.profile-job-title {
-  font-size: 0.8rem;
-  color: #6b6375;
-  margin: 0;
-}
-
-.profile-avatar-block {
-  width: 5.5rem;
-  height: 4.25rem;
-  background-color: #d9d9d9;
-  border-radius: 0.5rem;
-  flex-shrink: 0;
-}
-
 
 /* ==========================================================================
    DESKTOP VIEW MECHANICS (Triggering at 48rem and up)
@@ -193,7 +154,6 @@
     font-weight: 600;
   }
 
-  /* Red underline block tracking exact matching position layout image assets */
   .filter-tab-btn.active::after {
     content: '';
     position: absolute;
@@ -210,55 +170,6 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     width: 100%;
-  }
-
-  .desktop-member-card {
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    text-align: left;
-    padding: 0.25rem;
-  }
-
-  .desktop-member-card h3, .suggested-meta h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #08060d;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .member-role, .suggested-meta p {
-    font-size: 0.85rem;
-    color: #554e5c;
-    margin: 0 0 0.35rem 0;
-  }
-
-  .member-location, .suggested-meta span {
-    font-size: 0.8rem;
-    color: #a19ba8;
-    margin-bottom: 1rem;
-  }
-
-  /* Core Button Configurations */
-  .member-action-btn {
-    width: fit-content;
-    padding: 0.5rem 1.75rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    border: none;
-    color: #ffffff;
-    text-align: center;
-    transition: filter 0.2s ease;
-  }
-
-  .font-message, .font-connect {
-    background-color: #e1007a;
-  }
-
-  .member-action-btn:hover {
-    filter: brightness(1.1);
   }
 
   /* --- LOWER COLUMNS SPLIT SCREEN DIVISION --- */
@@ -315,9 +226,5 @@
   .suggested-meta {
     display: flex;
     flex-direction: column;
-  }
-
-  .suggested-meta span {
-    margin-bottom: 0; /* Align tight inside structural line flexes */
   }
 }
