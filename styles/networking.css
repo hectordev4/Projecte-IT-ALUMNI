@@ -1,0 +1,323 @@
+/* ==========================================================================
+   MOBILE VIEWS (Default Baseline Layout System)
+   ========================================================================== */
+.networking-mobile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  gap: 1.25rem;
+}
+
+.mobile-sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.back-arrow-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #08060d;
+  padding: 0.25rem;
+  font-weight: 600;
+}
+
+.sub-header-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #08060d;
+  margin: 0;
+}
+
+.sub-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-utility-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.header-avatar-placeholder {
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+}
+
+.mobile-search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f5f4f6;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+}
+
+.search-lens {
+  color: #a19ba8;
+  font-size: 0.95rem;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.95rem;
+  outline: none;
+  color: #08060d;
+}
+
+.search-input::placeholder {
+  color: #bcbac2;
+}
+
+.mobile-profile-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alumni-profile-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #f0edf2;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+.profile-card-details h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #08060d;
+  margin: 0 0 0.35rem 0;
+}
+
+.profile-class-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #a19ba8;
+  margin-bottom: 0.5rem;
+}
+
+.profile-job-title {
+  font-size: 0.8rem;
+  color: #6b6375;
+  margin: 0;
+}
+
+.profile-avatar-block {
+  width: 5.5rem;
+  height: 4.25rem;
+  background-color: #d9d9d9;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================================================
+   DESKTOP VIEW MECHANICS (Triggering at 48rem and up)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  .networking-mobile-container {
+    display: none !important;
+  }
+
+  .networking-desktop-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 10%;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    gap: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  /* --- CONTROL PANEL LINE --- */
+  .desktop-controls-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1.25rem;
+  }
+
+  .desktop-search-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dcdbe0;
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    max-width: 16rem;
+    gap: 0.5rem;
+  }
+
+  .desktop-filter-tabs {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #08060d;
+    font-weight: 500;
+  }
+
+  .filter-tab-btn {
+    background: transparent;
+    border: none;
+    font-size: 0.85rem;
+    color: #6b6375;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .filter-tab-btn.active {
+    color: #e1007a;
+    font-weight: 600;
+  }
+
+  /* Red underline block tracking exact matching position layout image assets */
+  .filter-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1.35rem;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #e1007a;
+  }
+
+  /* --- TOP GRID GROUP ROW LAYOUT --- */
+  .popular-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .desktop-member-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    text-align: left;
+    padding: 0.25rem;
+  }
+
+  .desktop-member-card h3, .suggested-meta h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #08060d;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .member-role, .suggested-meta p {
+    font-size: 0.85rem;
+    color: #554e5c;
+    margin: 0 0 0.35rem 0;
+  }
+
+  .member-location, .suggested-meta span {
+    font-size: 0.8rem;
+    color: #a19ba8;
+    margin-bottom: 1rem;
+  }
+
+  /* Core Button Configurations */
+  .member-action-btn {
+    width: fit-content;
+    padding: 0.5rem 1.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    transition: filter 0.2s ease;
+  }
+
+  .font-message, .font-connect {
+    background-color: #e1007a;
+  }
+
+  .member-action-btn:hover {
+    filter: brightness(1.1);
+  }
+
+  /* --- LOWER COLUMNS SPLIT SCREEN DIVISION --- */
+  .desktop-split-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .section-block-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #08060d;
+    margin: 0 0 1.5rem 0;
+  }
+
+  /* Left Column Feed Text lists style adjustments */
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .timeline-list li {
+    font-size: 0.85rem;
+    color: #554e5c;
+    line-height: 1.5;
+  }
+
+  .timeline-list li strong {
+    color: #08060d;
+    font-weight: 600;
+  }
+
+  /* Right Column Item Suggestions Stack alignment configurations */
+  .suggestion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .suggested-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .suggested-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .suggested-meta span {
+    margin-bottom: 0; /* Align tight inside structural line flexes */
+  }
+}
