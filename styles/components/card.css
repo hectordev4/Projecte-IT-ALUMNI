@@ -1,0 +1,164 @@
+/* ==========================================================================
+   GLOBAL DESIGN MODULE: INDEPENDENT COMPONENT CARDS
+   ========================================================================== */
+
+/* --- TYPE 1: INVISIBLE UTILITY CARD --- */
+:root {
+  --invisible-card-display: inline-block;
+  --invisible-card-width: 0px;
+  --invisible-card-height: 0px;
+  --invisible-card-margin: 0px;
+  --invisible-card-opacity: 0;
+}
+
+.alumni-card-invisible {
+  display: var(--invisible-card-display);
+  width: var(--invisible-card-width);
+  height: var(--invisible-card-height);
+  margin: var(--invisible-card-margin);
+  opacity: var(--invisible-card-opacity);
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+
+/* --- TYPE 2: MOBILE CLICKABLE CARD OBJECT --- */
+.alumni-profile-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #f0edf2;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  
+  /* Smooth transition for premium mobile tap scaling and press-states */
+  transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              box-shadow 0.2s ease, 
+              background-color 0.2s ease;
+  
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+}
+
+/* Snappy physical downward scale feedback for tactile screen touch surfaces */
+.alumni-profile-card:active {
+  transform: scale(0.965);
+  background-color: #faf9fb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+}
+
+/* Accessible focus styling ring for dynamic tabbing profiles */
+.alumni-profile-card:focus-visible {
+  border-color: #e1007a;
+  box-shadow: 0 0 0 3px rgba(225, 0, 122, 0.15);
+}
+
+.alumni-profile-card .profile-card-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.alumni-profile-card .profile-card-details h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #08060d;
+  margin: 0 0 0.25rem 0;
+}
+
+.alumni-profile-card .profile-class-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #a19ba8;
+  margin-bottom: 0.5rem;
+}
+
+.alumni-profile-card .profile-job-title {
+  font-size: 0.8rem;
+  color: #6b6375;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.alumni-profile-card .profile-avatar-block {
+  width: 5.5rem;
+  height: 4.25rem;
+  background-color: #d9d9d9;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+
+/* --- TYPE 3: DESKTOP COMPONENT CARD & SOLID ACTION BUTTONS --- */
+@media (min-width: 48rem) {
+  .desktop-member-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    text-align: left;
+    padding: 0.25rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .desktop-member-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #08060d;
+    margin: 0 0 0.4rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .desktop-member-card .member-role {
+    font-size: 0.85rem;
+    color: #554e5c;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.4;
+  }
+
+  .desktop-member-card .member-location {
+    font-size: 0.8rem;
+    color: #a19ba8;
+    margin-bottom: 1.15rem;
+    display: block;
+  }
+
+  /* Solid Brand Fuchsia Buttons — Fully Isolated Against Leaking Page Gray Filters */
+  .desktop-member-card .member-action-btn {
+    width: fit-content;
+    padding: 0.6rem 1.75rem;
+    border-radius: 0.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    
+    /* Strict overrides to safeguard the vibrant solid asset color scheme */
+    color: #ffffff !important;
+    background-color: #e1007a !important; 
+    filter: none !important; 
+    opacity: 1 !important;
+    
+    box-shadow: 0 4px 12px rgba(225, 0, 122, 0.18);
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+
+  /* Clean solid-shift rendering for desktop cursor hovers */
+  .desktop-member-card .member-action-btn:hover {
+    background-color: #bc0064 !important;
+    box-shadow: 0 6px 16px rgba(225, 0, 122, 0.28);
+    transform: translateY(-1px);
+  }
+
+  .desktop-member-card .member-action-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
