@@ -1,3 +1,6 @@
+import { createCard } from '../components/Card';
+import { fetchAlumniData } from '../services/api';
+import type { User } from '../types/user';
 import '../../styles/networking.css';
 
 export function setupNetworking(): HTMLElement {
@@ -8,7 +11,7 @@ export function setupNetworking(): HTMLElement {
     <main>
       <div class="view-mobile networking-mobile-container">
         <header class="mobile-sub-header">
-          <button class="back-arrow-btn" aria-label="Tornar enrere">←</button>
+          <button class="back-arrow-btn" aria-label="Back">←</button>
           <h1 class="sub-header-title">Networking</h1>
           <div class="sub-header-actions">
             <button class="icon-utility-btn">📊</button>
@@ -21,51 +24,8 @@ export function setupNetworking(): HTMLElement {
           <input type="text" placeholder="Search alumni..." class="search-input">
         </div>
 
-        <div class="mobile-profile-feed">
-          <div class="alumni-profile-card">
-            <div class="profile-card-details">
-              <h3>John Doe</h3>
-              <span class="profile-class-tag">Class of 2010</span>
-              <p class="profile-job-title">CEO at TechSolutions Inc.</p>
-            </div>
-            <div class="profile-avatar-block"></div>
-          </div>
-
-          <div class="alumni-profile-card">
-            <div class="profile-card-details">
-              <h3>Sarah Johnson</h3>
-              <span class="profile-class-tag">Class of 2015</span>
-              <p class="profile-job-title">Marketing Director at GreenWave</p>
-            </div>
-            <div class="profile-avatar-block"></div>
-          </div>
-
-          <div class="alumni-profile-card">
-            <div class="profile-card-details">
-              <h3>Michael Brown</h3>
-              <span class="profile-class-tag">Class of 2008</span>
-              <p class="profile-job-title">Founder of EduLearn Academy</p>
-            </div>
-            <div class="profile-avatar-block"></div>
-          </div>
-
-          <div class="alumni-profile-card">
-            <div class="profile-card-details">
-              <h3>Emily Davis</h3>
-              <span class="profile-class-tag">Class of 2012</span>
-              <p class="profile-job-title">Research Scientist at BioTech Labs</p>
-            </div>
-            <div class="profile-avatar-block"></div>
-          </div>
-
-          <div class="alumni-profile-card">
-            <div class="profile-card-details">
-              <h3>James Lee</h3>
-              <span class="profile-class-tag">Class of 2005</span>
-              <p class="profile-job-title">Managing Partner at Lee & Associates</p>
-            </div>
-            <div class="profile-avatar-block"></div>
-          </div>
+        <div class="mobile-profile-feed" id="mobile-cards-target">
+          <p class="feed-status-msg">Carregant perfils...</p>
         </div>
       </div>
 
@@ -77,41 +37,15 @@ export function setupNetworking(): HTMLElement {
             <input type="text" placeholder="Search alumni..." class="search-input">
           </div>
           <nav class="desktop-filter-tabs">
-            <span>Filters:</span>
+            <span class="filter-label-text">Filters:</span>
             <button class="filter-tab-btn">Recent Activity</button>
             <button class="filter-tab-btn active">Popular</button>
             <button class="filter-tab-btn">Most Connected</button>
           </nav>
         </div>
 
-        <section class="popular-profiles-grid">
-          <div class="desktop-member-card">
-            <h3>Jane Smith</h3>
-            <p class="member-role">Co-Founder at ABC Inc</p>
-            <span class="member-location">New York, NY</span>
-            <button class="member-action-btn">Message</button>
-          </div>
-
-          <div class="desktop-member-card">
-            <h3>John Doe</h3>
-            <p class="member-role">Product Manager at XYZ Corp</p>
-            <span class="member-location">San Francisco, CA</span>
-            <button class="member-action-btn">Message</button>
-          </div>
-
-          <div class="desktop-member-card">
-            <h3>Alice Johnson</h3>
-            <p class="member-role">Senior Developer at Tech Solutions</p>
-            <span class="member-location">Remote</span>
-            <button class="member-action-btn">Message</button>
-          </div>
-
-          <div class="desktop-member-card">
-            <h3>David Brown</h3>
-            <p class="member-role">Marketing Specialist at Brand Co</p>
-            <span class="member-location">Chicago, IL</span>
-            <button class="member-action-btn">Message</button>
-          </div>
+        <section class="popular-profiles-grid" id="desktop-grid-target">
+          <p class="feed-status-msg">Carregant llista de populars...</p>
         </section>
 
         <div class="desktop-split-layout">
@@ -128,51 +62,64 @@ export function setupNetworking(): HTMLElement {
 
           <div class="suggestions-sidebar-section">
             <h2 class="section-block-title">Suggestions for You</h2>
-            
-            <div class="suggestion-stack">
-              <div class="suggested-item-row">
-                <div class="suggested-meta">
-                  <h3>Jane Smith</h3>
-                  <p>Co-Founder at ABC Inc</p>
-                  <span>New York, NY</span>
-                </div>
-                <button class="member-action-btn">Connect</button>
-              </div>
-
-              <div class="suggested-item-row">
-                <div class="suggested-meta">
-                  <h3>John Doe</h3>
-                  <p>Product Manager at XYZ Corp</p>
-                  <span>San Francisco, CA</span>
-                </div>
-                <button class="member-action-btn">Connect</button>
-              </div>
-
-              <div class="suggested-item-row">
-                <div class="suggested-meta">
-                  <h3>Alice Johnson</h3>
-                  <p>Senior Developer at Tech Solutions</p>
-                  <span>Remote</span>
-                </div>
-                <button class="member-action-btn">Connect</button>
-              </div>
-
-              <div class="suggested-item-row">
-                <div class="suggested-meta">
-                  <h3>David Brown</h3>
-                  <p>Marketing Specialist at Brand Co</p>
-                  <span>Chicago, IL</span>
-                </div>
-                <button class="member-action-btn">Connect</button>
-              </div>
+            <div class="suggestion-stack" id="desktop-suggestions-target">
+              <p class="feed-status-msg">Carregant suggeriments...</p>
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
     </main>
   `;
+
+  const mobileFeed = container.querySelector('#mobile-cards-target') as HTMLElement;
+  const desktopGrid = container.querySelector('#desktop-grid-target') as HTMLElement;
+  const desktopSuggestions = container.querySelector('#desktop-suggestions-target') as HTMLElement;
+
+  fetchAlumniData('/data/users.json')
+    .then((users: User[]) => {
+      if (mobileFeed) mobileFeed.innerHTML = '';
+      if (desktopGrid) desktopGrid.innerHTML = '';
+      if (desktopSuggestions) desktopSuggestions.innerHTML = '';
+
+      // Loop A: Mobile Feed
+      if (mobileFeed) {
+        users.slice(0, 3).forEach(user => {
+          const card = createCard('mobile', user, { onClick: () => {} });
+          mobileFeed.appendChild(card);
+        });
+      }
+
+      // Loop B: Desktop Main Grid (First 4 members)
+      if (desktopGrid) {
+        users.slice(0, 4).forEach(user => {
+          const card = createCard('desktop', user, { 
+            buttonText: 'Message', 
+            onClick: () => console.log(`Messaging ${user.name}`) 
+          });
+          desktopGrid.appendChild(card);
+        });
+      }
+
+      // Loop C: Desktop Sidebar Suggestions (Users 5 and 6)
+      // FIXED: Leverages your factory instance component properties natively!
+      if (desktopSuggestions) {
+        users.slice(4, 6).forEach(user => {
+          const card = createCard('desktop', user, { 
+            buttonText: 'Connect', 
+            onClick: () => console.log(`Connecting with ${user.name}`) 
+          });
+          desktopSuggestions.appendChild(card);
+        });
+      }
+    })
+    .catch((error) => {
+      const fallbackErrorMessage = `<p class="feed-error-msg">No s'ha pogut carregar la informació.</p>`;
+      if (mobileFeed) mobileFeed.innerHTML = fallbackErrorMessage;
+      if (desktopGrid) desktopGrid.innerHTML = fallbackErrorMessage;
+      if (desktopSuggestions) desktopSuggestions.innerHTML = fallbackErrorMessage;
+      console.error(error);
+    });
 
   return container;
 }
