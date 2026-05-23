@@ -1,130 +1,176 @@
 import { createCard } from '../components/Card';
 import { createFilterBar } from '../components/FilterBar';
 import { createMobileHeader } from '../components/MobileHeader';
-import { fetchAlumniData } from '../services/api';
-import type { User } from '../types/user';
+import { getNetworkingPageData } from '../services/networkingService';
 import '../../styles/networking.css';
 
-export function setupNetworkingPage(): HTMLElement {
+export function setupNetworking(): HTMLElement {
   const container = document.createElement('section');
   container.className = 'networking-page-wrapper';
 
-  // Completely streamlined template wrapper shells!
   container.innerHTML = `
     <main>
       <div class="view-mobile networking-mobile-container">
         <div id="mobile-header-mount"></div>
         <div id="mobile-filter-mount"></div>
-        <div class="mobile-profile-feed" id="mobile-cards-target">
-          <p class="feed-status-msg">Carregant perfils...</p>
-        </div>
+        <div class="mobile-profile-feed" id="mobile-cards-target"></div>
       </div>
 
       <div class="view-desktop networking-desktop-container">
         <div id="desktop-filter-mount"></div>
 
-        <section class="popular-profiles-grid" id="desktop-grid-target">
-          <p class="feed-status-msg">Carregant llista de populars...</p>
-        </section>
-
-        <div class="desktop-split-layout">
-          <div class="activity-timeline-section">
-            <h2 class="section-block-title">Recent Activity</h2>
-            <ul class="timeline-list">
-              <li><strong>Jane Smith</strong> started following John Doe</li>
-              <li><strong>David Brown</strong> and John Doe connected</li>
-              <li><strong>John Doe</strong> shared "Top 10 Product Management Tips" article</li>
-            </ul>
-          </div>
-
-          <div class="suggestions-sidebar-section">
-            <h2 class="section-block-title">Suggestions for You</h2>
-            <div class="suggestion-stack" id="desktop-suggestions-target">
-              <p class="feed-status-msg">Carregant suggeriments...</p>
-            </div>
-          </div>
-        </div>
+        <div id="desktop-main-workspace-target"></div>
       </div>
     </main>
   `;
 
-  // --- MOUNT ELEMENT ANCHORS ---
   const mobileHeaderMount = container.querySelector('#mobile-header-mount') as HTMLElement;
   const mobileFilterMount = container.querySelector('#mobile-filter-mount') as HTMLElement;
   const desktopFilterMount = container.querySelector('#desktop-filter-mount') as HTMLElement;
   
   const mobileFeed = container.querySelector('#mobile-cards-target') as HTMLElement;
-  const desktopGrid = container.querySelector('#desktop-grid-target') as HTMLElement;
-  const desktopSuggestions = container.querySelector('#desktop-suggestions-target') as HTMLElement;
+  const workspaceTarget = container.querySelector('#desktop-main-workspace-target') as HTMLElement;
 
-  // 1. Mount Mobile Header Component Instance
-  if (mobileHeaderMount) {
-    const mobileHeader = createMobileHeader({
-      title: 'Networking',
-      onBackClick: () => console.log('Navigating backward to welcome view...')
-    });
-    mobileHeaderMount.appendChild(mobileHeader);
-  }
+  if (mobileHeaderMount) mobileHeaderMount.appendChild(createMobileHeader({ title: 'Networking' }));
 
-  // Shared Filter Event Callbacks
-  const handleSearch = (query: string) => console.log(`Filtering data queries on text match: ${query}`);
-  const handleFilterChange = (filter: string) => console.log(`Shifting view state target collection to: ${filter}`);
+  // --------------------------------------------------------------------------
+  // DYNAMIC REAL-TIME LAYOUT CONTROLLER MATRIX
+  // --------------------------------------------------------------------------
+  const loadPageDataContent = (activeFilter: string, searchQuery: string) => {
+    if (mobileFeed) mobileFeed.innerHTML = '<p class="feed-status-msg">Carregant...</p>';
+    if (workspaceTarget) workspaceTarget.innerHTML = '<p class="feed-status-msg">Carregant...</p>';
 
-  // 2. Mount Mobile Filter Instance
-  if (mobileFilterMount) {
-    const mobileFilterBar = createFilterBar({
-      filters: ['Recent Activity', 'Popular', 'Most Connected'],
-      activeFilter: 'Popular',
-      placeholderText: 'Search alumni...',
-      onSearch: handleSearch,
-      onFilterChange: handleFilterChange
-    });
-    mobileFilterMount.appendChild(mobileFilterBar);
-  }
+    getNetworkingPageData(activeFilter, searchQuery)
+      .then((data) => {
+        // --- 1. HANDLE MOBILE RENDERING LAYER ---
+        if (mobileFeed) {
+          mobileFeed.innerHTML = '';
+          if (activeFilter === 'Recent Activity') {
+            // Render a chronological log stream list straight down the mobile pipeline
+            data.recentActivities.forEach(act => {
+              const logItem = document.createElement('div');
+              logItem.className = 'mobile-activity-log-card';
+              logItem.innerHTML = `
+                <div class="log-indicator-dot"></div>
+                <p><strong>${act.userName}</strong> ${act.text}</p>
+                <span class="log-timestamp">${act.rawDateString}</span>
+              `;
+              mobileFeed.appendChild(logItem);
+            });
+          } else {
+            // Default: Render Standard Clickable Mobile Profiles
+            data.mainProfiles.slice(0, 3).forEach(user => {
+              mobileFeed.appendChild(createCard('mobile', user, { onClick: () => {} }));
+            });
+          }
+        }
 
-  // 3. Mount Desktop Filter Instance
-  if (desktopFilterMount) {
-    const desktopFilterBar = createFilterBar({
-      filters: ['Recent Activity', 'Popular', 'Most Connected'],
-      activeFilter: 'Popular',
-      placeholderText: 'Search alumni...',
-      onSearch: handleSearch,
-      onFilterChange: handleFilterChange
-    });
-    desktopFilterMount.appendChild(desktopFilterBar);
-  }
+        // --- 2. HANDLE DESKTOP RENDERING WORKSPACE ---
+        if (!workspaceTarget) return;
+        workspaceTarget.innerHTML = '';
 
-  // 4. Run Async Request Pipeline Loop Data Injectors
-  fetchAlumniData('/data/users.json')
-    .then((users: User[]) => {
-      if (mobileFeed) mobileFeed.innerHTML = '';
-      if (desktopGrid) desktopGrid.innerHTML = '';
-      if (desktopSuggestions) desktopSuggestions.innerHTML = '';
+        if (activeFilter === 'Recent Activity') {
+          // MODE A: RENDER FULL ACTIVITY LOG FEED SHEET
+          workspaceTarget.innerHTML = `
+            <div class="desktop-split-layout activity-log-mode-active">
+              
+              <div class="activity-timeline-section expanded-full-log">
+                <h2 class="section-block-title">Recent Activity Log Feed</h2>
+                <ul class="timeline-list custom-large-timeline" id="full-log-list-target"></ul>
+              </div>
 
-      // Render Mobile Items
-      if (mobileFeed) {
-        users.slice(0, 3).forEach(user => {
-          mobileFeed.appendChild(createCard('mobile', user, { onClick: () => {} }));
-        });
-      }
+              <div class="suggestions-sidebar-section">
+                <h2 class="section-block-title">Suggestions for You</h2>
+                <div class="suggestion-stack" id="sidebar-suggestions-target"></div>
+              </div>
 
-      // Render Desktop Grid Items
-      if (desktopGrid) {
-        users.slice(0, 4).forEach(user => {
-          desktopGrid.appendChild(createCard('desktop', user, { buttonText: 'Message', onClick: () => {} }));
-        });
-      }
+            </div>
+          `;
 
-      // Render Sidebar Suggestions
-      if (desktopSuggestions) {
-        users.slice(4, 6).forEach(user => {
-          desktopSuggestions.appendChild(createCard('desktop', user, { buttonText: 'Connect', onClick: () => {} }));
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("View Pipeline Rendering Interrupted: ", error);
-    });
+          const fullLogTarget = workspaceTarget.querySelector('#full-log-list-target') as HTMLElement;
+          const suggestionsTarget = workspaceTarget.querySelector('#sidebar-suggestions-target') as HTMLElement;
+
+          // Fill out chronologically sorted global updates list entries
+          data.recentActivities.forEach(act => {
+            const li = document.createElement('li');
+            li.className = 'timeline-log-row';
+            li.innerHTML = `
+              <div class="timeline-meta">
+                <strong>${act.userName}</strong> ${act.text}
+              </div>
+              <span class="timeline-time-tag">${act.rawDateString}</span>
+            `;
+            if (fullLogTarget) fullLogTarget.appendChild(li);
+          });
+
+          // Fill recommendations sidebar with your connection-sorted top users
+          data.suggestions.forEach(user => {
+            if (suggestionsTarget) suggestionsTarget.appendChild(createCard('desktop', user, { buttonText: 'Connect', onClick: () => {} }));
+          });
+
+        } else {
+          // MODE B: RENDER THE POPULAR / MOST CONNECTED SPLIT VIEW (Cards on Top, Split on Bottom)
+          workspaceTarget.innerHTML = `
+            <section class="popular-profiles-grid" id="desktop-grid-target"></section>
+
+            <div class="desktop-split-layout">
+              
+              <div class="activity-timeline-section">
+                <h2 class="section-block-title">Recent Activity Preview</h2>
+                <ul class="timeline-list" id="sidebar-preview-log-target"></ul>
+              </div>
+
+              <div class="suggestions-sidebar-section">
+                <h2 class="section-block-title">Suggestions for You</h2>
+                <div class="suggestion-stack" id="sidebar-suggestions-target"></div>
+              </div>
+
+            </div>
+          `;
+
+          const gridTarget = workspaceTarget.querySelector('#desktop-grid-target') as HTMLElement;
+          const previewLogTarget = workspaceTarget.querySelector('#sidebar-preview-log-target') as HTMLElement;
+          const suggestionsTarget = workspaceTarget.querySelector('#sidebar-suggestions-target') as HTMLElement;
+
+          // Append User Message Interaction Cards to Top grid panel
+          data.mainProfiles.slice(0, 4).forEach(user => {
+            if (gridTarget) gridTarget.appendChild(createCard('desktop', user, { buttonText: 'Message', onClick: () => {} }));
+          });
+
+          // Append light preview logs to bottom panel
+          data.recentActivities.slice(0, 3).forEach(act => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${act.userName}</strong> ${act.text}`;
+            if (previewLogTarget) previewLogTarget.appendChild(li);
+          });
+
+          // Append Suggestions column row cards
+          data.suggestions.forEach(user => {
+            if (suggestionsTarget) suggestionsTarget.appendChild(createCard('desktop', user, { buttonText: 'Connect', onClick: () => {} }));
+          });
+        }
+      })
+      .catch((err) => console.error("Layout Engine Swap Failure:", err));
+  };
+
+  // --------------------------------------------------------------------------
+  // CONTROLS ATTACHMENTS INITIALIZATION
+  // --------------------------------------------------------------------------
+  const networkFiltersList = ['Recent Activity', 'Popular', 'Most Connected'];
+  const defaultInitialFilter = 'Popular';
+
+  const filterBarConfig = {
+    filters: networkFiltersList,
+    activeFilter: defaultInitialFilter,
+    placeholderText: 'Search alumni by name...',
+    onControlsChange: (filter: string, query: string) => loadPageDataContent(filter, query)
+  };
+
+  if (desktopFilterMount) desktopFilterMount.appendChild(createFilterBar(filterBarConfig));
+  if (mobileFilterMount) mobileFilterMount.appendChild(createFilterBar(filterBarConfig));
+
+  // Boot UI execution loop
+  loadPageDataContent(defaultInitialFilter, '');
 
   return container;
 }
