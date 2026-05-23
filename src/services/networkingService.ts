@@ -2,48 +2,78 @@ import { fetchAlumniData } from './api';
 import type { User } from '../types/user';
 
 export interface NetworkingDataPayload {
-  popularProfiles: User[];
+  mainProfiles: User[];
   suggestions: User[];
-  recentActivities: { userName: string; text: string; timestamp: string }[];
+  recentActivities: { userName: string; text: string; rawDateString: string }[];
 }
 
 /**
- * Networking Feature Service
- * Responsibilities: Flattening logs, chronological sorting, and metric filtering.
+ * Custom helper parser to convert your unique "YY-MM-DD,HH:MM:SS" string 
+ * into a valid JavaScript Date object for correct chronological sorting.
+ */
+function parseCustomTimestamp(dateStr: string): Date {
+  if (!dateStr) return new Date(0);
+  
+  // Transforms "26-05-23,14:30:00" -> "2026-05-23T14:30:00"
+  // Assuming 20XX century for your modern platform application stack
+  const standardFormat = `20${dateStr.replace(',', 'T')}`;
+  const parsed = Date.parse(standardFormat);
+  
+  return isNaN(parsed) ? new Date(0) : new Date(parsed);
+}
+
+/**
+ * Networking Domain Service — Aligned to your exact Type Contract
  */
 export async function getNetworkingPageData(activeFilter: string = 'Popular'): Promise<NetworkingDataPayload> {
-  // Consume the clean global data fetch engine
   const allUsers = await fetchAlumniData();
   const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
 
-  // 1. Compile Global Chronological Timeline
+  // 1. Compile Global Chronological Timeline Logs 
+  // FIXED: Accessing .activities as a single object, using .activity and .timeStamp
   const flattenedActivities = allUsers
     .reduce((acc, user) => {
-      if (user.activities && Array.isArray(user.activities)) {
-        user.activities.forEach((act: any) => {
-          acc.push({ userName: user.name, text: act.text, timestamp: act.timestamp });
+      if (user.activities && user.activities.activity) {
+        acc.push({
+          userName: user.name,
+          text: user.activities.activity,
+          rawDateString: user.activities.timeStamp
         });
       }
       return acc;
-    }, [] as { userName: string; text: string; timestamp: string }[])
-    .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp));
+    }, [] as { userName: string; text: string; rawDateString: string }[])
+    .sort((a, b) => {
+      return parseCustomTimestamp(b.rawDateString).getTime() - parseCustomTimestamp(a.rawDateString).getTime();
+    });
 
-  // 2. Main Grid: Keep it random for clean exploration variety
-  const gridProfiles = shuffle(allUsers).slice(0, 4);
+  // 2. Filter Main Profile Feed / Grid Block
+  let mainProfilesResult: User[] = [];
 
-  // 3. Suggestions Sidebar Logic: Sort by connections if "Popular" or "Most Connected"
-  let suggestionProfiles: User[] = [];
-  if (activeFilter === 'Popular' || activeFilter === 'Most Connected') {
-    suggestionProfiles = [...allUsers]
-      .sort((a, b) => (b.connections || 0) - (a.connections || 0))
-      .slice(0, 2);
-  } else {
-    suggestionProfiles = shuffle(allUsers).slice(4, 6);
+  if (activeFilter === 'Most Connected') {
+    // FIXED: Using your guaranteed .connections numerical metric property natively
+    mainProfilesResult = [...allUsers].sort((a, b) => b.connections - a.connections);
+  } 
+  else if (activeFilter === 'Recent Activity') {
+    // FIXED: Sorting single-object activity timestamps chronologically
+    mainProfilesResult = [...allUsers]
+      .filter(user => user.activities && user.activities.timeStamp)
+      .sort((a, b) => {
+        return parseCustomTimestamp(b.activities.timeStamp).getTime() - parseCustomTimestamp(a.activities.timeStamp).getTime();
+      });
+  } 
+  else {
+    // Default fallback ("Popular"): Show clean shuffle variation
+    mainProfilesResult = shuffle(allUsers);
   }
 
+  // 3. Suggestions Sidebar Array Layer
+  // Appends users with the highest connection values down the list column
+  const sortedByPopularity = [...allUsers].sort((a, b) => b.connections - a.connections);
+  const suggestionsResult = sortedByPopularity.slice(0, 2);
+
   return {
-    popularProfiles: gridProfiles,
-    suggestions: suggestionProfiles,
+    mainProfiles: mainProfilesResult,
+    suggestions: suggestionsResult,
     recentActivities: flattenedActivities
   };
 }
