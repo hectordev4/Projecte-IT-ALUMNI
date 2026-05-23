@@ -1,0 +1,230 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --accent-gradient: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
+  --sans: system-ui, -apple-system, sans-serif;
+  --border: #f0f0f0;
+  --shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+  
+  /* Fluid Typography */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  background-color: var(--bg);
+}
+
+/* ==========================================================================
+   CLEAN MOBILE DASHBOARD LAYER (No Header, No Search, No Footer)
+   ========================================================================== */
+
+.view-mobile {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  background-color: #ffffff;
+  gap: 1.5rem;
+}
+
+.mobile-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #d9d9d9;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-headline-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0 0 0.5rem 0;
+}
+
+.card-supporting-description {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 0.75rem 0;
+  min-height: 2.2rem;
+}
+
+.card-action-outline-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e1007a;
+  color: #e1007a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.card-action-outline-btn:active {
+  background-color: #fdf0f7;
+  transform: scale(0.98);
+}
+
+/* Hide desktop engine components explicitly on mobile viewports */
+.view-desktop {
+  display: none; 
+}
+
+/* ==========================================================================
+   DESKTOP VIEWPORT WORKSPACE SYSTEM
+   ========================================================================== */
+
+@media (min-width: 48rem) {
+  .view-mobile {
+    display: none !important;
+  }
+
+  .view-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4rem 10%;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--text-h);
+    margin: 0 0 1rem 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .cta-primary, .cta-secondary {
+    min-width: 12rem; 
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .cta-primary {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+  }
+
+  .cta-secondary {
+    background: transparent;
+    border: 2px solid #e1007a;
+    color: #e1007a;
+  }
+
+  .cta-primary:hover, .cta-secondary:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-banner {
+    width: 100%;
+    max-width: 65rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* Features Grid Layout */
+  .features-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem; 
+    width: 100%;
+    max-width: 75rem; 
+    margin: 4rem auto; 
+  }
+
+  .feature-item {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .feature-img {
+    width: 100%;
+    max-width: 2rem; 
+    height: auto;
+  }
+
+  .feature-item p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+  }
+
+  /* --- REUSABLE TESTIMONIALS SECTION (Merged to use Card.ts structures) --- */
+  .testimonials-section {
+    padding: 5rem 0 2rem;
+    width: 100%;
+    max-width: 75rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: var(--text-h);
+  }
+
+  /* Mount target grid container that aligns your imported UI Cards perfectly */
+  .testimonials-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2rem;
+    width: 100%;
+  }
+}
