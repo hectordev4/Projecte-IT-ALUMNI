@@ -30,7 +30,7 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
     </nav>
   `;
 
-  // --- EVENT LISTENERS LOGIC ---
+  // --- EVENT ATTACHMENTS ---
   const input = wrapper.querySelector('.search-input-field') as HTMLInputElement;
   input.addEventListener('input', (e) => {
     options.onSearch((e.target as HTMLInputElement).value);
@@ -39,6 +39,9 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
   const tabButtons = wrapper.querySelectorAll('.filter-tab-btn');
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
+      // Avoid re-triggering if the user clicks the already active tab
+      if (button.classList.contains('active')) return;
+
       tabButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
       
