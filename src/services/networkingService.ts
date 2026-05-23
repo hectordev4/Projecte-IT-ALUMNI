@@ -14,59 +14,57 @@ function parseCustomTimestamp(dateStr: string): Date {
   return isNaN(parsed) ? new Date(0) : new Date(parsed);
 }
 
-/**
- * Networking Domain Service — Handles sorting conditions AND text filter parsing
- */
 export async function getNetworkingPageData(
   activeFilter: string = 'Popular',
   searchQuery: string = ''
 ): Promise<NetworkingDataPayload> {
   const allUsers = await fetchAlumniData();
   const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
+  const cleanQuery = searchQuery.toLowerCase().trim();
 
-  // 1. Filter out users globally by name if a search query is typed
+  // 1. Process Core Dynamic Global Activities Feed Array List
+  let rawActivitiesList = allUsers.reduce((acc, user) => {
+    if (user.activities && user.activities.activity) {
+      acc.push({
+        userName: user.name,
+        text: user.activities.activity,
+        rawDateString: user.activities.timeStamp
+      });
+    }
+    return acc;
+  }, [] as { userName: string; text: string; rawDateString: string }[]);
+
+  // CRITICAL FIX: Match the text input queries directly against user names inside the log feed!
+  if (cleanQuery.length > 0) {
+    rawActivitiesList = rawActivitiesList.filter(act => 
+      act.userName.toLowerCase().includes(cleanQuery)
+    );
+  }
+
+  // Sort chronologically (Newest items up top)
+  const sortedActivities = rawActivitiesList.sort((a, b) => 
+    parseCustomTimestamp(b.rawDateString).getTime() - parseCustomTimestamp(a.rawDateString).getTime()
+  );
+
+  // 2. Filter Main Profile Cards List Array
   let filteredUsers = allUsers;
-  if (searchQuery.length > 0) {
-    const cleanQuery = searchQuery.toLowerCase();
+  if (cleanQuery.length > 0) {
     filteredUsers = allUsers.filter(user => user.name.toLowerCase().includes(cleanQuery));
   }
 
-  // 2. Compile Global Timeline (Unfiltered by search box, keeping historical record whole)
-  const flattenedActivities = allUsers
-    .reduce((acc, user) => {
-      if (user.activities && user.activities.activity) {
-        acc.push({
-          userName: user.name,
-          text: user.activities.activity,
-          rawDateString: user.activities.timeStamp
-        });
-      }
-      return acc;
-    }, [] as { userName: string; text: string; rawDateString: string }[])
-    .sort((a, b) => parseCustomTimestamp(b.rawDateString).getTime() - parseCustomTimestamp(a.rawDateString).getTime());
-
-  // 3. Process Main Profile Workspace based on Active Filter Tab
   let mainProfilesResult: User[] = [];
-
   if (activeFilter === 'Most Connected') {
     mainProfilesResult = [...filteredUsers].sort((a, b) => b.connections - a.connections);
-  } 
-  else if (activeFilter === 'Recent Activity') {
-    mainProfilesResult = [...filteredUsers]
-      .filter(user => user.activities && user.activities.timeStamp)
-      .sort((a, b) => parseCustomTimestamp(b.activities.timeStamp).getTime() - parseCustomTimestamp(a.activities.timeStamp).getTime());
-  } 
-  else {
-    // Default fallback ("Popular"): Shuffled results
+  } else {
     mainProfilesResult = shuffle(filteredUsers);
   }
 
-  // 4. Recommendations Sidebar: Keep locked onto highest connection rankings
+  // 3. Keep suggestions sidebar locked onto high connection count metrics
   const sortedByPopularity = [...allUsers].sort((a, b) => b.connections - a.connections);
 
   return {
     mainProfiles: mainProfilesResult,
     suggestions: sortedByPopularity.slice(0, 2),
-    recentActivities: flattenedActivities
+    recentActivities: sortedActivities
   };
 }
