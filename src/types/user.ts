@@ -16,7 +16,7 @@ export interface User {
   job: string;
   location: string;
   role: 'user'; // Explicit literal constraint since it will be "user" for everyone
-  recentActivity: UserActivity;
+  activities: UserActivity;
   overallActivity: number; // Guaranteed to be > 1 if an activity is assigned
   connections: number;     // Randomly distributed tracking metrics
 }
