@@ -8,23 +8,6 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
   container.innerHTML = `
     <main>
         <div class="view-mobile dashboard-container">
-            
-            <header class="mobile-header">
-                <h1 class="header-title">Home</h1>
-                <div class="header-actions">
-                    <button class="icon-btn" aria-label="Analytics">
-                        <svg class="chart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 20V10M12 20V4M6 20v-6"/>
-                        </svg>
-                    </button>
-                    <img src="/img/girl.png" alt="User Avatar" class="user-avatar-img">
-                </div>
-            </header>
-
-            <div class="search-box-wrapper">
-                <span class="search-icon-lens">🔍</span>
-                <input type="text" placeholder="Search alumni..." class="search-input-field">
-            </div>
 
             <div class="mobile-dashboard-grid">
                 
