@@ -1,4 +1,4 @@
-import './style.css';
+import '../styles/style.css';
 import { setupHome } from './pages/Home';
 
 // Use a simple conditional check (Type Guard)
