@@ -1,14 +1,18 @@
+import '../../styles/home.css';
+import '../../styles/components/testimonialCard.css'; // <-- FIX: Brings in the missing avatar & gold star styles!
 
+import { createTestimonialCard } from '../components/TestimonialCard';
 
-// We pass pageManager dynamically so the mobile dashboard buttons can control routing
-export function setupHome(pageManager?: PageManager): HTMLElement {
+/**
+ * Generates and wires up the isolated Home page view component.
+ */
+export function setupHome() {
   const container = document.createElement('section');
   container.className = 'home-page-wrapper';
 
   container.innerHTML = `
     <main>
         <div class="view-mobile dashboard-container">
-
             <div class="mobile-dashboard-grid">
                 
                 <div class="dashboard-card">
@@ -63,58 +67,23 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
             <section class="testimonials-section">
                 <h6 class="section-title">"T'ensenyem el que opinen els nostres súper-usuaris!"</h6>
                 
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="card-header">
-                            <img src="/img/girl.png" alt="Mikel" class="avatar">
-                            <div class="user-meta">
-                                <h3>Mikel</h3>
-                                <div class="stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <p>"Gràcies a IT Alumni vaig aconseguir la feina dels meus somnis en el món tech amb el seu increïble programa de mentoria."</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="card-header">
-                            <img src="/img/boy.png" alt="Emma" class="avatar">
-                            <div class="user-meta">
-                                <h3>Emma</h3>
-                                <div class="stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <p>“La meva xarxa d'aquesta comunitat ha estat clau: va revolucionar la meva carrera i em va mostrar camins insospitats."</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="card-header">
-                            <img src="/img/boy.png" alt="Laia" class="avatar">
-                            <div class="user-meta">
-                                <h3>Laia</h3>
-                                <div class="stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <p>"IT Alumni em va donar les eines i l’autoestima per fer realitat el meu somni d’emprendre."</p>
-                    </div>
-                </div>
+                <div class="testimonials-grid" id="desktop-testimonials-target"></div>
 
                 <div class="carousel-controls">
-                    <button class="control-btn">‹</button>
-                    <button class="control-btn">›</button>
+                    <button class="control-btn" id="carousel-prev" type="button">‹</button>
+                    <button class="control-btn" id="carousel-next" type="button">›</button>
                 </div>
             </section>
         </div>
     </main>
   `;
 
-  // Attach navigation routing triggers directly to the mobile dashboard buttons
-  if (pageManager) {
-    container.querySelector('#mob-nav-btn')?.addEventListener('click', () => {
-      pageManager.switchPage('networking');
-    });
-    container.querySelector('#mob-jobs-btn')?.addEventListener('click', () => {
-      pageManager.switchPage('jobs');
-    });
+  // 1. Mount the 3 modular testimonial components into the grid target
+  const testimonialsTarget = container.querySelector('#desktop-testimonials-target');
+  if (testimonialsTarget) {
+    for (let i = 0; i < 3; i++) {
+      testimonialsTarget.appendChild(createTestimonialCard(i));
+    }
   }
 
   return container;
