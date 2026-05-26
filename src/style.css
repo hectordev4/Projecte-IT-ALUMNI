@@ -51,6 +51,7 @@ body {
   line-height: 1.6;
 }
 
+/* Button pinned to bottom in mobile */
 .cta-button {
   width: 100%;
   max-width: 24rem;
@@ -204,12 +205,12 @@ body {
 
 /* Shared Global footer rule setting default */
 .main-footer {
-  display: none; 
+  display: none; /* Hidden by default on mobile */
 }
 
-/* --- DESKTOP VIEW SUB-SYSTEM LAYER --- */
+/* --- DESKTOP VIEW --- */
 .view-desktop {
-  display: none; 
+  display: none; /* Hidden on mobile */
 }
 
 @media (min-width: 48rem) {
@@ -241,7 +242,7 @@ body {
 
   .hero-actions {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row; /* Ensure horizontal on desktop */
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
@@ -330,11 +331,14 @@ body {
     font-family: var(--sans);
   }
 
-  .feature-btn:hover {
-    background: var(--accent-gradient);
-    color: white;
-    transform: translateY(-3px);
-  }
+.feature-btn:hover {
+  /* Match the CTA style on hover */
+  background: var(--accent-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
 
   .feature-btn:active {
     transform: translateY(-1px);
@@ -371,9 +375,9 @@ body {
     transition: box-shadow 0.3s ease;
   }
 
-  .testimonial-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  }
+.testimonial-card:hover {
+  box-shadow: var(--shadow);
+}
 
   .card-header {
     display: flex;
@@ -410,11 +414,12 @@ body {
     font-style: italic;
   }
 
-  .carousel-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 
   .control-btn {
     width: 3rem;
@@ -431,135 +436,10 @@ body {
     transition: background 0.2s;
   }
 
+.control-btn:hover {
+  background-color: var(--border);
+}
   .control-btn:hover {
     background-color: var(--border);
-  }
-
-  /* --- DESKTOP CORES APARTMENT FOOTER LAYOUT (Exposes when desktop active) --- */
-  .main-footer {
-    display: block;
-    width: 100%;
-    background-color: #16171d;
-    color: #ffffff;
-    padding: 4rem 10% 2rem;
-    margin-top: 6rem;
-    box-sizing: border-box;
-    text-align: left;
-  }
-
-  .footer-newsletter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid #2e303d;
-  }
-
-  .footer-newsletter h3 {
-    font-size: 1.5rem;
-    margin: 0;
-    font-weight: 500;
-  }
-
-  .newsletter-input-group {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .input-wrapper {
-    display: flex;
-    align-items: center;
-    background: #232530;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    gap: 0.5rem;
-  }
-
-  .input-wrapper input {
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-  }
-
-  .newsletter-btn {
-    background: var(--accent-gradient);
-    border: none;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .footer-main-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3rem 0;
-  }
-
-  .footer-logo-img {
-    height: 2.5rem;
-    filter: invert(1);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .footer-links a {
-    color: #a19ba8;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover {
-    color: #ffffff;
-  }
-
-  .footer-divider {
-    border: 0;
-    height: 1px;
-    background: #2e303d;
-    margin: 0;
-  }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 2rem;
-    font-size: 0.85rem;
-    color: #6b6375;
-  }
-
-  .language-selector select {
-    background: #232530;
-    color: white;
-    border: 1px solid #2e303d;
-    padding: 0.4rem 1rem;
-    border-radius: 0.25rem;
-  }
-
-  .footer-legal {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .social-icons {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .social-link {
-    color: #a19ba8;
-    text-decoration: none;
-  }
-
-  .social-link:hover {
-    color: white;
   }
 }

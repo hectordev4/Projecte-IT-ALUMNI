@@ -1,3 +1,4 @@
+import type { PageManager } from "../managers/pageManager";
 
 
 // We pass pageManager dynamically so the mobile dashboard buttons can control routing
