@@ -1,14 +1,27 @@
+<<<<<<< HEAD
 import type { PageManager } from "../managers/pageManager";
 
 
 // We pass pageManager dynamically so the mobile dashboard buttons can control routing
 export function setupHome(pageManager?: PageManager): HTMLElement {
+=======
+import '../../styles/home.css';
+import '../../styles/components/testimonialCard.css'; // <-- FIX: Brings in the missing avatar & gold star styles!
+
+import { createTestimonialCard } from '../components/TestimonialCard';
+
+/**
+ * Generates and wires up the isolated Home page view component.
+ */
+export function setupHome() {
+>>>>>>> page/Home
   const container = document.createElement('section');
   container.className = 'home-page-wrapper';
 
   container.innerHTML = `
     <main>
         <div class="view-mobile dashboard-container">
+<<<<<<< HEAD
             
             <header class="mobile-header">
                 <h1 class="header-title">Home</h1>
@@ -27,6 +40,8 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
                 <input type="text" placeholder="Search alumni..." class="search-input-field">
             </div>
 
+=======
+>>>>>>> page/Home
             <div class="mobile-dashboard-grid">
                 
                 <div class="dashboard-card">
@@ -81,6 +96,7 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
             <section class="testimonials-section">
                 <h6 class="section-title">"T'ensenyem el que opinen els nostres súper-usuaris!"</h6>
                 
+<<<<<<< HEAD
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="card-header">
@@ -119,12 +135,20 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
                 <div class="carousel-controls">
                     <button class="control-btn">‹</button>
                     <button class="control-btn">›</button>
+=======
+                <div class="testimonials-grid" id="desktop-testimonials-target"></div>
+
+                <div class="carousel-controls">
+                    <button class="control-btn" id="carousel-prev" type="button">‹</button>
+                    <button class="control-btn" id="carousel-next" type="button">›</button>
+>>>>>>> page/Home
                 </div>
             </section>
         </div>
     </main>
   `;
 
+<<<<<<< HEAD
   // Attach navigation routing triggers directly to the mobile dashboard buttons
   if (pageManager) {
     container.querySelector('#mob-nav-btn')?.addEventListener('click', () => {
@@ -133,6 +157,14 @@ export function setupHome(pageManager?: PageManager): HTMLElement {
     container.querySelector('#mob-jobs-btn')?.addEventListener('click', () => {
       pageManager.switchPage('jobs');
     });
+=======
+  // 1. Mount the 3 modular testimonial components into the grid target
+  const testimonialsTarget = container.querySelector('#desktop-testimonials-target');
+  if (testimonialsTarget) {
+    for (let i = 0; i < 3; i++) {
+      testimonialsTarget.appendChild(createTestimonialCard(i));
+    }
+>>>>>>> page/Home
   }
 
   return container;
