@@ -1,4 +1,4 @@
-import './style.css';
+import '../styles/style.css';
 import { PageManager } from './managers/pageManager';
 
 // 1. Fire up the manager engine targeting your root div

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Footer */
 .main-footer {
   display: block;
@@ -119,4 +120,198 @@
 .social-link {
   color: #ccc;
   text-decoration: none;
+=======
+/* Hide on mobile devices by default */
+.main-footer {
+  display: none;
+}
+
+/* ==========================================================================
+   DESKTOP FOOTER ARCHITECTURE (48rem / 768px and up)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  .main-footer {
+    display: block !important;
+    background-color: #1e2229; /* Deep matte charcoal theme background */
+    color: #ffffff;
+    padding: 4rem 5% 2rem 5%;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* --- TOP SUBSCRIPTION CONTAINER --- */
+  .footer-subscribe-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .subscribe-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  .subscribe-form {
+    display: flex;
+    align-items: center;
+    background: #252a34;
+    border: 1px solid #454d5e;
+    border-radius: 2rem;
+    padding: 0.25rem;
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-left: 1.25rem;
+    flex: 1;
+  }
+
+  .mail-icon {
+    color: #a1a8b5;
+    font-size: 2rem;
+  }
+
+  .subscribe-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+  }
+
+  .subscribe-input::placeholder {
+    color: #727b8c;
+  }
+
+  .subscribe-btn {
+    background: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 1.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+
+  .subscribe-btn:hover {
+    filter: brightness(1.1);
+  }
+
+  /* --- MIDDLE ROW: LOGO + BALANCED LINKS NAVIGATION --- */
+  .footer-middle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Keeps logo left, nav items right */
+    width: 100%;
+    gap: 4rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevents logo image from scaling smaller */
+  }
+
+  .footer-logo-img {
+    height: 2.2rem; /* Exact size matching layout requirements */
+    width: auto;
+    object-fit: contain;
+  }
+
+  .footer-nav-links {
+    display: flex;
+    flex: 1;
+    justify-content: space-between; /* Evenly distributes navigation elements */
+    max-width: 900px; /* Binds items cleanly from over-stretching on wide monitors */
+    gap: 2rem; /* Maintains consistent spacing between nav items */
+  }
+
+  .footer-nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav-links a:hover {
+    color: #e1007a;
+  }
+
+  /* --- HORIZONTAL SEPARATOR LINE --- */
+  .footer-divider {
+    border: none;
+    height: 1px;
+    background-color: #383f4d;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* --- BOTTOM META INFORMATION FOOTER ROW --- */
+  .footer-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+    color: #a1a8b5;
+  }
+
+  /* Standard styled drop-down selection menu container */
+  .lang-select {
+    background-color: #252a34;
+    color: #ffffff;
+    border: 1px solid #454d5e;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Strip OS default arrow to match screenshot asset profile */
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+  }
+
+  .footer-copyright-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .footer-social-icons {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .social-icon {
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.15);
+  }
+>>>>>>> feature/footer
 }
