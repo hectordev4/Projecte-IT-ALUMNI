@@ -1,0 +1,445 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --accent-gradient: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
+  --sans: system-ui, -apple-system, sans-serif;
+  --border: #f0f0f0;
+  --shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+  
+  /* Fluid Typography */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  background-color: var(--bg);
+}
+
+/* --- MOBILE VIEW (Default Mobile-First Base Layer) --- */
+.view-mobile {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* --- SPLASH SCREEN WELCOME PANEL (Kept for Welcome.ts) --- */
+.home-content {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;    
+  text-align: center;
+  gap: 2rem;
+}
+
+.home-logo {
+  width: 100%;
+  max-width: 16rem;
+  height: auto;
+}
+
+.home-tagline {
+  font-size: 1.1rem;
+  max-width: 20rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Button pinned to bottom in mobile */
+.cta-button {
+  width: 100%;
+  max-width: 24rem;
+  margin: 0 auto;
+  padding: 1rem;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* --- NEW MOBILE HOME DASHBOARD SYSTEM (Matches your exact screenshot) --- */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  gap: 1.5rem;
+}
+
+/* Header row layout styling controls */
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+.chart-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.user-avatar-img {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Light gray search bar panel tracking elements */
+.search-box-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f5f4f6;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+}
+
+.search-icon-lens {
+  color: #a19ba8;
+  font-size: 0.95rem;
+}
+
+.search-input-field {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.95rem;
+  color: var(--text-h);
+  outline: none;
+}
+
+.search-input-field::placeholder {
+  color: #bcbac2;
+}
+
+/* Two-column functional dashboard layout mesh alignment blocks */
+.mobile-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #d9d9d9;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-headline-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0 0 0.5rem 0;
+}
+
+.card-supporting-description {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 0.75rem 0;
+  min-height: 2.2rem; /* Enforces uniform height alignment bounds */
+}
+
+.card-action-outline-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e1007a;
+  color: #e1007a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.card-action-outline-btn:active {
+  background-color: #fdf0f7;
+  transform: scale(0.98);
+}
+
+/* Shared Global footer rule setting default */
+.main-footer {
+  display: none; /* Hidden by default on mobile */
+}
+
+/* --- DESKTOP VIEW --- */
+.view-desktop {
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 48rem) {
+  .view-mobile {
+    display: none !important;
+  }
+
+  .view-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4rem 10%;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--text-h);
+    margin: 0 0 1rem 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: row; /* Ensure horizontal on desktop */
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .cta-primary, .cta-secondary {
+    min-width: 12rem; 
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .cta-primary {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+  }
+
+  .cta-secondary {
+    background: transparent;
+    border: 2px solid #e1007a;
+    color: #e1007a;
+  }
+
+  .cta-primary:hover, .cta-secondary:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-banner {
+    width: 100%;
+    max-width: 65rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* Features Grid Structure Rules */
+  .features-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem; 
+    width: 100%;
+    max-width: 75rem; 
+    margin: 4rem auto; 
+  }
+
+  .feature-item {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .feature-img {
+    width: 100%;
+    max-width: 2rem; 
+    height: auto;
+  }
+
+  .feature-item p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .feature-btn {
+    margin-top: auto;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #e1007a;
+    background-color: #fdf0f7;
+    border-radius: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    font-family: var(--sans);
+  }
+
+.feature-btn:hover {
+  /* Match the CTA style on hover */
+  background: var(--accent-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+  .feature-btn:active {
+    transform: translateY(-1px);
+  }
+
+  /* Testimonials Section Component Mechanics */
+  .testimonials-section {
+    padding: 5rem 5%;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 4rem;
+    color: var(--text-h);
+  }
+
+  .testimonials-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-card {
+    flex: 1;
+    max-width: 24rem;
+    padding: 2rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    text-align: left;
+    transition: box-shadow 0.3s ease;
+  }
+
+.testimonial-card:hover {
+  box-shadow: var(--shadow);
+}
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ff9fcd;
+  }
+
+  .user-meta h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-h);
+  }
+
+  .stars {
+    color: #ffc107; 
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+    font-style: italic;
+  }
+
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+  .control-btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    background-color: #f3f4f6;
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+.control-btn:hover {
+  background-color: var(--border);
+}
+  .control-btn:hover {
+    background-color: var(--border);
+  }
+}
