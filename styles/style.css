@@ -1,0 +1,53 @@
+/* ==========================================================================
+   GLOBAL BASE LAYER & DESIGN TOKENS
+   ========================================================================== */
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #ffffff;
+  --accent-gradient: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
+  --sans: system-ui, -apple-system, sans-serif;
+  --border: #f0f0f0;
+  --shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+  
+  /* Fluid Typography Baseline */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Display View Utilities (Preventing responsive overlapping leaks) */
+.view-mobile {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  width: 100%;
+}
+
+.view-desktop {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .view-mobile {
+    display: none !important;
+  }
+  
+  .view-desktop {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

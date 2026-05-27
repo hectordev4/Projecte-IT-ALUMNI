@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Jane Smith",
+    "job": "Co-Founder at ABC Inc",
+    "location": "New York, NY",
+    "role": "user",
+    "activities": {
+      "activity": "started following John Doe",
+      "timeStamp": "26-05-21,11:51:34"
+    },
+    "overallActivity": 84,
+    "connections": 142
+  },
+  {
+    "name": "John Doe",
+    "job": "Product Manager at XYZ Corp",
+    "location": "San Francisco, CA",
+    "role": "user",
+    "activities": {
+      "activity": "shared 'Top 10 Product Management Tips' article",
+      "timeStamp": "26-05-21,09:30:15"
+    },
+    "overallActivity": 92,
+    "connections": 210
+  },
+  {
+    "name": "Alice Johnson",
+    "job": "Senior Developer at Tech Solutions",
+    "location": "Remote",
+    "role": "user",
+    "activities": {
+      "activity": "updated their professional profile summary",
+      "timeStamp": "26-05-20,16:45:00"
+    },
+    "overallActivity": 45,
+    "connections": 88
+  },
+  {
+    "name": "David Brown",
+    "job": "Marketing Specialist at Brand Co",
+    "location": "Chicago, IL",
+    "role": "user",
+    "activities": {
+      "activity": "connected with Jane Smith",
+      "timeStamp": "26-05-21,10:15:22"
+    },
+    "overallActivity": 61,
+    "connections": 115
+  },
+  {
+    "name": "Sarah Johnson",
+    "job": "Marketing Director at GreenWave",
+    "location": "Barcelona, Spain",
+    "role": "user",
+    "activities": {
+      "activity": "joined the Global IT Leaders hub",
+      "timeStamp": "26-05-19,14:22:10"
+    },
+    "overallActivity": 73,
+    "connections": 194
+  },
+  {
+    "name": "Michael Brown",
+    "job": "Founder of EduLearn Academy",
+    "location": "London, UK",
+    "role": "user",
+    "activities": {
+      "activity": "published a post on modern educational bootcamps",
+      "timeStamp": "26-05-21,08:12:44"
+    },
+    "overallActivity": 55,
+    "connections": 312
+  },
+  {
+    "name": "Emily Davis",
+    "job": "Research Scientist at BioTech Labs",
+    "location": "Boston, MA",
+    "role": "user",
+    "activities": {
+      "activity": "liked a shared update from Alice Johnson",
+      "timeStamp": "26-05-20,19:11:03"
+    },
+    "overallActivity": 34,
+    "connections": 76
+  },
+  {
+    "name": "James Lee",
+    "job": "Managing Partner at Lee & Associates",
+    "location": "Austin, TX",
+    "role": "user",
+    "activities": {
+      "activity": "celebrated a work anniversary milestone",
+      "timeStamp": "26-05-18,09:00:00"
+    },
+    "overallActivity": 22,
+    "connections": 415
+  },
+  {
+    "name": "Sophia Martinez",
+    "job": "UX Designer at Creative Studio",
+    "location": "Madrid, Spain",
+    "role": "user",
+    "activities": {
+      "activity": "uploaded a brand new UI design portfolio concept",
+      "timeStamp": "26-05-21,15:40:22"
+    },
+    "overallActivity": 79,
+    "connections": 167
+  },
+  {
+    "name": "Robert Wilson",
+    "job": "DevOps Engineer at CloudScale",
+    "location": "Seattle, WA",
+    "role": "user",
+    "activities": {
+      "activity": "commented on a server migration infrastructure article",
+      "timeStamp": "26-05-21,11:05:14"
+    },
+    "overallActivity": 68,
+    "connections": 129
+  },
+  {
+    "name": "Elena Rostova",
+    "job": "Data Analyst at FinTech Group",
+    "location": "Berlin, Germany",
+    "role": "user",
+    "activities": {
+      "activity": "joined the European Data Science alliance group",
+      "timeStamp": "26-05-20,10:33:55"
+    },
+    "overallActivity": 50,
+    "connections": 93
+  },
+  {
+    "name": "Liam Gallagher",
+    "job": "Full Stack Developer at WebFlow Solutions",
+    "location": "Dublin, Ireland",
+    "role": "user",
+    "activities": {
+      "activity": "started following Sophia Martinez",
+      "timeStamp": "26-05-21,14:18:02"
+    },
+    "overallActivity": 81,
+    "connections": 204
+  },
+  {
+    "name": "Chloe Wong",
+    "job": "Product Designer at Singularity Tech",
+    "location": "Singapore",
+    "role": "user",
+    "activities": {
+      "activity": "shared an event link for Upcoming Tech Trends Panel",
+      "timeStamp": "26-05-19,17:55:40"
+    },
+    "overallActivity": 63,
+    "connections": 182
+  },
+  {
+    "name": "Marcus Aurelius",
+    "job": "Security Consultant at CyberShield",
+    "location": "Rome, Italy",
+    "role": "user",
+    "activities": {
+      "activity": "updated their active security certification log badge",
+      "timeStamp": "26-05-21,07:44:11"
+    },
+    "overallActivity": 41,
+    "connections": 85
+  },
+  {
+    "name": "Amina Diop",
+    "job": "HR Manager at TalentPool Inc.",
+    "location": "Paris, France",
+    "role": "user",
+    "activities": {
+      "activity": "posted a new career opportunity for Junior Developers",
+      "timeStamp": "26-05-21,12:20:00"
+    },
+    "overallActivity": 95,
+    "connections": 540
+  },
+  {
+    "name": "Yuki Tanaka",
+    "job": "AI Research Specialist at Tokyo Systems",
+    "location": "Tokyo, Japan",
+    "role": "user",
+    "activities": {
+      "activity": "liked an article on advanced machine neural networks",
+      "timeStamp": "26-05-20,23:14:48"
+    },
+    "overallActivity": 37,
+    "connections": 112
+  },
+  {
+    "name": "Mateo Fernandez",
+    "job": "Mobile Engineer at AppBuilders",
+    "location": "Buenos Aires, Argentina",
+    "role": "user",
+    "activities": {
+      "activity": "commented on a cross-platform performance framework post",
+      "timeStamp": "26-05-21,16:02:10"
+    },
+    "overallActivity": 70,
+    "connections": 149
+  },
+  {
+    "name": "Zainab Al-Mansoor",
+    "job": "Solutions Architect at Enterprise IT",
+    "location": "Dubai, UAE",
+    "role": "user",
+    "activities": {
+      "activity": "started following DevOps Engineer Robert Wilson",
+      "timeStamp": "26-05-21,06:50:32"
+    },
+    "overallActivity": 58,
+    "connections": 223
+  },
+  {
+    "name": "Thomas Müller",
+    "job": "QA Automation Lead at TestDrive",
+    "location": "Munich, Germany",
+    "role": "user",
+    "activities": {
+      "activity": "published a short framework testing setup walkthrough",
+      "timeStamp": "26-05-20,13:08:19"
+    },
+    "overallActivity": 49,
+    "connections": 101
+  },
+  {
+    "name": "Olivia Taylor",
+    "job": "Content Strategist at MediaHub",
+    "location": "Sydney, Australia",
+    "role": "user",
+    "activities": {
+      "activity": "updated their target banner layout header profile asset",
+      "timeStamp": "26-05-19,05:12:01"
+    },
+    "overallActivity": 29,
+    "connections": 174
+  }
+]
