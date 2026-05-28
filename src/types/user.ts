@@ -12,6 +12,7 @@ export interface UserActivity {
  * Used for building dynamic, type-safe layouts across mobile and desktop card views.
  */
 export interface User {
+  id: number;
   name: string;
   job: string;
   location: string;
