@@ -20,7 +20,7 @@ export async function getJobsPageData(
   searchQuery: string = ''
 ): Promise<JobsDataFilteredPayload> {
   // 1. Dispatch generic base fetch to retrieve the multi-domain JSON asset
-  const data = await fetchLocalData<JobsPageDataPayload>('/data/fakedata.json');
+  const data = await fetchLocalData<JobsPageDataPayload>('/data/jobs.json');
 
   const allJobs = data.jobs || [];
   const allCompanies = data.companies || [];
