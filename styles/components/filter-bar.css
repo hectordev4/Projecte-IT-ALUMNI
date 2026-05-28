@@ -1,29 +1,34 @@
 /* ==========================================================================
-   SHARED GLOBAL BASE STYLES
+   GLOBAL FILTER COMPONENT: Root Variables & Mobile-First Constraints
    ========================================================================== */
+
 .global-filter-component {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  padding: 0 1.25rem; /* Pulls the entire filter ecosystem away from the screen edge */
+  padding: 0 1.25rem; /* 20px gutter */
   box-sizing: border-box;
+  background-color: var(--bg);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
+/* 1. Unified Search Bar (Mobile Default) */
 .global-filter-component .component-search-wrapper {
   display: flex;
   align-items: center;
-  background-color: var(--border); /* Tokenized placeholder layer background offset */
+  background-color: var(--bg-secondary);
+  border: 0.0625rem solid var(--border);
   border-radius: 0.5rem;
   padding: 0.75rem 1rem;
   gap: 0.5rem;
   width: 100%;
-  max-width: 24rem; /* Restricts the search bar from blowing out too wide on mobile devices */
+  max-width: 24rem; /* 384px */
   box-sizing: border-box;
 }
 
 .global-filter-component .search-lens {
-  color: #a19ba8;
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
@@ -37,35 +42,18 @@
   color: var(--text-h);
 }
 
+/* 2. Sub-Filter Container */
+.component-sub-filters-container {
+  width: 100%;
+}
+
 /* ==========================================================================
-   MODE: NETWORKING VIEWS (Tabs Baseline)
+   MODE: NETWORKING (Tabs)
    ========================================================================== */
 .global-filter-component.mode-networking .component-filter-tabs {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 100%;
-}
-
-.global-filter-component.mode-networking .filter-label-text {
-  font-size: 0.85rem;
-  color: var(--text-h);
-  font-weight: 600;
-  display: none; /* Hidden on mobile viewports */
-}
-
-.global-filter-component.mode-networking .tabs-scroll-container {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 0.25rem;
-  width: 100%;
-  justify-content: flex-start; 
-}
-
-.global-filter-component.mode-networking .tabs-scroll-container::-webkit-scrollbar {
-  display: none;
 }
 
 .global-filter-component.mode-networking .filter-tab-btn {
@@ -74,165 +62,72 @@
   font-family: var(--sans);
   font-size: 0.85rem;
   color: var(--text);
-  cursor: pointer;
   padding: 0.25rem 0;
   font-weight: 500;
-  position: relative;
+  cursor: pointer;
 }
 
 .global-filter-component.mode-networking .filter-tab-btn.active {
   color: var(--accent);
   font-weight: 600;
-}
-
-.global-filter-component.mode-networking .filter-tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--accent);
+  border-bottom: 0.125rem solid var(--accent);
 }
 
 /* ==========================================================================
-   MODE: JOBS VIEWS (Advanced Dropdown Matrix Layout)
+   MODE: JOBS (Dropdown Matrix)
    ========================================================================== */
-.global-filter-component.mode-jobs .jobs-filter-matrix-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-}
-
 .global-filter-component.mode-jobs .jobs-dropdown-controls-group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: 1fr; /* Stacked on mobile */
   gap: 0.75rem;
-  width: 100%;
-}
-
-/* Custom styled dropdown element container vectors */
-.global-filter-component.mode-jobs .dropdown-select-wrapper {
-  position: relative;
   width: 100%;
 }
 
 .global-filter-component.mode-jobs .jobs-matrix-select {
   width: 100%;
+  padding: 0.75rem 2rem 0.75rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 0.0625rem solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--sans);
   font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text);
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  padding: 0.65rem 2rem 0.65rem 0.75rem;
-  cursor: pointer;
-  outline: none;
-  box-sizing: border-box;
-  appearance: none; /* Strip native OS styling to inject custom down-chevron safely */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
 }
-
-.global-filter-component.mode-jobs .jobs-matrix-select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(225, 0, 122, 0.05);
-}
-
-/* Injection of uniform, non-breaking custom arrow indicator overlay */
-.global-filter-component.mode-jobs .dropdown-select-wrapper::after {
-  content: "▾";
-  font-size: 0.85rem;
-  color: #a19ba8;
-  position: absolute;
-  right: 0.85rem;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none; /* Prevents clicks on the indicator arrow from locking the select stream */
-}
-
-/* Highlighting specific operational values like the sorting filter */
-.global-filter-component.mode-jobs #filter-sort {
-  font-weight: 600;
-  color: var(--text-h);
-}
-
 
 /* ==========================================================================
-   DESKTOP RESPONSIVE STATE OVERRIDES (48rem / 768px and up)
+   DESKTOP ALIGNMENT (48rem / 768px+)
+   Search Left | Filters Right
    ========================================================================== */
 @media (min-width: 48rem) {
   .global-filter-component {
-    padding: 0 0 1.25rem 0; /* Reset desktop layout parameters to snap to parent bounds */
-  }
-
-  /* Desktop Networking Variant Transforms */
-  .global-filter-component.mode-networking {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border);
+    padding: 0 0 1.25rem 0; /* Align with app margins */
   }
 
-  .global-filter-component.mode-networking .component-search-wrapper {
-    background-color: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 0.35rem;
-    padding: 0.5rem 0.75rem;
-    max-width: 16rem;
-    order: 2; /* Pushes search bar to the right side on desktop layouts */
+  /* Search Bar (Order 1 - Left) */
+  .global-filter-component .component-search-wrapper {
+    margin-bottom: 0;
+    max-width: 22rem;
+    order: 1;
   }
 
-  .global-filter-component.mode-networking .component-filter-tabs {
+  /* Sub-Filter Container (Order 2 - Right) */
+  .global-filter-component .component-sub-filters-container {
     width: auto;
-    order: 1; /* Aligns links navigation back to the left margin track */
+    order: 2;
   }
 
+  /* Networking Adjustments */
   .global-filter-component.mode-networking .filter-label-text {
     display: inline-block;
+    margin-right: 1rem;
   }
 
-  .global-filter-component.mode-networking .tabs-scroll-container {
-    overflow: visible;
-    width: auto;
-  }
-
-  .global-filter-component.mode-networking .filter-tab-btn.active::after {
-    bottom: -1.45rem;
-    height: 3px;
-  }
-
-  /* Desktop Jobs Matrix Variant Transforms */
-  .global-filter-component.mode-jobs {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1.5rem;
-  }
-
-  .global-filter-component.mode-jobs .jobs-filter-matrix-grid {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .global-filter-component.mode-jobs .component-search-wrapper {
-    background-color: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 0.6rem 0.75rem;
-    max-width: 22rem; /* Give searching a solid field weight on wider viewports */
-  }
-
+  /* Jobs Adjustments */
   .global-filter-component.mode-jobs .jobs-dropdown-controls-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    width: auto;
-  }
-
-  .global-filter-component.mode-jobs .dropdown-select-wrapper {
-    width: 180px; /* Locked standard width for uniform alignment stacks */
+    grid-template-columns: repeat(3, 11.25rem); /* ~180px each */
   }
 }
