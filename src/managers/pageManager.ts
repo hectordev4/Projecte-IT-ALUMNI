@@ -1,7 +1,7 @@
 // 1. Core Component Infrastructure Imports
 import { setupNavbar } from '../components/Navbar';
 import { createFilterBar } from '../components/FilterBar';
-import { setupFooter } from '../components/footer';
+import { setupFooter } from '../components/Footer';
 import { createMobileHeader } from '../components/MobileHeader';
 
 // 2. Restored Page View Factory Imports

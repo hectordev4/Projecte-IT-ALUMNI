@@ -10,9 +10,9 @@
   .main-footer {
     display: block !important;
     background-color: #1e2229; /* Deep matte charcoal theme background */
-    color: #ffffff;
+    color: var(--bg); /* Integrated variable inverse text canvas */
     padding: 4rem 5% 2rem 5%;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--sans); /* Integrated global inherited design font family */
   }
 
   .footer-container {
@@ -66,7 +66,7 @@
   .subscribe-input {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: var(--bg); /* Integrated variable inverse input content color */
     font-size: 0.95rem;
     width: 100%;
     outline: none;
@@ -77,8 +77,8 @@
   }
 
   .subscribe-btn {
-    background: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
-    color: #ffffff;
+    background: var(--accent-gradient); /* Integrated variable multi-stop linear gradient token */
+    color: var(--bg); /* Integrated variable button text contrast canvas */
     border: none;
     padding: 0.75rem 1.75rem;
     border-radius: 1.75rem;
@@ -123,7 +123,7 @@
   }
 
   .footer-nav-links a {
-    color: #ffffff;
+    color: var(--bg); /* Integrated variable link anchor canvas contrast */
     text-decoration: none;
     font-size: 0.75rem;
     font-weight: 500;
@@ -132,14 +132,14 @@
   }
 
   .footer-nav-links a:hover {
-    color: #e1007a;
+    color: var(--accent); /* Integrated variable brand fuchsia active interactive accent state */
   }
 
   /* --- HORIZONTAL SEPARATOR LINE --- */
   .footer-divider {
     border: none;
     height: 1px;
-    background-color: #383f4d;
+    background-color: var(--border); /* Integrated variable global separator line token */
     margin: 0;
     width: 100%;
   }
@@ -157,8 +157,8 @@
   /* Standard styled drop-down selection menu container */
   .lang-select {
     background-color: #252a34;
-    color: #ffffff;
-    border: 1px solid #454d5e;
+    color: var(--bg); /* Integrated variable selector text inversion canvas */
+    border: 1px solid var(--border); /* Integrated variable field bounding layer border token */
     padding: 0.5rem 2.5rem 0.5rem 1rem;
     border-radius: 0.4rem;
     cursor: pointer;
