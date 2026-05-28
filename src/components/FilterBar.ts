@@ -15,6 +15,7 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
   // Keep track of internal state variables
   let currentFilter = options.activeFilter;
   let currentSearchQuery = '';
+  let debounceTimeoutId: number | null = null; // FIX: Controls the keystroke broadcast throttle window
 
   wrapper.innerHTML = `
     <div class="component-search-wrapper">
@@ -42,13 +43,22 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
     options.onControlsChange(currentFilter, currentSearchQuery);
   };
 
-  // 1. Text Input Field Listener (Triggers on every keystroke)
+  // 1. Text Input Field Listener with Debounce Protection
   inputField.addEventListener('input', (e) => {
     currentSearchQuery = (e.target as HTMLInputElement).value.trim();
-    dispatchStateUpdate();
+
+    // Clear the pending timer on every key strike
+    if (debounceTimeoutId !== null) {
+      window.clearTimeout(debounceTimeoutId);
+    }
+
+    // Only broadcast up to PageManager once user pauses typing for 300ms
+    debounceTimeoutId = window.setTimeout(() => {
+      dispatchStateUpdate();
+    }, 300);
   });
 
-  // 2. Tab Navigation Buttons Listeners
+  // 2. Tab Navigation Buttons Listeners (Instant execution, no debounce needed)
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
       if (button.classList.contains('active')) return;
@@ -57,6 +67,12 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
       button.classList.add('active');
       
       currentFilter = button.getAttribute('data-filter') || '';
+      
+      // Instantly cancel any pending search timers so the tab switch carries the absolute latest query string values
+      if (debounceTimeoutId !== null) {
+        window.clearTimeout(debounceTimeoutId);
+      }
+      
       dispatchStateUpdate();
     });
   });

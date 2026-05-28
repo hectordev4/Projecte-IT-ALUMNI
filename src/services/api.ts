@@ -1,39 +1,30 @@
-import type { User } from '../types/user';
-
 /**
- * Robust API Simulation Engine
- * Simulates network latency, handles parsing safely, and guards against object wrappers.
+ * Core HTTP Data Fetch Engine
+ * Responsibilities: Request orchestration, HTTP status checking, fail-safe parsing, and network lag simulation.
+ * 
+ * Generics (<T>) allow this core engine to cleanly pass any schema structure back 
+ * to its calling service layer without hardcoding specific domain structures here.
  */
-export async function fetchAlumniData(jsonPath: string = '/data/users.json'): Promise<User[]> {
-  // Simulating a 400ms network round-trip latency
-  await new Promise(resolve => setTimeout(resolve, 400));
+export async function fetchLocalData<T>(jsonPath: string): Promise<T> {
+  // Retain your 200ms network simulation lag
+  await new Promise(resolve => setTimeout(resolve, 200)); 
 
   try {
     const response = await fetch(jsonPath);
-    
     if (!response.ok) {
-      throw new Error(`HTTP Error Status: Server returned code ${response.status}`);
+      throw new Error(`HTTP Error: ${response.status} at target destination [${jsonPath}]`);
     }
     
     const rawData = await response.json();
-
-    // Guard Clause: Direct array check
-    if (Array.isArray(rawData)) {
-      return rawData as User[];
-    } 
     
-    // Fail-safe: Auto-extract array if wrapped inside an object root property
-    if (rawData && typeof rawData === 'object') {
-      const nestedArray = rawData.users || rawData.data || Object.values(rawData).find(Array.isArray);
-      if (nestedArray) {
-        return nestedArray as User[];
-      }
+    // Safety check: Ensure we actually received parseable data back from the stream
+    if (!rawData) {
+      throw new Error(`Invalid payload or empty data structure returned from: ${jsonPath}`);
     }
 
-    throw new Error("Data Error: Expected a JSON array format, but received an unparsed object pattern.");
+    return rawData as T;
   } catch (error) {
-    console.error("Critical Failure in API Service Data Fetch Pipeline:", error);
-    // Propagate up so components can display an elegant fallback error message
+    console.error(`Critical Failure in Base API Layer [Path: ${jsonPath}]:`, error);
     throw error;
   }
 }

@@ -1,22 +1,29 @@
 /**
- * Represents the structured timeline activity schema of an individual user.
- * Timestamps follow the strict format: YY-MM-DD,HH:MM:SS
+ * Represents a single structured log of a member's recent platform actions.
  */
 export interface UserActivity {
   activity: string;
-  timeStamp: string; // Structured exactly as (YY-MM-DD,HH:MM:SS)
+  timeStamp: string;
 }
 
 /**
- * Core User Profile Interface contract.
- * Used for building dynamic, type-safe layouts across mobile and desktop card views.
+ * Baseline contract definition for platform professional member profiles.
  */
 export interface User {
+  id: number | string; // Accommodates both legacy number IDs and your new mock string IDs cleanly
   name: string;
   job: string;
   location: string;
-  role: 'user'; // Explicit literal constraint since it will be "user" for everyone
-  recentActivity: UserActivity;
-  overallActivity: number; // Guaranteed to be > 1 if an activity is assigned
-  connections: number;     // Randomly distributed tracking metrics
+  role: string;
+  activities: UserActivity;
+  overallActivity: number;
+  connections: number;
+}
+
+/**
+ * Root wrapper schema representing the incoming user payload database stream container.
+ * This explicitly structures your users.json file to eliminate implicit 'any' lookups.
+ */
+export interface UsersPageDataPayload {
+  users: User[];
 }
