@@ -4,7 +4,9 @@ import { getJobsPageData } from '../services/jobsService';
 import '../../styles/jobs.css';
 
 /**
- * Jobs Workspace: Responsible ONLY for rendering the feed based on incoming filter events.
+ * Generates and manages the responsive Job Portal view workspace.
+ * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
+ * @param pageManager - The centralized routing engine instance.
  */
 export function setupJobs(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
