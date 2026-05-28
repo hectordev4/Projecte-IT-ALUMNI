@@ -1,3 +1,6 @@
+/* ==========================================================================
+   SHARED GLOBAL BASE STYLES
+   ========================================================================== */
 .global-filter-component {
   display: flex;
   flex-direction: column;
@@ -16,6 +19,7 @@
   gap: 0.5rem;
   width: 100%;
   max-width: 24rem; /* Restricts the search bar from blowing out too wide on mobile devices */
+  box-sizing: border-box;
 }
 
 .global-filter-component .search-lens {
@@ -33,37 +37,38 @@
   color: var(--text-h);
 }
 
-.global-filter-component .component-filter-tabs {
+/* ==========================================================================
+   MODE: NETWORKING VIEWS (Tabs Baseline)
+   ========================================================================== */
+.global-filter-component.mode-networking .component-filter-tabs {
   display: flex;
   align-items: center;
   gap: 1rem;
   width: 100%;
 }
 
-.global-filter-component .filter-label-text {
+.global-filter-component.mode-networking .filter-label-text {
   font-size: 0.85rem;
   color: var(--text-h);
   font-weight: 600;
   display: none; /* Hidden on mobile viewports */
 }
 
-.global-filter-component .tabs-scroll-container {
+.global-filter-component.mode-networking .tabs-scroll-container {
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 0.25rem;
   width: 100%;
-  /* Ensures tabs track cleanly inline along the starting vector of the search element */
   justify-content: flex-start; 
 }
 
-/* Custom scrollbar trim to keep the scrolling filter bar completely invisible */
-.global-filter-component .tabs-scroll-container::-webkit-scrollbar {
+.global-filter-component.mode-networking .tabs-scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-.global-filter-component .filter-tab-btn {
+.global-filter-component.mode-networking .filter-tab-btn {
   background: transparent;
   border: none;
   font-family: var(--sans);
@@ -75,12 +80,12 @@
   position: relative;
 }
 
-.global-filter-component .filter-tab-btn.active {
+.global-filter-component.mode-networking .filter-tab-btn.active {
   color: var(--accent);
   font-weight: 600;
 }
 
-.global-filter-component .filter-tab-btn.active::after {
+.global-filter-component.mode-networking .filter-tab-btn.active::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -91,18 +96,88 @@
 }
 
 /* ==========================================================================
+   MODE: JOBS VIEWS (Advanced Dropdown Matrix Layout)
+   ========================================================================== */
+.global-filter-component.mode-jobs .jobs-filter-matrix-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.global-filter-component.mode-jobs .jobs-dropdown-controls-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Custom styled dropdown element container vectors */
+.global-filter-component.mode-jobs .dropdown-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.global-filter-component.mode-jobs .jobs-matrix-select {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.65rem 2rem 0.65rem 0.75rem;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  appearance: none; /* Strip native OS styling to inject custom down-chevron safely */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.global-filter-component.mode-jobs .jobs-matrix-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(225, 0, 122, 0.05);
+}
+
+/* Injection of uniform, non-breaking custom arrow indicator overlay */
+.global-filter-component.mode-jobs .dropdown-select-wrapper::after {
+  content: "▾";
+  font-size: 0.85rem;
+  color: #a19ba8;
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevents clicks on the indicator arrow from locking the select stream */
+}
+
+/* Highlighting specific operational values like the sorting filter */
+.global-filter-component.mode-jobs #filter-sort {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+
+/* ==========================================================================
    DESKTOP RESPONSIVE STATE OVERRIDES (48rem / 768px and up)
    ========================================================================== */
 @media (min-width: 48rem) {
   .global-filter-component {
+    padding: 0 0 1.25rem 0; /* Reset desktop layout parameters to snap to parent bounds */
+  }
+
+  /* Desktop Networking Variant Transforms */
+  .global-filter-component.mode-networking {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border);
-    padding: 0 0 1.25rem 0; /* Reset desktop layout parameters to snap to parent bounds */
   }
 
-  .global-filter-component .component-search-wrapper {
+  .global-filter-component.mode-networking .component-search-wrapper {
     background-color: var(--bg);
     border: 1px solid var(--border);
     border-radius: 0.35rem;
@@ -111,22 +186,53 @@
     order: 2; /* Pushes search bar to the right side on desktop layouts */
   }
 
-  .global-filter-component .component-filter-tabs {
+  .global-filter-component.mode-networking .component-filter-tabs {
     width: auto;
     order: 1; /* Aligns links navigation back to the left margin track */
   }
 
-  .global-filter-component .filter-label-text {
+  .global-filter-component.mode-networking .filter-label-text {
     display: inline-block;
   }
 
-  .global-filter-component .tabs-scroll-container {
+  .global-filter-component.mode-networking .tabs-scroll-container {
     overflow: visible;
     width: auto;
   }
 
-  .global-filter-component .filter-tab-btn.active::after {
+  .global-filter-component.mode-networking .filter-tab-btn.active::after {
     bottom: -1.45rem;
     height: 3px;
+  }
+
+  /* Desktop Jobs Matrix Variant Transforms */
+  .global-filter-component.mode-jobs {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .global-filter-component.mode-jobs .jobs-filter-matrix-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .global-filter-component.mode-jobs .component-search-wrapper {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    max-width: 22rem; /* Give searching a solid field weight on wider viewports */
+  }
+
+  .global-filter-component.mode-jobs .jobs-dropdown-controls-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    width: auto;
+  }
+
+  .global-filter-component.mode-jobs .dropdown-select-wrapper {
+    width: 180px; /* Locked standard width for uniform alignment stacks */
   }
 }
