@@ -7,7 +7,7 @@ import { createMobileHeader } from '../components/MobileHeader';
 // 2. Restored Page View Factory Imports
 import { setupHome } from '../pages/Home';
 import { setupNetworking } from '../pages/Networking';
-// import { setupJobs } from '../pages/Jobs'; // Uncomment this once your jobs file is ready!
+import { setupJobs } from '../pages/Jobs'; // Fully integrated and unlocked!
 
 export type PageRoute = 'home' | 'networking' | 'jobs' | 'profile';
 
@@ -49,7 +49,7 @@ export class PageManager {
       footerMount.appendChild(setupFooter(this));
     }
 
-    this.initGlobalFilterBar();
+    // Filter Bar is now natively initialized and context-swapped directly inside the page routing engine
     this.switchPage('home');
   }
 
@@ -61,22 +61,6 @@ export class PageManager {
       await new Promise(resolve => setTimeout(resolve, 400));
       splash.remove();
     }
-  }
-
-  private initGlobalFilterBar(): void {
-    if (!this.filterMount) return;
-
-    const filterBarConfig = {
-      filters: ['Recent Activity', 'Popular', 'Most Connected'],
-      activeFilter: 'Popular',
-      placeholderText: 'Search workspace contents...',
-      onControlsChange: (filter: string, query: string) => {
-        this.dispatchFilterUpdateToActivePage(filter, query);
-      }
-    };
-
-    this.filterMount.appendChild(createFilterBar(filterBarConfig));
-    this.evaluateFilterVisibility(this.currentActiveRoute);
   }
 
   /**
@@ -99,16 +83,15 @@ export class PageManager {
         break;
         
       case 'jobs':
-        // TODO: Create src/pages/Jobs.ts and uncomment this line during the next user story
-        // this.viewport.appendChild(setupJobs(this));
+        this.viewport.appendChild(setupJobs(this));
         break;
         
       case 'profile':
-        // Quick MVP plain placeholder for card click destinations
+        // Clean, simple Typography placeholder you requested
         this.viewport.innerHTML = `
-          <div style=\"padding: 4rem; text-align: center; font-family: var(--sans);\">
-            <h1 style=\"color: var(--text-h);\">Pàgina en Construcció</h1>
-            <p style=\"color: var(--text);\">Aquest perfil d'usuari funcionarà en el següent sprint.</p>
+          <div style="padding: 3rem 1.25rem; text-align: center; font-family: var(--sans);">
+            <h2 style="color: var(--text-h); margin-bottom: 0.5rem;">Pàgina en Construcció</h2>
+            <p style="color: var(--text);">Aquest perfil d'usuari estarà actiu en el següent sprint.</p>
           </div>
         `;
         break;
@@ -147,7 +130,7 @@ export class PageManager {
         break;
       case 'profile':
         headerTitle = 'Perfil';
-        backAction = () => window.history.back();
+        backAction = () => window.history.back(); // Native fallback trace route back step safely
         break;
     }
 
@@ -160,18 +143,67 @@ export class PageManager {
     this.mobileHeaderMount.appendChild(dynamicHeader);
   }
 
+  /**
+   * Dynamically evaluates, generates, and mutates the configuration of the FilterBar 
+   * based on the explicit structural demands of the active view.
+   */
   private evaluateFilterVisibility(route: PageRoute): void {
     if (!this.filterMount) return;
+    
     const strictlyRequiresFilters: PageRoute[] = ['networking', 'jobs'];
-    this.filterMount.style.display = strictlyRequiresFilters.includes(route) ? 'block' : 'none';
+    
+    // Guard Clause: If the route does not utilize filters, clear the container structure entirely
+    if (!strictlyRequiresFilters.includes(route)) {
+      this.filterMount.style.display = 'none';
+      this.filterMount.innerHTML = ''; 
+      return;
+    }
+
+    this.filterMount.style.display = 'block';
+    this.filterMount.innerHTML = ''; // Safely tear down previous view controls to avoid layout memory leak trace
+
+    if (route === 'networking') {
+      const filterBarConfig = {
+        mode: 'networking' as const, // Locks the discriminated type union parameter
+        placeholderText: 'Cerca professionals...',
+        filters: ['Popular', 'Most Connected', 'Recent Activity'],
+        activeFilter: 'Popular',
+        onControlsChange: (filter: string, query: string) => {
+          this.dispatchFilterUpdateToActivePage({ filter, query });
+        }
+      };
+      this.filterMount.appendChild(createFilterBar(filterBarConfig));
+    } 
+    else if (route === 'jobs') {
+      const techStacks = ['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'C++', 'Vue.js', 'Solidity', 'Go'];
+      const locations = ['Barcelona (Híbrid)', 'Barcelona (Presencial)', 'Remot (Espanya)', 'Remot (Global)', 'Girona (Presencial)', 'Mataró (Híbrid)'];
+
+      const filterBarConfig = {
+        mode: 'jobs' as const,
+        placeholderText: 'Cerca ofertes, empreses o stacks...',
+        techStacks,
+        locations,
+        onJobsFilterChange: (controls: { searchQuery: string; techStack: string; location: string; sortBy: string }) => {
+          this.dispatchFilterUpdateToActivePage(controls);
+        }
+      };
+      this.filterMount.appendChild(createFilterBar(filterBarConfig));
+    }
   }
 
-  private dispatchFilterUpdateToActivePage(filter: string, query: string): void {
+  /**
+   * Universal Event Payload Broadcaster
+   * Packages downstream structural input values and fires them into window memory trace safely.
+   */
+  private dispatchFilterUpdateToActivePage(controlsPayload: any): void {
     const strictlyRequiresFilters: PageRoute[] = ['networking', 'jobs'];
     if (!strictlyRequiresFilters.includes(this.currentActiveRoute)) return;
 
     const communicationEvent = new CustomEvent('workspaceFilterSync', {
-      detail: { filter, query, targetRoute: this.currentActiveRoute }
+      detail: { 
+        ...controlsPayload,
+        targetRoute: this.currentActiveRoute 
+      }
     });
     window.dispatchEvent(communicationEvent);
   }

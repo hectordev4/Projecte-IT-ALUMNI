@@ -1,81 +1,177 @@
 import '../../styles/components/filter-bar.css';
 
-interface FilterBarOptions {
+interface BaseFilterOptions {
+  placeholderText?: string;
+}
+
+interface NetworkingFilterOptions extends BaseFilterOptions {
+  mode: 'networking';
   filters: string[];
   activeFilter: string;
-  placeholderText?: string;
-  // Combined handler passing both real-time states back simultaneously
   onControlsChange: (activeFilter: string, searchQuery: string) => void;
 }
 
+interface JobsFilterOptions extends BaseFilterOptions {
+  mode: 'jobs';
+  techStacks: string[];
+  locations: string[];
+  onJobsFilterChange: (controls: {
+    searchQuery: string;
+    techStack: string;
+    location: string;
+    sortBy: string;
+  }) => void;
+}
+
+type FilterBarOptions = NetworkingFilterOptions | JobsFilterOptions;
+
 export function createFilterBar(options: FilterBarOptions): HTMLElement {
   const wrapper = document.createElement('div');
-  wrapper.className = 'global-filter-component';
+  wrapper.className = `global-filter-component mode-${options.mode}`;
 
-  // Keep track of internal state variables
-  let currentFilter = options.activeFilter;
-  let currentSearchQuery = '';
-  let debounceTimeoutId: number | null = null; // FIX: Controls the keystroke broadcast throttle window
+  let debounceTimeoutId: any = null;
+
+  // --------------------------------------------------------------------------
+  // SHARED DOM BASE LAYOUT: Search Input Field ALWAYS Comes First
+  // --------------------------------------------------------------------------
+  const defaultPlaceholder = options.mode === 'networking' 
+    ? 'Cerca professionals...' 
+    : 'Cerca ofertes, empreses o stacks...';
 
   wrapper.innerHTML = `
     <div class="component-search-wrapper">
       <span class="search-lens">🔍</span>
-      <input type="text" placeholder="${options.placeholderText || 'Search...'}" class="search-input-field">
+      <input type="text" placeholder="${options.placeholderText || defaultPlaceholder}" class="search-input-field">
     </div>
 
-    <nav class="component-filter-tabs">
-      <span class="filter-label-text">Filters:</span>
-      <div class="tabs-scroll-container">
-        ${options.filters.map(filter => `
-          <button class="filter-tab-btn ${filter === currentFilter ? 'active' : ''}" data-filter="${filter}">
-            ${filter}
-          </button>
-        `).join('')}
-      </div>
-    </nav>
+    <div class="component-sub-filters-container"></div>
   `;
 
-  const inputField = wrapper.querySelector('.search-input-field') as HTMLInputElement;
-  const tabButtons = wrapper.querySelectorAll('.filter-tab-btn');
+  // Safely grab our shared input field and target content container elements
+  const inputField = wrapper.querySelector('.search-input-field') as HTMLInputElement | null;
+  const subFiltersContainer = wrapper.querySelector('.component-sub-filters-container') as HTMLElement;
 
-  // Helper trigger to announce changed UI states
-  const dispatchStateUpdate = () => {
-    options.onControlsChange(currentFilter, currentSearchQuery);
-  };
+  // --------------------------------------------------------------------------
+  // BRANCH A: NETWORKING ADAPTER STATE MANIPULATION
+  // --------------------------------------------------------------------------
+  if (options.mode === 'networking') {
+    let currentFilter = options.activeFilter;
+    let currentSearchQuery = '';
 
-  // 1. Text Input Field Listener with Debounce Protection
-  inputField.addEventListener('input', (e) => {
-    currentSearchQuery = (e.target as HTMLInputElement).value.trim();
+    // Inject the flat horizontal navigation tab selector group below the search field slot
+    subFiltersContainer.innerHTML = `
+      <nav class="component-filter-tabs">
+        <span class="filter-label-text">Filtres:</span>
+        <div class="tabs-scroll-container">
+          ${options.filters.map(filter => `
+            <button class="filter-tab-btn ${filter === currentFilter ? 'active' : ''}" data-filter="${filter}">
+              ${filter}
+            </button>
+          `).join('')}
+        </div>
+      </nav>
+    `;
 
-    // Clear the pending timer on every key strike
-    if (debounceTimeoutId !== null) {
-      window.clearTimeout(debounceTimeoutId);
+    const tabButtons = wrapper.querySelectorAll('.filter-tab-btn');
+    const triggerUpdate = () => options.onControlsChange(currentFilter, currentSearchQuery);
+
+    if (inputField) {
+      inputField.addEventListener('input', (e) => {
+        currentSearchQuery = (e.target as HTMLInputElement).value.trim();
+        if (debounceTimeoutId !== null) window.clearTimeout(debounceTimeoutId);
+        debounceTimeoutId = window.setTimeout(triggerUpdate, 300);
+      });
     }
 
-    // Only broadcast up to PageManager once user pauses typing for 300ms
-    debounceTimeoutId = window.setTimeout(() => {
-      dispatchStateUpdate();
-    }, 300);
-  });
-
-  // 2. Tab Navigation Buttons Listeners (Instant execution, no debounce needed)
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      if (button.classList.contains('active')) return;
-
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      
-      currentFilter = button.getAttribute('data-filter') || '';
-      
-      // Instantly cancel any pending search timers so the tab switch carries the absolute latest query string values
-      if (debounceTimeoutId !== null) {
-        window.clearTimeout(debounceTimeoutId);
-      }
-      
-      dispatchStateUpdate();
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (button.classList.contains('active')) return;
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        currentFilter = button.getAttribute('data-filter') || '';
+        if (debounceTimeoutId !== null) window.clearTimeout(debounceTimeoutId);
+        triggerUpdate();
+      });
     });
-  });
+  } 
+  
+  // --------------------------------------------------------------------------
+  // BRANCH B: JOBS ADAPTER STATE MANIPULATION (Single Consolidated Input Field)
+  // --------------------------------------------------------------------------
+  else {
+    let currentSearchQuery = '';
+    let selectedTech = 'All';
+    let selectedLocation = 'All';
+    let selectedSort = 'Recent';
+
+    // Inject *only* the specific multi-dropdown elements without duplicating the search input container
+    subFiltersContainer.innerHTML = `
+      <div class="jobs-dropdown-controls-group">
+        <div class="dropdown-select-wrapper">
+          <select id="filter-tech-stack" class="jobs-matrix-select">
+            <option value="All">Tecnologies (Totes)</option>
+            ${options.techStacks.map(tech => `<option value="${tech}">${tech}</option>`).join('')}
+          </select>
+        </div>
+
+        <div class="dropdown-select-wrapper">
+          <select id="filter-location" class="jobs-matrix-select">
+            <option value="All">Ubicacions (Totes)</option>
+            ${options.locations.map(loc => `<option value="${loc}">${loc}</option>`).join('')}
+          </select>
+        </div>
+
+        <div class="dropdown-select-wrapper">
+          <select id="filter-sort" class="jobs-matrix-select">
+            <option value="Recent">Més recents</option>
+            <option value="Older">Més antigues</option>
+          </select>
+        </div>
+      </div>
+    `;
+
+    const techSelect = wrapper.querySelector('#filter-tech-stack') as HTMLSelectElement | null;
+    const locSelect = wrapper.querySelector('#filter-location') as HTMLSelectElement | null;
+    const sortSelect = wrapper.querySelector('#filter-sort') as HTMLSelectElement | null;
+
+    const triggerJobsUpdate = () => {
+      options.onJobsFilterChange({
+        searchQuery: currentSearchQuery,
+        techStack: selectedTech,
+        location: selectedLocation,
+        sortBy: selectedSort
+      });
+    };
+
+    if (inputField) {
+      inputField.addEventListener('input', (e) => {
+        currentSearchQuery = (e.target as HTMLInputElement).value.trim();
+        if (debounceTimeoutId !== null) window.clearTimeout(debounceTimeoutId);
+        debounceTimeoutId = window.setTimeout(triggerJobsUpdate, 300);
+      });
+    }
+
+    if (techSelect) {
+      techSelect.addEventListener('change', (e) => {
+        selectedTech = (e.target as HTMLSelectElement).value;
+        triggerJobsUpdate();
+      });
+    }
+
+    if (locSelect) {
+      locSelect.addEventListener('change', (e) => {
+        selectedLocation = (e.target as HTMLSelectElement).value;
+        triggerJobsUpdate();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        selectedSort = (e.target as HTMLSelectElement).value;
+        triggerJobsUpdate();
+      });
+    }
+  }
 
   return wrapper;
 }
