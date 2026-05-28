@@ -1,6 +1,10 @@
 import { createCard } from '../components/Card';
 import { PageManager } from '../managers/pageManager';
-import type { JobsPageDataPayload } from '../types/job';
+import { getJobsPageData } from '../services/jobsService';
+import { createFilterBar } from '../components/FilterBar';
+import type { JobItem } from '../types/job';
+import type { CompanyUser } from '../types/companyUser';
+import type { User } from '../types/user';
 import '../../styles/jobs.css';
 
 /**
@@ -13,7 +17,10 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
 
   // Core layout shell
   container.innerHTML = `
-    <main style="width: 100%;">
+    <!-- Top Filter Header Slot Anchor -->
+    <div class="jobs-header-filter-slot"></div>
+
+    <main style="width: 100%; margin-top: 1rem;">
       <div class="view-mobile jobs-mobile-container">
         <div class="mobile-jobs-feed" id="mobile-jobs-target"></div>
       </div>
@@ -23,8 +30,13 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
     </main>
   `;
 
+  const filterSlot = container.querySelector('.jobs-header-filter-slot') as HTMLElement;
   const mobileFeed = container.querySelector('#mobile-jobs-target') as HTMLElement;
   const workspaceTarget = container.querySelector('#desktop-jobs-workspace-target') as HTMLElement;
+
+  // Static unique filter taxonomies matched from your raw mock dataset
+  const techStacks = ['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'C++', 'Vue.js', 'Solidity', 'Go'];
+  const locations = ['Barcelona (Híbrid)', 'Barcelona (Presencial)', 'Remot (Espanya)', 'Remot (Global)', 'Girona (Presencial)', 'Mataró (Híbrid)'];
 
   // --------------------------------------------------------------------------
   // CENTRALIZED DATA RENDERING ENGINE
