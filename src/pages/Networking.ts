@@ -6,15 +6,15 @@ import '../../styles/networking.css';
 /**
  * Generates and manages the responsive Networking page view workspace.
  * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
- * * @param pageManager - The centralized routing engine instance.
+ * @param pageManager - The centralized routing engine instance.
  */
 export function setupNetworking(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'networking-page-wrapper';
 
-  // Core layout shells (Notice the structural filter mounts are removed since they live globally now)
+  // Core layout shells matching the layout tokens and styles cleanly
   container.innerHTML = `
-    <main>
+    <main style="width: 100%;">
       <div class="view-mobile networking-mobile-container">
         <div class="mobile-profile-feed" id="mobile-cards-target"></div>
       </div>
