@@ -87,11 +87,11 @@ export class PageManager {
         break;
         
       case 'profile':
-        // Quick MVP plain placeholder for card click destinations
+        // Clean, simple Typography placeholder you requested
         this.viewport.innerHTML = `
-          <div style="padding: 4rem; text-align: center; font-family: var(--sans);">
-            <h1 style="color: var(--text-h);">Pàgina en Construcció</h1>
-            <p style="color: var(--text);">Aquest perfil d'usuari funcionarà en el següent sprint.</p>
+          <div style="padding: 3rem 1.25rem; text-align: center; font-family: var(--sans);">
+            <h2 style="color: var(--text-h); margin-bottom: 0.5rem;">Pàgina en Construcció</h2>
+            <p style="color: var(--text);">Aquest perfil d'usuari estarà actiu en el següent sprint.</p>
           </div>
         `;
         break;
@@ -129,12 +129,8 @@ export class PageManager {
         backAction = () => this.switchPage('home');
         break;
       case 'profile':
-        this.viewport.innerHTML = `
-          <div style="padding: 3rem 1.25rem; text-align: center; font-family: var(--sans);">
-            <h2 style="color: var(--text-h); margin-bottom: 0.5rem;">Pàgina en Construcció</h2>
-            <p style="color: var(--text);">Aquest perfil d'usuari estarà actiu en el següent sprint.</p>
-          </div>
-        `;
+        headerTitle = 'Perfil';
+        backAction = () => window.history.back(); // Native fallback trace route back step safely
         break;
     }
 
