@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: #ffffff;
-  padding: 0.5rem 0;
+  background-color: var(--bg);
+  padding: 0.75rem 1.25rem; /* Uniform horizontal layout margin offset safety padding */
+  box-sizing: border-box;
 }
 
 .component-mobile-header .back-arrow-btn {
@@ -12,22 +13,28 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #08060d;
+  color: var(--text-h);
   font-weight: 600;
   padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .component-mobile-header .sub-header-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #08060d;
+  color: var(--text-h);
   margin: 0;
+  font-family: var(--sans);
+  flex: 1;
+  padding-left: 0.5rem; /* Extra tracking spacing away from your arrow element */
 }
 
 .component-mobile-header .sub-header-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem; /* Clean breathing space between icons */
 }
 
 .component-mobile-header .icon-utility-btn {
@@ -35,11 +42,28 @@
   border: none;
   font-size: 1.25rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
 }
 
 .component-mobile-header .header-avatar-placeholder {
   width: 2.25rem;
   height: 2.25rem;
-  background-color: #d9d9d9;
+  background-color: var(--border);
   border-radius: 50%;
+  overflow: hidden; /* Ensures fallback profile pictures clip perfectly to a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   DESKTOP RESPONSIVE STATE OVERRIDES (48rem / 768px and up)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  .component-mobile-header {
+    display: none !important;
+  }
 }

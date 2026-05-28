@@ -5,18 +5,15 @@
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #ffffff;
+  --accent: #e1007a;
   --accent-gradient: linear-gradient(90deg, #8e38b7 0%, #e1007a 100%);
   --sans: system-ui, -apple-system, sans-serif;
   --border: #f0f0f0;
   --shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
-  
-  /* Fluid Typography Baseline */
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -25,29 +22,64 @@ body {
   background-color: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base Display View Utilities (Preventing responsive overlapping leaks) */
+/* ==========================================================================
+   MOBILE BASELINE DEFAULTS (Applied globally to all devices by default)
+   ========================================================================== */
+#viewport-root {
+  padding-bottom: 5rem; /* Prevents mobile bottom nav overlap */
+}
+
 .view-mobile {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
-  min-height: 100svh;
   width: 100%;
 }
 
-.view-desktop {
-  display: none;
+.component-mobile-header {
+  display: flex !important;
 }
 
+.mobile-bottom-navbar {
+  display: flex !important;
+}
+
+/* Hide desktop elements on small screens by default */
+.view-desktop,
+.main-navbar,
+.main-footer {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   DESKTOP RESPONSIVE RESETS (Overriding the mobile baseline at 768px and up)
+   ========================================================================== */
 @media (min-width: 48rem) {
-  .view-mobile {
-    display: none !important;
+  #viewport-root {
+    padding-bottom: 0; /* Reset spacing for desktop */
   }
-  
+
+  /* Expose the desktop frameworks */
   .view-desktop {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     width: 100%;
+  }
+
+  .main-navbar {
+    display: block !important;
+  }
+
+  .main-footer {
+    display: block !important;
+  }
+
+  /* Vaporize the mobile packages instantly on desktop viewports */
+  .view-mobile,
+  .component-mobile-header,
+  .mobile-bottom-navbar {
+    display: none !important;
   }
 }

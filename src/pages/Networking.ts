@@ -1,39 +1,35 @@
 import { createCard } from '../components/Card';
-import { createFilterBar } from '../components/FilterBar';
-import { createMobileHeader } from '../components/MobileHeader';
 import { getNetworkingPageData } from '../services/networkingService';
+import { PageManager } from '../managers/pageManager';
 import '../../styles/networking.css';
 
-export function setupNetworking(): HTMLElement {
+/**
+ * Generates and manages the responsive Networking page view workspace.
+ * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
+ * @param pageManager - The centralized routing engine instance.
+ */
+export function setupNetworking(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'networking-page-wrapper';
 
+  // Core layout shells matching the layout tokens and styles cleanly
   container.innerHTML = `
-    <main>
+    <main style="width: 100%;">
       <div class="view-mobile networking-mobile-container">
-        <div id="mobile-header-mount"></div>
-        <div id="mobile-filter-mount"></div>
         <div class="mobile-profile-feed" id="mobile-cards-target"></div>
       </div>
 
       <div class="view-desktop networking-desktop-container">
-        <div id="desktop-filter-mount"></div>
         <div id="desktop-main-workspace-target"></div>
       </div>
     </main>
   `;
 
-  const mobileHeaderMount = container.querySelector('#mobile-header-mount') as HTMLElement;
-  const mobileFilterMount = container.querySelector('#mobile-filter-mount') as HTMLElement;
-  const desktopFilterMount = container.querySelector('#desktop-filter-mount') as HTMLElement;
-  
   const mobileFeed = container.querySelector('#mobile-cards-target') as HTMLElement;
   const workspaceTarget = container.querySelector('#desktop-main-workspace-target') as HTMLElement;
 
-  if (mobileHeaderMount) mobileHeaderMount.appendChild(createMobileHeader({ title: 'Networking' }));
-
   // --------------------------------------------------------------------------
-  // CENTRALIZED REAL-TIME WORKSPACE LAYOUT SWITCH ENGINE
+  // CENTRALIZED REAL-TIME WORKSPACE DATA RENDERING ENGINE
   // --------------------------------------------------------------------------
   const loadPageDataContent = (activeFilter: string, searchQuery: string) => {
     if (mobileFeed) mobileFeed.innerHTML = '<p class="feed-status-msg">Carregant dades...</p>';
@@ -65,7 +61,9 @@ export function setupNetworking(): HTMLElement {
               mobileFeed.innerHTML = '<p class="feed-empty-alert">No s\'han trobat usuaris.</p>';
             } else {
               data.mainProfiles.slice(0, 3).forEach(user => {
-                mobileFeed.appendChild(createCard('mobile', user, { onClick: () => {} }));
+                mobileFeed.appendChild(createCard('mobile', user, { 
+                  onClick: () => console.log(`[Router Stub] Clicked mobile profile ${user.id} via manager:`, pageManager) 
+                }));
               });
             }
           }
@@ -108,7 +106,12 @@ export function setupNetworking(): HTMLElement {
           }
 
           data.suggestions.forEach(user => {
-            if (suggestionsTarget) suggestionsTarget.appendChild(createCard('desktop', user, { buttonText: 'Connect', onClick: () => {} }));
+            if (suggestionsTarget) {
+              suggestionsTarget.appendChild(createCard('desktop', user, { 
+                buttonText: 'Connect', 
+                onClick: () => console.log(`[Router Stub] Desktop connect request for ${user.id} via manager:`, pageManager) 
+              }));
+            }
           });
 
         } else {
@@ -135,7 +138,12 @@ export function setupNetworking(): HTMLElement {
             if (gridTarget) gridTarget.innerHTML = '<p class="feed-empty-alert">No s\'han trobat profiles.</p>';
           } else {
             data.mainProfiles.slice(0, 4).forEach(user => {
-              if (gridTarget) gridTarget.appendChild(createCard('desktop', user, { buttonText: 'Message', onClick: () => {} }));
+              if (gridTarget) {
+                gridTarget.appendChild(createCard('desktop', user, { 
+                  buttonText: 'Message', 
+                  onClick: () => console.log(`[Router Stub] Desktop message window for ${user.id} via manager:`, pageManager) 
+                }));
+              }
             });
           }
 
@@ -150,7 +158,12 @@ export function setupNetworking(): HTMLElement {
           }
 
           data.suggestions.forEach(user => {
-            if (suggestionsTarget) suggestionsTarget.appendChild(createCard('desktop', user, { buttonText: 'Connect', onClick: () => {} }));
+            if (suggestionsTarget) {
+              suggestionsTarget.appendChild(createCard('desktop', user, { 
+                buttonText: 'Connect', 
+                onClick: () => console.log(`[Router Stub] Sidebar connect request for ${user.id} via manager:`, pageManager) 
+              }));
+            }
           });
         }
       })
@@ -161,23 +174,42 @@ export function setupNetworking(): HTMLElement {
   };
 
   // --------------------------------------------------------------------------
-  // INJECT CONTROL BAR INSTANCES
+  // GLOBAL EVENT ROUTER INTERCEPTOR LISTENERS
   // --------------------------------------------------------------------------
-  const networkFiltersList = ['Recent Activity', 'Popular', 'Most Connected'];
-  const defaultInitialFilter = 'Popular';
-
-  const filterBarConfig = {
-    filters: networkFiltersList,
-    activeFilter: defaultInitialFilter,
-    placeholderText: 'Search alumni by name...',
-    onControlsChange: (filter: string, query: string) => loadPageDataContent(filter, query)
+  
+  // Custom tracking callback triggered by our elevated global FilterBar component
+  const onGlobalFilterUpdate = (e: Event) => {
+    const { filter, query } = (e as CustomEvent).detail;
+    loadPageDataContent(filter, query);
   };
 
-  if (desktopFilterMount) desktopFilterMount.appendChild(createFilterBar(filterBarConfig));
-  if (mobileFilterMount) mobileFilterMount.appendChild(createFilterBar(filterBarConfig));
+  // Attach listener to catch the decoupled broadcast updates globally
+  window.addEventListener('workspaceFilterSync', onGlobalFilterUpdate);
 
-  // Run immediately to load initial page state
-  loadPageDataContent(defaultInitialFilter, '');
+  // LIFECYCLE MANAGEMENT: Cleans up the listener when PageManager tears down this view canvas
+  const unmountObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.removedNodes.forEach((node) => {
+        if (node === container) {
+          window.removeEventListener('workspaceFilterSync', onGlobalFilterUpdate);
+          unmountObserver.disconnect();
+        }
+      });
+    });
+  });
+
+  // Begin observing parent container context tracking changes
+  if (container.parentElement) {
+    unmountObserver.observe(container.parentElement, { childList: true });
+  } else {
+    // Fallback strategy if parent node assignment is delayed during microtask initialization loops
+    window.addEventListener('load', () => {
+      if (container.parentElement) unmountObserver.observe(container.parentElement, { childList: true });
+    }, { once: true });
+  }
+
+  // Fallback initial load evaluation profile query (defaults to Popular tab)
+  loadPageDataContent('Popular', '');
 
   return container;
 }

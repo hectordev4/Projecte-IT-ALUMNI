@@ -2,219 +2,107 @@
    MOBILE VIEWS (Default Baseline Page Layout)
    ========================================================================== */
 .networking-mobile-container {
-  display: flex;
+  display: flex !important; /* Forces layout structure initiation inside the SPA framework */
   flex-direction: column;
   padding: 1rem 1.25rem;
-  background-color: #ffffff;
+  background-color: var(--bg);
   gap: 1.25rem;
-}
-
-.mobile-sub-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
-}
-
-.back-arrow-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #08060d;
-  padding: 0.25rem;
-  font-weight: 600;
-}
-
-.sub-header-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #08060d;
-  margin: 0;
-}
-
-.sub-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.icon-utility-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-}
-
-.header-avatar-placeholder {
-  width: 2.25rem;
-  height: 2.25rem;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-}
-
-/* Unified component search integration wrappers */
-.mobile-search-wrapper,
-.component-search-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: #f5f4f6;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  gap: 0.5rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.search-lens {
-  color: #a19ba8;
-  font-size: 0.95rem;
-}
-
-.search-input,
-.search-input-field {
-  border: none;
-  background: transparent;
-  width: 100%;
-  font-size: 0.95rem;
-  outline: none;
-  color: #08060d;
-}
-
-.search-input::placeholder,
-.search-input-field::placeholder {
-  color: #bcbac2;
 }
 
 .mobile-profile-feed {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  width: 100%;
 }
 
-/* Mobile real-time log layout blocks */
+/* --- TYPE 4: MOBILE RECENT ACTIVITY CARD ENTRY --- */
 .mobile-activity-log-card {
   display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border: 1px solid #f0edf2;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  gap: 0.35rem;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--sans);
+}
+
+.mobile-activity-log-card .log-indicator-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--accent); /* Fuchsia activity indicator token */
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
 }
 
 .mobile-activity-log-card p {
   margin: 0;
   font-size: 0.9rem;
-  color: #08060d;
+  color: var(--text-h);
   line-height: 1.4;
+  flex: 1;
+}
+
+.mobile-activity-log-card p strong {
+  font-weight: 600;
 }
 
 .mobile-activity-log-card .log-timestamp {
   font-size: 0.75rem;
   color: #a19ba8;
-  align-self: flex-end;
+  white-space: nowrap;
+  align-self: flex-start;
+  padding-top: 0.15rem;
 }
 
+/* Status loading and empty notification typography layouts */
 .feed-status-msg,
-.feed-empty-alert {
+.feed-empty-alert,
+.feed-error-msg {
+  font-family: var(--sans);
   font-size: 0.9rem;
-  color: #6b6375;
+  color: var(--text);
   text-align: center;
   padding: 2rem 0;
   margin: 0;
   width: 100%;
 }
 
-
 /* ==========================================================================
-   DESKTOP VIEW MECHANICS (Triggering at 48rem and up)
+   DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
    ========================================================================== */
 @media (min-width: 48rem) {
-  .networking-mobile-container {
-    display: none !important;
-  }
-
   .networking-desktop-container {
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 10%;
     max-width: 1400px;
     margin: 0 auto;
-    background-color: #ffffff;
+    padding: 2.5rem 5%;
+    width: 100%;
+    background-color: var(--bg);
+  }
+
+  #desktop-main-workspace-target {
+    display: flex;
+    flex-direction: column;
     gap: 2.5rem;
-    box-sizing: border-box;
-  }
-
-  /* --- CONTROL PANEL MODULAR COMPONENTS STRIP --- */
-  .global-filter-component,
-  .desktop-controls-strip {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 1.25rem;
-    gap: 2rem;
   }
 
-  .desktop-search-wrapper,
-  .global-filter-component .component-search-wrapper {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #dcdbe0;
-    border-radius: 0.35rem;
-    padding: 0.5rem 0.75rem;
+  /* Structural wrapper for Mode A & B split-panel dashboards */
+  .desktop-split-layout {
+    display: grid;
+    grid-template-columns: 2.5fr 1.2fr;
+    gap: 3.5rem;
+    align-items: start;
     width: 100%;
-    max-width: 16rem;
-    gap: 0.5rem;
-    box-sizing: border-box;
   }
 
-  .desktop-filter-tabs,
-  .component-filter-tabs {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-    color: #08060d;
-    font-weight: 500;
-  }
-
-  .tabs-scroll-container {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .filter-tab-btn {
-    background: transparent;
-    border: none;
-    font-size: 0.85rem;
-    color: #6b6375;
-    cursor: pointer;
-    padding: 0.25rem 0;
-    font-weight: 500;
-    position: relative;
-    transition: color 0.2s ease;
-  }
-
-  .filter-tab-btn.active {
-    color: #e1007a;
-    font-weight: 600;
-  }
-
-  .filter-tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1.35rem;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background-color: #e1007a;
-  }
-
-  /* --- TOP GRID GROUP ROW LAYOUT --- */
+  /* Mode B: Primary Explorer Grid Layout */
   .popular-profiles-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -222,29 +110,45 @@
     width: 100%;
   }
 
-  /* --- LOWER COLUMNS SPLIT SCREEN DIVISION --- */
-  .desktop-split-layout {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 4rem;
-    width: 100%;
-    margin-top: 1.5rem;
-    align-items: start;
+  /* Independent Sidebar Component Layout Stack */
+  .suggestions-sidebar-section,
+  .activity-timeline-section {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
   }
 
-  /* Dynamic layout state override layout structural mechanics */
-  .activity-log-mode-active {
-    grid-template-columns: 2fr 1fr !important;
+  /* Mode A: Enforces single column display parameters when activity expands */
+  .desktop-split-layout.activity-log-mode-active {
+    grid-template-columns: 2.5fr 1.2fr;
+  }
+
+  .activity-timeline-section.expanded-full-log {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .suggestion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
   }
 
   .section-block-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #08060d;
+    color: var(--text-h);
     margin: 0 0 1.5rem 0;
+    letter-spacing: -0.01em;
   }
 
-  /* Left Column Feed Text lists style adjustments */
   .timeline-list {
     list-style: none;
     padding: 0;
@@ -256,18 +160,19 @@
 
   .timeline-list li {
     font-size: 0.85rem;
-    color: #554e5c;
+    color: var(--text);
     line-height: 1.5;
   }
 
-  /* Explicit structural overrides for standalone logs board rows */
+  /* Separate entry lines for the full timeline table framework */
   .timeline-log-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid #f5f4f6;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
     font-size: 0.9rem;
+    font-family: var(--sans);
   }
 
   .timeline-log-row:last-child {
@@ -275,7 +180,13 @@
   }
 
   .timeline-meta {
-    color: #554e5c;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .timeline-meta strong {
+    color: var(--text-h);
+    font-weight: 600;
   }
 
   .timeline-time-tag {
@@ -283,29 +194,6 @@
     color: #a19ba8;
     font-weight: 500;
     white-space: nowrap;
-  }
-
-  .timeline-list li strong {
-    color: #08060d;
-    font-weight: 600;
-  }
-
-  /* Right Column Item Suggestions Stack alignment configurations */
-  .suggestion-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  .suggested-item-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .suggested-meta {
-    display: flex;
-    flex-direction: column;
+    padding-left: 1.5rem;
   }
 }

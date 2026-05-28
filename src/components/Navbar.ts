@@ -1,6 +1,7 @@
-import '../../styles/navbar.css';
 import { PageManager } from '../managers/pageManager';
 import type { PageRoute } from '../managers/pageManager';
+import '../../styles/components/navbar.css';
+
 
 export function setupNavbar(pageManager: PageManager): HTMLElement {
   // Use a neutral outer wrapper so the mobile elements aren't hidden by desktop CSS targets
