@@ -1,16 +1,15 @@
 /* ==========================================================================
-   1. MOBILE BOTTOM NAVBAR (Base Layer - Applied Globally on Mobile)
+   1. MOBILE BOTTOM NAVBAR PRESENTATION (Structural Displays managed in style.css)
    ========================================================================== */
 .mobile-bottom-navbar {
-  display: flex;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 4.5rem;
-  background-color: #ffffff;
-  border-top: 1px solid #f0edf2;
-  border-radius: 1.5rem 1.5rem 0 0; /* Rounded upper corners matching screenshot */
+  background-color: var(--bg); /* FIX: Tokenized (#ffffff) */
+  border-top: 1px solid var(--border); /* FIX: Tokenized (#f0edf2) */
+  border-radius: 1.5rem 1.5rem 0 0;
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
   justify-content: space-around;
   align-items: center;
@@ -23,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #6b6375; /* Gray tracking label default */
+  color: var(--text); /* FIX: Tokenized (#6b6375) */
   font-size: 0.75rem;
   font-weight: 500;
   gap: 0.35rem;
@@ -37,61 +36,44 @@
    MOBILE ACTIVE/INACTIVE STATES (Targeted Fix for Fuchsia Home Icon)
    ========================================================================== */
 
-/* 1. Base style for all mobile images: force them to slate gray by default */
+/* Base style for all mobile images: force them to slate gray by default */
 .mobile-nav-item .nav-img {
   width: 1.5rem;
   height: 1.5rem;
   object-fit: contain;
-  
-  /* Strips color and softens the icon to a uniform inactive gray */
   filter: grayscale(100%) brightness(0.6);
   opacity: 0.6;
-  
   transition: all 0.2s ease;
 }
 
-/* 2. Global text highlight for whichever item is active */
+/* Global text highlight for whichever item is active */
 .mobile-nav-item.active {
-  color: #e1007a;
+  color: var(--accent); /* FIX: Tokenized (#e1007a) */
 }
 
-/* 3. The Active Home Icon Fix: Remove the filters so its native #e1007a shines */
+/* Active Home Icon Fix: Remove the filters so its native brand color shines */
 .mobile-nav-item[data-route="home"].active .nav-img {
-  filter: none; /* Disables the gray filter entirely */
+  filter: none;
   opacity: 1;
   transform: scale(1.08);
 }
 
-/* 4. Fallback filter for the other icons (Networking, Jobs, Profile) 
-      if their raw files aren't already fuchsia */
+/* Fallback color-matrix rotation for other icons if raw assets aren't fuchsia */
 .mobile-nav-item:not([data-route="home"]).active .nav-img {
   transform: scale(1.08);
   opacity: 1;
-  /* Cleaner, adjusted matrix calculation to lean more fuchsia/pink than red */
   filter: invert(15%) sepia(85%) saturate(7400%) brightness(90%) contrast(100%) hue-rotate(310deg);
-}
-
-/* Hide desktop menu layout component by default on mobile devices */
-.main-navbar {
-  display: none !important;
 }
 
 
 /* ==========================================================================
-   2. DESKTOP ONLY VIEW MECHANICS (Your exact CSS starts here)
+   2. DESKTOP ONLY VIEW PRESENTATION (48rem / 768px and up)
    ========================================================================== */
 @media (min-width: 48rem) {
 
-  /* Hide the mobile bottom bar on desktop viewports instantly */
-  .mobile-bottom-navbar {
-    display: none !important;
-  }
-
-  /* Expose the desktop main navbar */
   .main-navbar {
-    display: block !important; /* Force displays over mobile baseline default */
-    background: white;
-    border-bottom: 1px solid #f0f0f0;
+    background: var(--bg); /* FIX: Tokenized (white) */
+    border-bottom: 1px solid var(--border); /* FIX: Tokenized (#f0f0f0) */
     padding: 0.75rem 5%;
     position: sticky;
     top: 0;
@@ -109,24 +91,17 @@
   .nav-logo {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Aligns logo to the left side of the nav */
-    width: 12rem; /* Set a fixed area for the logo container */
+    justify-content: flex-start;
+    width: 12rem;
     height: 100%;
   }
 
   .logo-img {
-    /* Set default as 80% of the container's width */
     width: 80%; 
     height: auto;
-    
-    /* Smooth scaling when the navbar or container changes size */
     max-width: 100%;
     object-fit: contain;
-    
-    /* Performance and quality hint */
     image-rendering: -webkit-optimize-contrast;
-    
-    /* Hover effect to match your premium feel (optional) */
     transition: transform 0.3s ease;
   }
 
@@ -145,7 +120,7 @@
   .nav-links li {
     position: relative;
     padding: 0.5rem 0;
-    overflow: hidden; /* Keeps the line contained */
+    overflow: hidden;
   }
 
   .nav-links li a {
@@ -156,43 +131,35 @@
     transition: color 0.3s ease;
   }
 
-  /* Pink letters for active page - no permanent line */
+  /* Fuchsia brand highlight for active desktop string anchors */
   .nav-links li.active a {
-    color: #e1007a;
+    color: var(--accent); /* FIX: Tokenized (#e1007a) */
   }
 
-  /* --- THE SLIDING LINE --- */
+  /* --- THE SLIDING LINE ACTION --- */
   .nav-links li::after {
     content: '';
     position: absolute;
-    bottom: 0; /* Adjusted to sit right at the bottom edge */
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 4px;
-    background: #e1007a;
+    background: var(--accent); /* FIX: Tokenized (#e1007a) */
     border-radius: 4px 4px 0 0;
-    
-    /* Start hidden via scale */
     transform: scaleX(0);
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  /* MOTION FROM LEFT TO RIGHT:
-     When we hover, the line starts growing from the left (0% origin) */
   .nav-links li:hover::after {
     transform: scaleX(1);
     transform-origin: 0% 50%;
   }
 
-  /* MOTION FROM RIGHT TO LEFT:
-     When we stop hovering, the line shrinks toward the right (100% origin)
-     This creates a "passing through" effect when moving the mouse across links */
   .nav-links li::after {
     transform-origin: 100% 50%;
   }
 
-
-  /* --- BUTTON HOVER EFFECTS --- */
+  /* --- NAVIGATION CALL TO ACTION BUTTONS --- */
   .nav-actions {
     display: flex;
     gap: 1rem;
@@ -204,32 +171,33 @@
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
     border-radius: 0.8rem;
+    font-family: var(--sans); /* FIX: Inherited global layout font family */
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy feel */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .btn-outline {
-    border: 1.5px solid #e1007a;
-    color: #e1007a;
-    background: white;
+    border: 1.5px solid var(--accent); /* FIX: Tokenized (#e1007a) */
+    color: var(--accent); /* FIX: Tokenized (#e1007a) */
+    background: var(--bg); /* FIX: Tokenized (white) */
   }
 
   .btn-gradient {
     background: var(--accent-gradient);
-    color: white;
+    color: var(--bg); /* FIX: Tokenized (white) */
     border: none;
     box-shadow: 0 4px 10px rgba(225, 0, 122, 0.2);
   }
 
-  /* Hover States */
+  /* Hover States Scaling Operations */
   .nav-actions button:hover {
-    transform: translateY(-3px) scale(1.05); /* Slight lift and grow */
+    transform: translateY(-3px) scale(1.05);
   }
 
   .btn-outline:hover {
-    background: #fff0f7;
-    border-color: #e1007a;
+    background: #fff0f7; /* Keep accent tint overlay local */
+    border-color: var(--accent); /* FIX: Tokenized (#e1007a) */
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 4px 15px rgba(225, 0, 122, 0.1);
   }

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--bg); /* FIX: Tokenized (#ffffff) */
   padding: 0.5rem 0;
 }
 
@@ -12,7 +12,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #08060d;
+  color: var(--text-h); /* FIX: Tokenized (#08060d) */
   font-weight: 600;
   padding: 0.25rem;
 }
@@ -20,8 +20,9 @@
 .component-mobile-header .sub-header-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #08060d;
+  color: var(--text-h); /* FIX: Tokenized (#08060d) */
   margin: 0;
+  font-family: var(--sans); /* FIX: Inherited global layout font family */
 }
 
 .component-mobile-header .sub-header-actions {
@@ -40,6 +41,17 @@
 .component-mobile-header .header-avatar-placeholder {
   width: 2.25rem;
   height: 2.25rem;
-  background-color: #d9d9d9;
+  background-color: var(--border); /* FIX: Tokenized (#d9d9d9) */
   border-radius: 50%;
+  overflow: hidden; /* Ensures fallback profile pictures clip perfectly to a circle */
+}
+
+/* ==========================================================================
+   DESKTOP RESPONSIVE STATE OVERRIDES (48rem / 768px and up)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  /* Hides mobile utility header to clear room for sidebar layout blocks */
+  .component-mobile-header {
+    display: none !important;
+  }
 }

@@ -33,8 +33,8 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
       <div class="profile-avatar-block"></div>
     `;
 
-    // Interactive Trigger Setup (Handles touch taps and keyboard Space/Enter events)
-    const handleMobileClick = (e: Event) => {
+// Interactive Trigger Setup (No event arguments required since we only forward the user data)
+    const handleMobileClick = () => {
       if (options.onClick) {
         options.onClick(user);
       } else {
@@ -42,11 +42,14 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
       }
     };
 
-    cardElement.addEventListener('click', handleMobileClick);
+    cardElement.addEventListener('click', () => {
+      handleMobileClick();
+    });
+
     cardElement.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleMobileClick(e);
+        e.preventDefault(); // Prevents page scrolling on spacebar tap
+        handleMobileClick();
       }
     });
 
@@ -69,7 +72,7 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
     actionBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (options.onClick) {
-        options.onClick(user);
+        options.onClick(user); // FIX: Explicitly forward the active user object back to the caller
       } else {
         console.log(`Desktop action "${actionLabel}" fired for: ${user.name}`);
       }
