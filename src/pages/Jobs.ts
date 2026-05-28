@@ -4,21 +4,19 @@ import type { JobsPageDataPayload } from '../types/job';
 import '../../styles/jobs.css';
 
 /**
- * Generates and manages the responsive Job Portal view workspace.
- * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
- * @param pageManager - The centralized routing engine instance.
+ * Manages the Jobs portal workspace.
+ * Listens to global filter events and re-renders the feed dynamically.
  */
 export function setupJobs(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'jobs-page-wrapper';
 
-  // Core layout shells matching standard framework configuration tokens cleanly
+  // Core layout shell
   container.innerHTML = `
     <main style="width: 100%;">
       <div class="view-mobile jobs-mobile-container">
         <div class="mobile-jobs-feed" id="mobile-jobs-target"></div>
       </div>
-
       <div class="view-desktop jobs-desktop-container">
         <div id="desktop-jobs-workspace-target"></div>
       </div>
@@ -29,155 +27,107 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
   const workspaceTarget = container.querySelector('#desktop-jobs-workspace-target') as HTMLElement;
 
   // --------------------------------------------------------------------------
-  // CENTRALIZED REAL-TIME WORKSPACE DATA RENDERING ENGINE
+  // CENTRALIZED DATA RENDERING ENGINE
   // --------------------------------------------------------------------------
-  const loadJobsPageDataContent = (activeFilter: string, searchQuery: string) => {
+  const loadJobsPageDataContent = (searchQuery: string, techStack: string, location: string, sortBy: string) => {
     if (mobileFeed) mobileFeed.innerHTML = '<p class="jobs-feed-status-msg">Carregant ofertes...</p>';
     if (workspaceTarget) workspaceTarget.innerHTML = '<p class="jobs-feed-status-msg">Carregant ofertes...</p>';
 
-    // Fetch live payload directly from your mock or backend endpoint configuration
     fetch('/data/fakedata.json')
-      .then((res) => {
-        if (!res.ok) throw new Error("Could not retrieve job portal listings dataset");
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data: JobsPageDataPayload) => {
         
-        // Comprehensive filter logic tracking titles, companies, and individual tech stack tags
-        const filteredJobs = (data.jobs || []).filter(job => {
+        // 1. Filter Logic
+        let filteredJobs = (data.jobs || []).filter(job => {
           const searchLower = searchQuery.toLowerCase();
-          const matchesTitle = job.title.toLowerCase().includes(searchLower);
-          const matchesCompany = job.companyName.toLowerCase().includes(searchLower);
-          const matchesStack = job.techStackTags.some(tag => tag.toLowerCase().includes(searchLower));
+          const matchesSearch = job.title.toLowerCase().includes(searchLower) || 
+                                job.companyName.toLowerCase().includes(searchLower) ||
+                                job.techStackTags.some(tag => tag.toLowerCase().includes(searchLower));
           
-          return matchesTitle || matchesCompany || matchesStack;
+          const matchesTech = techStack === 'All' || job.techStackTags.includes(techStack);
+          const matchesLoc = location === 'All' || job.location === location;
+          
+          return matchesSearch && matchesTech && matchesLoc;
         });
 
-        // Evaluate whether any recruiters are present to determine structural grid spacing
+        // 2. Sorting Logic
+        if (sortBy === 'Older') filteredJobs.reverse();
+
         const hasRecruiters = data.recruiters && data.recruiters.length > 0;
 
-        // --- 1. HANDLE MOBILE RENDERING LAYER ---
+        // --- Render Mobile Feed ---
         if (mobileFeed) {
-          mobileFeed.innerHTML = '';
-          if (filteredJobs.length === 0) {
-            mobileFeed.innerHTML = '<p class="jobs-feed-empty-alert">No s\'han trobat ofertes coincidents.</p>';
-          } else {
-            filteredJobs.forEach(job => {
-              const jobCard = document.createElement('div');
-              jobCard.className = 'mobile-job-item-card';
-              jobCard.innerHTML = `
-                <div class="job-card-main-info">
-                  <h3 class="job-item-title">${job.title}</h3>
-                  <p class="job-item-company">${job.companyName} — <span class="job-item-loc">${job.location}</span></p>
-                  <div class="job-tags-row">
-                    <span class="job-badge-tag job-type-accent">${job.jobType}</span>
-                    ${job.techStackTags.map(tag => `<span class="job-badge-tag">${tag}</span>`).join('')}
-                  </div>
+          mobileFeed.innerHTML = filteredJobs.length === 0 ? '<p class="jobs-feed-empty-alert">No s\'han trobat ofertes coincidents.</p>' : '';
+          filteredJobs.forEach(job => {
+            const jobCard = document.createElement('div');
+            jobCard.className = 'mobile-job-item-card';
+            jobCard.innerHTML = `
+              <div class="job-card-main-info">
+                <h3 class="job-item-title">${job.title}</h3>
+                <p class="job-item-company">${job.companyName} — <span>${job.location}</span></p>
+                <div class="job-tags-row">
+                  <span class="job-badge-tag job-type-accent">${job.jobType}</span>
+                  ${job.techStackTags.map(tag => `<span class="job-badge-tag">${tag}</span>`).join('')}
                 </div>
-                <span class="job-item-timestamp">${job.dateString}</span>
-              `;
-              
-              // Direct external website link or routing fallback sequence if recruiter doesn't exist
-              jobCard.addEventListener('click', () => {
-                if (job.applicationUrl) {
-                  window.open(job.applicationUrl, '_blank', 'noopener,noreferrer');
-                } else {
-                  console.log(`[Router] Internal submission context fallback via manager:`, pageManager);
-                  pageManager.switchPage('profile'); 
-                }
-              });
-
-              mobileFeed.appendChild(jobCard);
-            });
-          }
+              </div>
+              <span class="job-item-timestamp">${job.dateString}</span>
+            `;
+            jobCard.addEventListener('click', () => job.applicationUrl ? window.open(job.applicationUrl, '_blank') : pageManager.switchPage('profile'));
+            mobileFeed.appendChild(jobCard);
+          });
         }
 
-        // --- 2. HANDLE DESKTOP RENDERING WORKSPACE ---
-        if (!workspaceTarget) return;
-        workspaceTarget.innerHTML = '';
-
-        // Conditional full-width styling applied dynamically when recruiters do not exist
-        workspaceTarget.innerHTML = `
-          <div class="desktop-jobs-split-layout ${!hasRecruiters ? 'no-sidebar-active' : ''}">
-            <div class="jobs-board-timeline-section">
-              <h2 class="jobs-section-block-title">Ofertes de feina disponibles (${filteredJobs.length})</h2>
-              <div class="desktop-jobs-grid-view" id="desktop-jobs-rows-target"></div>
-            </div>
-
-            ${hasRecruiters ? `
-              <div class="jobs-suggestions-sidebar-section">
-                <h2 class="jobs-section-block-title">Recrutadors destacats</h2>
-                <div class="jobs-suggestion-stack" id="sidebar-recruiters-target"></div>
+        // --- Render Desktop Workspace ---
+        if (workspaceTarget) {
+          workspaceTarget.innerHTML = `
+            <div class="desktop-jobs-split-layout ${!hasRecruiters ? 'no-sidebar-active' : ''}">
+              <div class="jobs-board-timeline-section">
+                <h2 class="jobs-section-block-title">Ofertes (${filteredJobs.length})</h2>
+                <div class="desktop-jobs-grid-view" id="desktop-jobs-rows-target"></div>
               </div>
-            ` : ''}
-          </div>
-        `;
+              ${hasRecruiters ? '<div class="jobs-suggestions-sidebar-section" id="sidebar-recruiters-target"></div>' : ''}
+            </div>
+          `;
 
-        const jobsGridTarget = workspaceTarget.querySelector('#desktop-jobs-rows-target') as HTMLElement;
-        const recruitersTarget = workspaceTarget.querySelector('#sidebar-recruiters-target') as HTMLElement;
+          const jobsGridTarget = workspaceTarget.querySelector('#desktop-jobs-rows-target') as HTMLElement;
+          const recruitersTarget = workspaceTarget.querySelector('#sidebar-recruiters-target') as HTMLElement;
 
-        if (filteredJobs.length === 0) {
-          if (jobsGridTarget) jobsGridTarget.innerHTML = '<p class="jobs-feed-empty-alert">No s\'han trobat ofertes de feina per a aquesta cerca.</p>';
-        } else {
           filteredJobs.forEach(job => {
             const rowCard = document.createElement('div');
             rowCard.className = 'desktop-job-row-card';
             rowCard.innerHTML = `
               <div class="desktop-job-details">
                 <h3>${job.title}</h3>
-                <p class="company-meta-line">
-                  <strong>${job.companyName}</strong> • ${job.location} • <span class="job-type-indicator">${job.jobType}</span> • <span class="time-dim">${job.dateString}</span>
-                </p>
-                <div class="job-tags-row">
-                  ${job.techStackTags.map(tag => `<span class="job-badge-tag">${tag}</span>`).join('')}
-                </div>
+                <p><strong>${job.companyName}</strong> • ${job.location} • ${job.jobType}</p>
+                <div class="job-tags-row">${job.techStackTags.map(tag => `<span class="job-badge-tag">${tag}</span>`).join('')}</div>
               </div>
-              <button class="job-apply-action-btn">${job.applicationUrl ? 'Veure web' : 'Inscriu-me'}</button>
+              <button class="job-apply-action-btn">Veure</button>
             `;
-
-            // Action button interception processing links or execution sequences safely
-            rowCard.querySelector('.job-apply-action-btn')?.addEventListener('click', (e) => {
-              e.stopPropagation();
-              if (job.applicationUrl) {
-                window.open(job.applicationUrl, '_blank', 'noopener,noreferrer');
-              } else {
-                console.log(`[Router] Processing internal application trigger request for listing context ID: ${job.id}`);
-              }
-            });
-
-            if (jobsGridTarget) jobsGridTarget.appendChild(rowCard);
+            rowCard.querySelector('.job-apply-action-btn')?.addEventListener('click', () => window.open(job.applicationUrl, '_blank'));
+            jobsGridTarget.appendChild(rowCard);
           });
-        }
 
-        // Reuse standard user factory layouts safely if recruiters array is available
-        if (hasRecruiters && recruitersTarget) {
-          data.recruiters!.forEach(recruiter => {
-            recruitersTarget.appendChild(createCard('desktop', recruiter, { 
-              buttonText: 'Contacta', 
-              onClick: () => console.log(`[Router Stub] Recruiter messaging session for profile ${recruiter.id} via manager:`, pageManager) 
-            }));
-          });
+          if (hasRecruiters) {
+            data.recruiters!.forEach(r => recruitersTarget.appendChild(createCard('desktop', r, { buttonText: 'Contacta' })));
+          }
         }
-
       })
-      .catch((err) => {
-        console.error("Critical Jobs Workspace Render Error:", err);
-        if (workspaceTarget) workspaceTarget.innerHTML = '<p class="jobs-feed-error-msg">Error en carregar les dades de contractació.</p>';
-        if (mobileFeed) mobileFeed.innerHTML = '<p class="jobs-feed-error-msg">Error en carregar dades.</p>';
-      });
+      .catch((err) => console.error("Jobs Render Error:", err));
   };
 
   // --------------------------------------------------------------------------
-  // GLOBAL EVENT ROUTER INTERCEPTOR LISTENERS & CLEANUP
+  // EVENT LISTENER: Clean, direct, and isolated
   // --------------------------------------------------------------------------
   const onGlobalFilterUpdate = (e: Event) => {
-    const { filter, query } = (e as CustomEvent).detail;
-    loadJobsPageDataContent(filter, query);
+    const detail = (e as CustomEvent).detail;
+    if (detail.targetRoute === 'jobs') {
+      loadJobsPageDataContent(detail.searchQuery || '', detail.techStack || 'All', detail.location || 'All', detail.sortBy || 'Recent');
+    }
   };
 
   window.addEventListener('workspaceFilterSync', onGlobalFilterUpdate);
 
-  // LIFECYCLE MANAGEMENT: Unbinds listeners immediately when swapping view contexts completely
+  // Cleanup
   const unmountObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.removedNodes.forEach((node) => {
@@ -188,17 +138,11 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
       });
     });
   });
+  
+  if (container.parentElement) unmountObserver.observe(container.parentElement, { childList: true });
 
-  if (container.parentElement) {
-    unmountObserver.observe(container.parentElement, { childList: true });
-  } else {
-    window.addEventListener('load', () => {
-      if (container.parentElement) unmountObserver.observe(container.parentElement, { childList: true });
-    }, { once: true });
-  }
-
-  // Initial load invocation sequence
-  loadJobsPageDataContent('Popular', '');
+  // Initial load
+  loadJobsPageDataContent('', 'All', 'All', 'Recent');
 
   return container;
 }
