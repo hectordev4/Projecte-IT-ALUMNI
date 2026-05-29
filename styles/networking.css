@@ -2,12 +2,17 @@
    MOBILE VIEWS (Default Baseline Page Layout)
    ========================================================================== */
 .networking-mobile-container {
-  display: flex !important; /* Forces layout structure initiation inside the SPA framework */
+  display: flex; /* Removed !important so media queries can override it */
   flex-direction: column;
   padding: 1rem 1.25rem;
   background-color: var(--bg);
   gap: 1.25rem;
   width: 100%;
+}
+
+/* Hide desktop container on mobile */
+.networking-desktop-container {
+  display: none; 
 }
 
 .mobile-profile-feed {
@@ -78,7 +83,14 @@
    DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
    ========================================================================== */
 @media (min-width: 48rem) {
+  /* 1. HIDE MOBILE CARDS ON DESKTOP */
+  .networking-mobile-container {
+    display: none; 
+  }
+
+  /* 2. REVEAL DESKTOP CONTAINER */
   .networking-desktop-container {
+    display: block; 
     max-width: 1400px;
     margin: 0 auto;
     padding: 2.5rem 5%;
@@ -110,9 +122,8 @@
     width: 100%;
   }
 
-  /* Independent Sidebar Component Layout Stack */
-  .suggestions-sidebar-section,
-  .activity-timeline-section {
+  /* Suggestions Sidebar retains its solid card look */
+  .suggestions-sidebar-section {
     display: flex;
     flex-direction: column;
     background-color: var(--bg);
@@ -122,16 +133,19 @@
     box-shadow: var(--shadow);
   }
 
-  /* Mode A: Enforces single column display parameters when activity expands */
-  .desktop-split-layout.activity-log-mode-active {
-    grid-template-columns: 2.5fr 1.2fr;
-  }
-
-  .activity-timeline-section.expanded-full-log {
-    background: transparent;
+  /* 3. INVISIBLE CARDS: Activity Timeline Section loses borders/background */
+  .activity-timeline-section {
+    display: flex;
+    flex-direction: column;
+    background: transparent; 
     border: none;
     box-shadow: none;
     padding: 0;
+  }
+
+  /* Mode A: Enforces single column display parameters when activity expands */
+  .desktop-split-layout.activity-log-mode-active {
+    grid-template-columns: 2.5fr 1.2fr;
   }
 
   .suggestion-stack {
@@ -155,7 +169,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1rem; /* Space between invisible activity rows */
   }
 
   .timeline-list li {
@@ -165,14 +179,22 @@
   }
 
   /* Separate entry lines for the full timeline table framework */
+  .timeline-date-group-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    list-style: none;
+  }
+
   .timeline-log-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.9rem;
-    font-family: var(--sans);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
   }
 
   .timeline-log-row:last-child {

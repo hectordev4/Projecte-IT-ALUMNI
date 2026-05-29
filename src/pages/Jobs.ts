@@ -3,30 +3,20 @@ import { PageManager } from '../managers/pageManager';
 import { getJobsPageData } from '../services/jobsService';
 import '../../styles/jobs.css';
 
-/**
- * Generates and manages the responsive Job Portal view workspace.
- * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
- * @param pageManager - The centralized routing engine instance.
- */
 export function setupJobs(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'jobs-page-wrapper';
 
   container.innerHTML = `
     <main style="width: 100%;">
-      <div class="view-mobile jobs-mobile-container">
-        <div class="mobile-jobs-feed" id="mobile-jobs-target"></div>
-      </div>
-      <div class="view-desktop jobs-desktop-container">
-        <div id="desktop-jobs-workspace-target"></div>
-      </div>
+      <div class="view-mobile jobs-mobile-container"><div class="mobile-jobs-feed" id="mobile-jobs-target"></div></div>
+      <div class="view-desktop jobs-desktop-container"><div id="desktop-jobs-workspace-target"></div></div>
     </main>
   `;
 
   const mobileFeed = container.querySelector('#mobile-jobs-target') as HTMLElement;
   const workspaceTarget = container.querySelector('#desktop-jobs-workspace-target') as HTMLElement;
 
-  // The engine that consumes the data provided by the Service Layer
   const renderWorkspace = async (search: string, tech: string, loc: string, sort: string) => {
     if (mobileFeed) mobileFeed.innerHTML = '<p class="jobs-feed-status-msg">Carregant ofertes...</p>';
     if (workspaceTarget) workspaceTarget.innerHTML = '<p class="jobs-feed-status-msg">Carregant ofertes...</p>';
@@ -36,19 +26,23 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
       const { mainJobs, activeRecruiters } = data;
       const hasRecruiters = activeRecruiters.length > 0;
 
-      // --- Mobile Rendering ---
+      // --- Mobile Rendering (85% Width Cards) ---
       if (mobileFeed) {
         mobileFeed.innerHTML = mainJobs.length === 0 ? '<p class="jobs-feed-empty-alert">No s\'han trobat ofertes.</p>' : '';
         mainJobs.forEach(job => {
+          const visibleTags = job.techStackTags.slice(0, 3);
+          const extraTags = job.techStackTags.length > 3 ? `<span class="job-badge-tag subtle-tag">+${job.techStackTags.length - 3}</span>` : '';
+
           const card = document.createElement('div');
-          card.className = 'mobile-job-item-card';
+          card.className = 'mobile-job-item-card grid-card-style';
           card.innerHTML = `
             <div class="job-card-main-info">
-              <h3>${job.title}</h3>
-              <p>${job.companyName} — <span>${job.location}</span></p>
-              <div class="job-tags-row">
+              <h3 class="card-title">${job.title}</h3>
+              <p class="card-meta"><strong>${job.companyName}</strong> <br> ${job.location}</p>
+              <div class="job-tags-row card-tags">
                 <span class="job-badge-tag job-type-accent">${job.jobType}</span>
-                ${job.techStackTags.map(t => `<span class="job-badge-tag">${t}</span>`).join('')}
+                ${visibleTags.map(t => `<span class="job-badge-tag">${t}</span>`).join('')}
+                ${extraTags}
               </div>
             </div>
           `;
@@ -57,34 +51,46 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
         });
       }
 
-      // --- Desktop Rendering ---
+      // --- Desktop Rendering (3-Column Grid) ---
       if (workspaceTarget) {
         workspaceTarget.innerHTML = `
           <div class="desktop-jobs-split-layout ${!hasRecruiters ? 'no-sidebar-active' : ''}">
-            <div class="jobs-board-timeline-section">
-              <h2 class="jobs-section-block-title">Ofertes (${mainJobs.length})</h2>
-              <div class="desktop-jobs-grid-view" id="desktop-jobs-rows-target"></div>
+            <div class="jobs-board-main-section">
+              <div class="jobs-header-row">
+                <h2 class="jobs-section-block-title">Ofertes de Feina (${mainJobs.length})</h2>
+              </div>
+              <div class="desktop-jobs-grid-view" id="desktop-jobs-grid-target"></div>
             </div>
             ${hasRecruiters ? '<div class="jobs-suggestions-sidebar-section" id="sidebar-recruiters-target"></div>' : ''}
           </div>
         `;
 
-        const grid = workspaceTarget.querySelector('#desktop-jobs-rows-target') as HTMLElement;
+        const gridTarget = workspaceTarget.querySelector('#desktop-jobs-grid-target') as HTMLElement;
         const recruiters = workspaceTarget.querySelector('#sidebar-recruiters-target') as HTMLElement;
 
         mainJobs.forEach(job => {
-          const row = document.createElement('div');
-          row.className = 'desktop-job-row-card';
-          row.innerHTML = `
-            <div class="desktop-job-details">
-              <h3>${job.title}</h3>
-              <p><strong>${job.companyName}</strong> • ${job.location}</p>
-              <div class="job-tags-row">${job.techStackTags.map(t => `<span class="job-badge-tag">${t}</span>`).join('')}</div>
+          const visibleTags = job.techStackTags.slice(0, 3); // Kept strictly to 3 to maintain grid row heights
+          const extraTags = job.techStackTags.length > 3 ? `<span class="job-badge-tag subtle-tag">+${job.techStackTags.length - 3}</span>` : '';
+
+          const card = document.createElement('div');
+          card.className = 'desktop-job-grid-card';
+          card.innerHTML = `
+            <div class="card-top-content">
+              <h3 class="card-title">${job.title}</h3>
+              <p class="card-meta"><strong>${job.companyName}</strong> <br> <span class="meta-dot">${job.location}</span></p>
+              <div class="job-tags-row card-tags">
+                <span class="job-badge-tag job-type-accent">${job.jobType}</span>
+                ${visibleTags.map(t => `<span class="job-badge-tag">${t}</span>`).join('')}
+                ${extraTags}
+              </div>
             </div>
-            <button class="job-apply-action-btn">Veure</button>
+            <div class="card-bottom-actions">
+              <span class="job-date-meta">${job.dateString}</span>
+              <button class="job-apply-action-btn">Veure</button>
+            </div>
           `;
-          row.querySelector('.job-apply-action-btn')?.addEventListener('click', () => window.open(job.applicationUrl, '_blank'));
-          grid.appendChild(row);
+          card.querySelector('.job-apply-action-btn')?.addEventListener('click', () => window.open(job.applicationUrl, '_blank'));
+          gridTarget.appendChild(card);
         });
 
         if (hasRecruiters) {
@@ -97,7 +103,6 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
     }
   };
 
-  // Event listener reacts ONLY to broadcasted filter changes
   const onGlobalFilterUpdate = (e: Event) => {
     const detail = (e as CustomEvent).detail;
     if (detail.targetRoute === 'jobs') {
@@ -107,7 +112,6 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
 
   window.addEventListener('workspaceFilterSync', onGlobalFilterUpdate);
 
-  // Lifecycle cleanup
   const unmountObserver = new MutationObserver((mutations) => {
     mutations.forEach((m) => m.removedNodes.forEach((n) => {
       if (n === container) {
@@ -118,7 +122,6 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
   });
   if (container.parentElement) unmountObserver.observe(container.parentElement, { childList: true });
 
-  // Initial load invocation
   renderWorkspace('', 'All', 'All', 'Recent');
   
   return container;

@@ -1,90 +1,117 @@
 /* ==========================================================================
-   MOBILE VIEWS (Default Baseline Page Layout Elements)
+   MOBILE VIEWS (Centered 85% Width Cards)
    ========================================================================== */
 .jobs-mobile-container {
-  display: flex !important;
+  display: flex; 
   flex-direction: column;
-  padding: 1rem 1.25rem;
+  padding: 1.5rem 0; /* Vertical padding, no horizontal padding on container */
   background-color: var(--bg);
-  gap: 1.25rem;
   width: 100%;
+}
+
+.jobs-desktop-container {
+  display: none;
 }
 
 .mobile-jobs-feed {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center; /* Centers the cards */
+  gap: 1.25rem;
   width: 100%;
 }
 
-.mobile-job-item-card {
+/* Standalone Card */
+.mobile-job-item-card.grid-card-style {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 85%; /* The magic 85% width */
+  max-width: 400px;
   box-shadow: var(--shadow);
   cursor: pointer;
   box-sizing: border-box;
-  width: 100%;
   font-family: var(--sans);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.mobile-job-item-card.grid-card-style:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   SHARED TYPOGRAPHY & TAGS
+   ========================================================================== */
 .job-card-main-info {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.5rem;
   flex: 1;
 }
 
-.job-item-title {
-  font-size: 1rem;
+.card-title {
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-h);
   margin: 0;
+  line-height: 1.25;
+  font-family: var(--sans);
 }
 
-.job-item-company {
-  font-size: 0.85rem;
+.card-meta {
+  font-size: 0.9rem;
   color: var(--text);
-  margin: 0;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+  font-family: var(--sans);
 }
 
-.job-item-loc {
-  color: #a19ba8;
+.meta-dot {
+  color: var(--text-muted);
 }
 
-.job-tags-row {
+.job-date-meta {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--sans);
+}
+
+.card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
+  gap: 0.5rem;
 }
 
 .job-badge-tag {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  background-color: #f5f4f6;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
   color: var(--text);
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  white-space: nowrap;
 }
 
-/* Custom visual emphasis for the primary employment contract token type */
 .job-badge-tag.job-type-accent {
   background-color: rgba(225, 0, 122, 0.08);
   color: var(--accent);
   font-weight: 600;
+  border: none;
 }
 
-.job-item-timestamp {
-  font-size: 0.75rem;
-  color: #a19ba8;
-  white-space: nowrap;
+.subtle-tag {
+  background-color: transparent;
+  color: var(--text-muted);
+  border-color: transparent;
+  font-weight: 600;
 }
 
+/* Messages */
 .jobs-feed-status-msg,
 .jobs-feed-empty-alert,
 .jobs-feed-error-msg {
@@ -93,7 +120,6 @@
   color: var(--text);
   text-align: center;
   padding: 2.5rem 0;
-  margin: 0;
   width: 100%;
 }
 
@@ -101,7 +127,12 @@
    DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
    ========================================================================== */
 @media (min-width: 48rem) {
+  .jobs-mobile-container {
+    display: none;
+  }
+  
   .jobs-desktop-container {
+    display: block;
     max-width: 1400px;
     margin: 0 auto;
     padding: 2.5rem 5%;
@@ -111,27 +142,84 @@
 
   .desktop-jobs-split-layout {
     display: grid;
-    grid-template-columns: 2.5fr 1.2fr;
+    grid-template-columns: 2.5fr 1.2fr; /* Main grid area vs Sidebar */
     gap: 3.5rem;
     align-items: start;
     width: 100%;
   }
 
-  /* FLUID LAYOUT MODIFIER: Extends the job row feed area into full screen width when recruiters vanish */
   .desktop-jobs-split-layout.no-sidebar-active {
     grid-template-columns: 1fr !important;
-    max-width: 1000px;
-    margin: 0 auto;
   }
 
-  .desktop-jobs-grid-view {
+  /* Removed the "card" container from the main section 
+     so the grid floats directly on the background 
+  */
+  .jobs-board-main-section {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .jobs-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .jobs-section-block-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-h);
+    margin: 0;
+  }
+
+  /* 3-COLUMN GRID SYSTEM */
+  .desktop-jobs-grid-view {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
+    gap: 1.5rem;
     width: 100%;
   }
 
-  .jobs-board-timeline-section,
+  /* Desktop Grid Card Layout */
+  .desktop-job-grid-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content to top and actions to bottom */
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; /* Ensures all cards in a row match height */
+    box-sizing: border-box;
+  }
+
+  .desktop-job-grid-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-top-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem; /* Space between content and bottom actions */
+  }
+
+  .card-bottom-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: auto; /* Forces this to stick to the bottom */
+  }
+
   .jobs-suggestions-sidebar-section {
     display: flex;
     flex-direction: column;
@@ -140,68 +228,13 @@
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: var(--shadow);
-  }
-
-  .jobs-suggestion-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-  }
-
-  .jobs-section-block-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-h);
-    margin: 0 0 1.5rem 0;
-    letter-spacing: -0.01em;
-  }
-
-  .desktop-job-row-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    padding: 1.5rem 2rem;
-    width: 100%;
-    box-sizing: border-box;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .desktop-job-row-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  }
-
-  .desktop-job-details h3 {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-h);
-    margin: 0 0 0.35rem 0;
-    font-family: var(--sans);
-  }
-
-  .company-meta-line {
-    font-size: 0.85rem;
-    color: var(--text);
-    margin: 0 0 0.75rem 0;
-    font-family: var(--sans);
-  }
-
-  .job-type-indicator {
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .time-dim {
-    color: #a19ba8;
+    position: sticky;
+    top: 2rem;
   }
 
   .job-apply-action-btn {
-    padding: 0.65rem 1.75rem;
-    border-radius: 0.6rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
     font-family: var(--sans);
     font-weight: 600;
     font-size: 0.85rem;
@@ -209,12 +242,18 @@
     border: none;
     color: var(--bg) !important;
     background-color: var(--accent) !important;
-    box-shadow: 0 4px 12px rgba(225, 0, 122, 0.15);
     transition: background-color 0.2s ease, transform 0.1s ease;
   }
 
   .job-apply-action-btn:hover {
     background-color: #bc0064 !important;
-    transform: translateY(-1px);
+    transform: scale(1.02);
+  }
+}
+
+/* Fallback for smaller desktop screens: scale down to 2 columns if things get tight */
+@media (min-width: 48rem) and (max-width: 70rem) {
+  .desktop-jobs-grid-view {
+    grid-template-columns: repeat(2, 1fr); 
   }
 }

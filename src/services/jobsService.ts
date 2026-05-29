@@ -15,11 +15,16 @@ export interface JobsDataFilteredPayload {
  * * @param activeFilter - Target filter tracking (e.g., 'Popular', 'Recent').
  * @param searchQuery - Case-insensitive loose-match evaluation string.
  */
+/**
+ * Updated Service Layer: Now handles the full 4-parameter matrix from the FilterBar.
+ */
 export async function getJobsPageData(
-  activeFilter: string = 'Popular',
-  searchQuery: string = ''
+  sortBy: string = 'Recent',
+  searchQuery: string = '',
+  techStack: string = 'All',
+  location: string = 'All'
 ): Promise<JobsDataFilteredPayload> {
-  // 1. Dispatch generic base fetch to retrieve the multi-domain JSON asset
+  // 1. Fetch data
   const data = await fetchLocalData<JobsPageDataPayload>('/data/jobs.json');
 
   const allJobs = data.jobs || [];
@@ -28,28 +33,37 @@ export async function getJobsPageData(
 
   const cleanQuery = searchQuery.toLowerCase().trim();
 
-  // 2. Loose-match global search evaluation across fields
+  // 2. Comprehensive Filter Evaluation
   const filteredJobs = allJobs.filter((job) => {
-    if (!cleanQuery) return true;
+    
+    // A. Text Search Match (Title, Company, or Tags)
+    const matchesSearch = !cleanQuery || 
+      job.title.toLowerCase().includes(cleanQuery) ||
+      job.companyName.toLowerCase().includes(cleanQuery) ||
+      job.techStackTags.some((tag) => tag.toLowerCase().includes(cleanQuery));
 
-    const matchesTitle = job.title.toLowerCase().includes(cleanQuery);
-    const matchesCompany = job.companyName.toLowerCase().includes(cleanQuery);
-    const matchesStack = job.techStackTags.some((tag) =>
-      tag.toLowerCase().includes(cleanQuery)
-    );
+    // B. Tech Stack Dropdown Match
+    const matchesTech = techStack === 'All' || job.techStackTags.includes(techStack);
 
-    return matchesTitle || matchesCompany || matchesStack;
+    // C. Location Dropdown Match
+    // Using .includes() so "Barcelona" will match "Barcelona (Híbrid)" safely
+    const matchesLoc = location === 'All' || job.location.includes(location);
+
+    // Job must pass ALL active filters to be shown
+    return matchesSearch && matchesTech && matchesLoc;
   });
 
-  // 3. Handle specific filter tab logic permutations down the road if needed
-  let sortedJobs = filteredJobs;
-  if (activeFilter === 'Recent') {
-    // In a real database environment you would sort via explicit timestamp numbers.
-    // For local mock listings, we retain the asset sequence or reverse it for chronological mock updates.
-    sortedJobs = [...filteredJobs].reverse();
+  // 3. Apply Sorting
+  let sortedJobs = [...filteredJobs];
+  if (sortBy === 'Older') {
+    // If you want Older first, keep original chronological order (assuming JSON is newest first)
+    // Or adjust based on how your JSON is actually structured!
+  } else {
+    // Default to 'Recent' - reverse the array to simulate newest-first
+    sortedJobs.reverse(); 
   }
 
-  // 4. Return clean segmented collections mapped explicitly to payload definitions
+  // 4. Return formatted payload
   return {
     mainJobs: sortedJobs,
     associatedCompanies: allCompanies,
