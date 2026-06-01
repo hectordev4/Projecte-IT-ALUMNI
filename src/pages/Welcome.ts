@@ -14,15 +14,11 @@ export function setupWelcome(pageManager: PageManager): HTMLElement {
     <button class="cta-button" id="enter-app-btn">Uneix-te</button>
   `;
 
-  // Grab the button inside this isolated element context
   const enterBtn = container.querySelector('#enter-app-btn');
   
   if (enterBtn) {
     enterBtn.addEventListener('click', () => {
-      // Lock the session so they don't see this screen again on this visit
       sessionStorage.setItem('hasSeenSplash', 'true');
-      
-      // Redirect cleanly to the main home dashboard view
       pageManager.switchPage('home');
     });
   }

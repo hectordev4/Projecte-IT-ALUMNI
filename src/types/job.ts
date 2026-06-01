@@ -10,11 +10,11 @@ export interface JobItem {
   jobType: string;
   techStackTags: string[];
   dateString: string;
-  applicationUrl?: string; // Optional direct website reference link
+  applicationUrl?: string;
 }
 
 export interface JobsPageDataPayload {
   jobs: JobItem[];
   companies: CompanyUser[];
-  recruiters?: User[]; // Marked optional (?) to support company-only listings
+  recruiters?: User[];
 }

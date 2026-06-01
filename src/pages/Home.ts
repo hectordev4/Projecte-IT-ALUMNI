@@ -3,10 +3,7 @@ import { PageManager } from '../managers/pageManager';
 import '../../styles/home.css';
 import '../../styles/components/testimonialCard.css';
 
-/**
- * Generates and wires up the isolated Home page view component.
- * @param pageManager - The centralized routing engine instance.
- */
+
 export function setupHome(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'home-page-wrapper';
@@ -79,7 +76,6 @@ export function setupHome(pageManager: PageManager): HTMLElement {
     </main>
   `;
 
-  // 1. Mount the 3 modular testimonial components into the grid target
   const testimonialsTarget = container.querySelector('#desktop-testimonials-target');
   if (testimonialsTarget) {
     for (let i = 0; i < 3; i++) {
@@ -87,7 +83,6 @@ export function setupHome(pageManager: PageManager): HTMLElement {
     }
   }
 
-  // 2. FIX: Re-wire mobile routing triggers to prevent dead dashboard links
   container.querySelector('#mob-nav-btn')?.addEventListener('click', () => {
     pageManager.switchPage('networking');
   });

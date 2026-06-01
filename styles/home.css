@@ -1,15 +1,7 @@
-/* ==========================================================================
-   PAGE SPECIFIC VIEWPORT ROUTER: HOME
-   ========================================================================== */
-
 .home-page-wrapper {
   width: 100%;
   box-sizing: border-box;
 }
-
-/* ==========================================================================
-   MOBILE VIEWPORT LAYOUT
-   ========================================================================== */
 
 .dashboard-container {
   display: flex;
@@ -78,10 +70,6 @@
 .card-action-outline-btn:hover {
   background-color: #fdf0f7;
 }
-
-/* ==========================================================================
-   DESKTOP VIEWPORT LAYOUT BREAKPOINT
-   ========================================================================== */
 
 @media (min-width: 48rem) {
   .view-desktop {
@@ -164,7 +152,7 @@
     color: var(--text-h);
   }
 
-  /* Core Features System */
+  
   .features-grid {
     display: flex;
     flex-direction: row;
@@ -217,10 +205,6 @@
     transform: translateY(-2px);
   }
 
-/* ==========================================================================
-     DYNAMIC TESTIMONIAL COMPONENT RULES (INJECTED VIA JAVASCRIPT)
-     ========================================================================== */
-
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -230,12 +214,12 @@
     box-sizing: border-box;
   }
 
-  /* Target the card container created by your component factory */
+  
   .testimonials-grid .testimonial-card {
     display: flex;
     flex-direction: column;
     background: #ffffff;
-    border: 1px solid var(--border); /* Utilizing your global border token */
+    border: 1px solid var(--border); 
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
@@ -251,14 +235,14 @@
     width: 100%;
   }
 
-  /* FIX: Forces the image footprint so it doesn't collapse to 0x0 in the layout grid */
+  
   .testimonials-grid .testimonial-card .avatar {
     display: block;
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 50%;
     object-fit: cover;
-    flex-shrink: 0; /* Protects layout dimensions from squashing */
+    flex-shrink: 0; 
   }
 
   .testimonials-grid .testimonial-card .user-meta {
@@ -269,13 +253,13 @@
   .testimonials-grid .testimonial-card h3 {
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--text-h); /* Utilizing your global dark text token */
+    color: var(--text-h); 
     margin: 0 0 0.25rem 0;
   }
 
-  /* FIX: Explicitly paths the color inheritance to beat base body rendering rules */
+  
   .testimonials-grid .testimonial-card .stars {
-    color: #ffc107; /* Pristine golden star evaluations */
+    color: #ffc107; 
     font-size: 1.15rem;
     letter-spacing: 2px;
     line-height: 1;
@@ -285,12 +269,12 @@
   .testimonials-grid .testimonial-card p {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--text); /* Utilizing your global body text token */
+    color: var(--text); 
     margin: 0;
     font-style: italic;
   }
 
-  /* --- CAROUSEL CONTROLS & INTERACTION STATES --- */
+  
   .carousel-controls {
     display: flex;
     justify-content: center;
@@ -309,7 +293,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Smooth transition matrix handling transforms and background shifts */
+    
     transition: background-color 0.15s ease, transform 0.1s ease;
   }
 
@@ -318,9 +302,9 @@
     color: var(--text-h);
   }
 
-  /* Tactile push-down feedback click state */
+  
   .control-btn:active {
     transform: translateY(2px);
-    background-color: #e5e7eb; /* Deepens slightly on press */
+    background-color: #e5e7eb; 
   }
 }

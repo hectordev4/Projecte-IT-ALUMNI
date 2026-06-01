@@ -31,9 +31,6 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
 
   let debounceTimeoutId: any = null;
 
-  // --------------------------------------------------------------------------
-  // SHARED DOM BASE LAYOUT: Search Input Field ALWAYS Comes First
-  // --------------------------------------------------------------------------
   const defaultPlaceholder = options.mode === 'networking' 
     ? 'Cerca professionals...' 
     : 'Cerca ofertes, empreses o stacks...';
@@ -47,18 +44,13 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
     <div class="component-sub-filters-container"></div>
   `;
 
-  // Safely grab our shared input field and target content container elements
   const inputField = wrapper.querySelector('.search-input-field') as HTMLInputElement | null;
   const subFiltersContainer = wrapper.querySelector('.component-sub-filters-container') as HTMLElement;
 
-  // --------------------------------------------------------------------------
-  // BRANCH A: NETWORKING ADAPTER STATE MANIPULATION
-  // --------------------------------------------------------------------------
   if (options.mode === 'networking') {
     let currentFilter = options.activeFilter;
     let currentSearchQuery = '';
 
-    // Inject the flat horizontal navigation tab selector group below the search field slot
     subFiltersContainer.innerHTML = `
       <nav class="component-filter-tabs">
         <span class="filter-label-text">Filtres:</span>
@@ -95,16 +87,12 @@ export function createFilterBar(options: FilterBarOptions): HTMLElement {
     });
   } 
   
-  // --------------------------------------------------------------------------
-  // BRANCH B: JOBS ADAPTER STATE MANIPULATION (Single Consolidated Input Field)
-  // --------------------------------------------------------------------------
   else {
     let currentSearchQuery = '';
     let selectedTech = 'All';
     let selectedLocation = 'All';
     let selectedSort = 'Recent';
 
-    // Inject *only* the specific multi-dropdown elements without duplicating the search input container
     subFiltersContainer.innerHTML = `
       <div class="jobs-dropdown-controls-group">
         <div class="dropdown-select-wrapper">

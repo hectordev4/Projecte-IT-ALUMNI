@@ -4,7 +4,6 @@ import '../../styles/components/navbar.css';
 
 
 export function setupNavbar(pageManager: PageManager): HTMLElement {
-  // Use a neutral outer wrapper so the mobile elements aren't hidden by desktop CSS targets
   const wrapper = document.createElement('div');
   wrapper.className = 'navbar-wrapper-shell';
   
@@ -49,7 +48,6 @@ export function setupNavbar(pageManager: PageManager): HTMLElement {
     </nav>
   `;
 
-  // Query both desktop item triggers and mobile bottom bar elements together
 const targets = wrapper.querySelectorAll('.nav-item, .mobile-nav-item');
   
   targets.forEach(target => {
@@ -58,10 +56,7 @@ const targets = wrapper.querySelectorAll('.nav-item, .mobile-nav-item');
       
       const routeStr = target.getAttribute('data-route');
       
-      // Keep profile click safe since it's un-routed
       if (routeStr === 'profile') {
-        console.warn("Profile view is currently mock-only.");
-        // FIXED: Added the missing 'A' to updateNavbarActiveState
         pageManager.updateNavbarActiveState('profile');
         return;
       }

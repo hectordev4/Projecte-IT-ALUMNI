@@ -1,8 +1,5 @@
-/* ==========================================================================
-   MOBILE VIEWS (Default Baseline Page Layout)
-   ========================================================================== */
 .networking-mobile-container {
-  display: flex; /* Removed !important so media queries can override it */
+  display: flex; 
   flex-direction: column;
   padding: 1rem 1.25rem;
   background-color: var(--bg);
@@ -10,7 +7,6 @@
   width: 100%;
 }
 
-/* Hide desktop container on mobile */
 .networking-desktop-container {
   display: none; 
 }
@@ -22,7 +18,6 @@
   width: 100%;
 }
 
-/* --- TYPE 4: MOBILE RECENT ACTIVITY CARD ENTRY --- */
 .mobile-activity-log-card {
   display: flex;
   align-items: flex-start;
@@ -40,7 +35,7 @@
 .mobile-activity-log-card .log-indicator-dot {
   width: 0.6rem;
   height: 0.6rem;
-  background-color: var(--accent); /* Fuchsia activity indicator token */
+  background-color: var(--accent); 
   border-radius: 50%;
   margin-top: 0.35rem;
   flex-shrink: 0;
@@ -66,7 +61,6 @@
   padding-top: 0.15rem;
 }
 
-/* Status loading and empty notification typography layouts */
 .feed-status-msg,
 .feed-empty-alert,
 .feed-error-msg {
@@ -79,16 +73,13 @@
   width: 100%;
 }
 
-/* ==========================================================================
-   DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
-   ========================================================================== */
 @media (min-width: 48rem) {
-  /* 1. HIDE MOBILE CARDS ON DESKTOP */
+  
   .networking-mobile-container {
     display: none; 
   }
 
-  /* 2. REVEAL DESKTOP CONTAINER */
+  
   .networking-desktop-container {
     display: block; 
     max-width: 1400px;
@@ -105,7 +96,7 @@
     width: 100%;
   }
 
-  /* Structural wrapper for Mode A & B split-panel dashboards */
+  
   .desktop-split-layout {
     display: grid;
     grid-template-columns: 2.5fr 1.2fr;
@@ -114,7 +105,7 @@
     width: 100%;
   }
 
-  /* Mode B: Primary Explorer Grid Layout */
+  
   .popular-profiles-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -122,7 +113,7 @@
     width: 100%;
   }
 
-  /* Suggestions Sidebar retains its solid card look */
+  
   .suggestions-sidebar-section {
     display: flex;
     flex-direction: column;
@@ -133,7 +124,7 @@
     box-shadow: var(--shadow);
   }
 
-  /* 3. INVISIBLE CARDS: Activity Timeline Section loses borders/background */
+  
   .activity-timeline-section {
     display: flex;
     flex-direction: column;
@@ -143,7 +134,7 @@
     padding: 0;
   }
 
-  /* Mode A: Enforces single column display parameters when activity expands */
+  
   .desktop-split-layout.activity-log-mode-active {
     grid-template-columns: 2.5fr 1.2fr;
   }
@@ -169,7 +160,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* Space between invisible activity rows */
+    gap: 1rem; 
   }
 
   .timeline-list li {
@@ -178,7 +169,7 @@
     line-height: 1.5;
   }
 
-  /* Separate entry lines for the full timeline table framework */
+  
   .timeline-date-group-header {
     font-size: 0.75rem;
     font-weight: 700;

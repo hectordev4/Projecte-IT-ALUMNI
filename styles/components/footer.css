@@ -1,18 +1,15 @@
-/* Hide on mobile devices by default */
+
 .main-footer {
   display: none;
 }
 
-/* ==========================================================================
-   DESKTOP FOOTER ARCHITECTURE (48rem / 768px and up)
-   ========================================================================== */
 @media (min-width: 48rem) {
   .main-footer {
     display: block !important;
-    background-color: #1e2229; /* Deep matte charcoal theme background */
-    color: var(--bg); /* Integrated variable inverse text canvas */
+    background-color: #1e2229;
+    color: var(--bg);
     padding: 4rem 5% 2rem 5%;
-    font-family: var(--sans); /* Integrated global inherited design font family */
+    font-family: var(--sans);
   }
 
   .footer-container {
@@ -23,7 +20,6 @@
     gap: 3rem;
   }
 
-  /* --- TOP SUBSCRIPTION CONTAINER --- */
   .footer-subscribe-section {
     display: flex;
     flex-direction: column;
@@ -66,7 +62,7 @@
   .subscribe-input {
     background: transparent;
     border: none;
-    color: var(--bg); /* Integrated variable inverse input content color */
+    color: var(--bg);
     font-size: 0.95rem;
     width: 100%;
     outline: none;
@@ -77,8 +73,8 @@
   }
 
   .subscribe-btn {
-    background: var(--accent-gradient); /* Integrated variable multi-stop linear gradient token */
-    color: var(--bg); /* Integrated variable button text contrast canvas */
+    background: var(--accent-gradient);
+    color: var(--bg);
     border: none;
     padding: 0.75rem 1.75rem;
     border-radius: 1.75rem;
@@ -91,11 +87,10 @@
     filter: brightness(1.1);
   }
 
-  /* --- MIDDLE ROW: LOGO + BALANCED LINKS NAVIGATION --- */
   .footer-middle-row {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Keeps logo left, nav items right */
+    justify-content: space-between;
     width: 100%;
     gap: 4rem;
     margin-top: 1rem;
@@ -105,11 +100,11 @@
   .footer-logo {
     display: flex;
     align-items: center;
-    flex-shrink: 0; /* Prevents logo image from scaling smaller */
+    flex-shrink: 0;
   }
 
   .footer-logo-img {
-    height: 2.2rem; /* Exact size matching layout requirements */
+    height: 2.2rem;
     width: auto;
     object-fit: contain;
   }
@@ -117,13 +112,13 @@
   .footer-nav-links {
     display: flex;
     flex: 1;
-    justify-content: space-between; /* Evenly distributes navigation elements */
-    max-width: 900px; /* Binds items cleanly from over-stretching on wide monitors */
-    gap: 2rem; /* Maintains consistent spacing between nav items */
+    justify-content: space-between;
+    max-width: 900px;
+    gap: 2rem;
   }
 
   .footer-nav-links a {
-    color: var(--bg); /* Integrated variable link anchor canvas contrast */
+    color: var(--bg);
     text-decoration: none;
     font-size: 0.75rem;
     font-weight: 500;
@@ -132,14 +127,13 @@
   }
 
   .footer-nav-links a:hover {
-    color: var(--accent); /* Integrated variable brand fuchsia active interactive accent state */
+    color: var(--accent);
   }
 
-  /* --- HORIZONTAL SEPARATOR LINE --- */
   .footer-divider {
     border: none;
     height: 1px;
-    background-color: var(--border); /* Integrated variable global separator line token */
+    background-color: var(--border);
     margin: 0;
     width: 100%;
   }

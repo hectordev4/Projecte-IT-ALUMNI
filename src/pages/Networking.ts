@@ -3,16 +3,11 @@ import { getNetworkingPageData } from '../services/networkingService';
 import { PageManager } from '../managers/pageManager';
 import '../../styles/networking.css';
 
-/**
- * Generates and manages the responsive Networking page view workspace.
- * Listens to the elevated global filter bar events to refresh data without re-rendering the inputs.
- * @param pageManager - The centralized routing engine instance.
- */
+
 export function setupNetworking(pageManager: PageManager): HTMLElement {
   const container = document.createElement('section');
   container.className = 'networking-page-wrapper';
 
-  // Core layout shells matching the layout tokens and styles cleanly
   container.innerHTML = `
     <main style="width: 100%;">
       <div class="view-mobile networking-mobile-container">
@@ -28,9 +23,6 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
   const mobileFeed = container.querySelector('#mobile-cards-target') as HTMLElement;
   const workspaceTarget = container.querySelector('#desktop-main-workspace-target') as HTMLElement;
 
-  // --------------------------------------------------------------------------
-  // CENTRALIZED REAL-TIME WORKSPACE DATA RENDERING ENGINE
-  // --------------------------------------------------------------------------
   const loadPageDataContent = (activeFilter: string, searchQuery: string) => {
     if (mobileFeed) mobileFeed.innerHTML = '<p class="feed-status-msg">Carregant dades...</p>';
     if (workspaceTarget) workspaceTarget.innerHTML = '<p class="feed-status-msg">Carregant dades...</p>';
@@ -38,7 +30,6 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
     getNetworkingPageData(activeFilter, searchQuery)
       .then((data) => {
         
-        // --- 1. HANDLE MOBILE RENDERING LAYER ---
         if (mobileFeed) {
           mobileFeed.innerHTML = '';
           if (activeFilter === 'Recent Activity') {
@@ -69,12 +60,10 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
           }
         }
 
-        // --- 2. HANDLE DESKTOP RENDERING WORKSPACE ---
         if (!workspaceTarget) return;
         workspaceTarget.innerHTML = '';
 
         if (activeFilter === 'Recent Activity') {
-          // MODE A: FULL COLUMN ACTIVITY LOG FEED SHEET
           workspaceTarget.innerHTML = `
             <div class="desktop-split-layout activity-log-mode-active">
               <div class="activity-timeline-section expanded-full-log">
@@ -115,7 +104,6 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
           });
 
         } else {
-          // MODE B: STANDARD HIGHLIGHT EXPLORER GRID VIEW (Popular & Most Connected)
           workspaceTarget.innerHTML = `
             <section class="popular-profiles-grid" id="desktop-grid-target"></section>
             <div class="desktop-split-layout">
@@ -173,20 +161,14 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
       });
   };
 
-  // --------------------------------------------------------------------------
-  // GLOBAL EVENT ROUTER INTERCEPTOR LISTENERS
-  // --------------------------------------------------------------------------
-  
-  // Custom tracking callback triggered by our elevated global FilterBar component
+
   const onGlobalFilterUpdate = (e: Event) => {
     const { filter, query } = (e as CustomEvent).detail;
     loadPageDataContent(filter, query);
   };
 
-  // Attach listener to catch the decoupled broadcast updates globally
   window.addEventListener('workspaceFilterSync', onGlobalFilterUpdate);
 
-  // LIFECYCLE MANAGEMENT: Cleans up the listener when PageManager tears down this view canvas
   const unmountObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.removedNodes.forEach((node) => {
@@ -198,17 +180,14 @@ export function setupNetworking(pageManager: PageManager): HTMLElement {
     });
   });
 
-  // Begin observing parent container context tracking changes
   if (container.parentElement) {
     unmountObserver.observe(container.parentElement, { childList: true });
   } else {
-    // Fallback strategy if parent node assignment is delayed during microtask initialization loops
     window.addEventListener('load', () => {
       if (container.parentElement) unmountObserver.observe(container.parentElement, { childList: true });
     }, { once: true });
   }
 
-  // Fallback initial load evaluation profile query (defaults to Popular tab)
   loadPageDataContent('Popular', '');
 
   return container;

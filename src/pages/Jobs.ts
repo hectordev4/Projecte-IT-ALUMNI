@@ -26,7 +26,6 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
       const { mainJobs, activeRecruiters } = data;
       const hasRecruiters = activeRecruiters.length > 0;
 
-      // --- Mobile Rendering (85% Width Cards) ---
       if (mobileFeed) {
         mobileFeed.innerHTML = mainJobs.length === 0 ? '<p class="jobs-feed-empty-alert">No s\'han trobat ofertes.</p>' : '';
         mainJobs.forEach(job => {
@@ -51,7 +50,6 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
         });
       }
 
-      // --- Desktop Rendering (3-Column Grid) ---
       if (workspaceTarget) {
         workspaceTarget.innerHTML = `
           <div class="desktop-jobs-split-layout ${!hasRecruiters ? 'no-sidebar-active' : ''}">
@@ -69,7 +67,7 @@ export function setupJobs(pageManager: PageManager): HTMLElement {
         const recruiters = workspaceTarget.querySelector('#sidebar-recruiters-target') as HTMLElement;
 
         mainJobs.forEach(job => {
-          const visibleTags = job.techStackTags.slice(0, 3); // Kept strictly to 3 to maintain grid row heights
+          const visibleTags = job.techStackTags.slice(0, 3);
           const extraTags = job.techStackTags.length > 3 ? `<span class="job-badge-tag subtle-tag">+${job.techStackTags.length - 3}</span>` : '';
 
           const card = document.createElement('div');

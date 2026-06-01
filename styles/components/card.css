@@ -1,9 +1,4 @@
-/* ==========================================================================
-   GLOBAL DESIGN MODULE: INDEPENDENT COMPONENT CARDS
-   ========================================================================== */
 
-/* --- TYPE 1: INVISIBLE UTILITY CARD --- */
-/* Kept local: These are component layout configuration params, not global design tokens */
 :root {
   --invisible-card-display: inline-block;
   --invisible-card-width: 0px;
@@ -24,18 +19,15 @@
 }
 
 
-/* --- TYPE 2: MOBILE CLICKABLE CARD OBJECT --- */
 .alumni-profile-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg); /* FIX: Tokenized (#ffffff) */
-  border: 1px solid var(--border); /* FIX: Tokenized (#f0edf2) */
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.25rem;
-  box-shadow: var(--shadow); /* FIX: Unified with system elevation rule */
-  
-  /* Smooth transition for premium mobile tap scaling and press-states */
+  box-shadow: var(--shadow);
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), 
               box-shadow 0.2s ease, 
               background-color 0.2s ease;
@@ -46,16 +38,14 @@
   outline: none;
 }
 
-/* Snappy physical downward scale feedback for tactile screen touch surfaces */
 .alumni-profile-card:active {
   transform: scale(0.965);
-  background-color: #faf9fb; /* Kept local for subtle tactile shift */
+  background-color: #faf9fb;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
 }
 
-/* Accessible focus styling ring for dynamic tabbing profiles */
 .alumni-profile-card:focus-visible {
-  border-color: var(--accent); /* FIX: Tokenized (#e1007a) */
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(225, 0, 122, 0.15);
 }
 
@@ -69,7 +59,7 @@
 .alumni-profile-card .profile-card-details h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-h); /* FIX: Tokenized (#08060d) */
+  color: var(--text-h);
   margin: 0 0 0.25rem 0;
 }
 
@@ -77,13 +67,13 @@
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #a19ba8; /* Secondary metadata text */
+  color: #a19ba8;
   margin-bottom: 0.5rem;
 }
 
 .alumni-profile-card .profile-job-title {
   font-size: 0.8rem;
-  color: var(--text); /* FIX: Tokenized (#6b6375) */
+  color: var(--text);
   margin: 0;
   line-height: 1.4;
 }
@@ -96,13 +86,11 @@
   flex-shrink: 0;
 }
 
-
-/* --- TYPE 3: DESKTOP COMPONENT CARD & SOLID ACTION BUTTONS --- */
 @media (min-width: 48rem) {
   .desktop-member-card {
     display: flex;
     flex-direction: column;
-    background: var(--bg); /* FIX: Tokenized (#ffffff) */
+    background: var(--bg);
     text-align: left;
     padding: 0.25rem;
     box-sizing: border-box;
@@ -112,14 +100,14 @@
   .desktop-member-card h3 {
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--text-h); /* FIX: Tokenized (#08060d) */
+    color: var(--text-h);
     margin: 0 0 0.4rem 0;
     letter-spacing: -0.01em;
   }
 
   .desktop-member-card .member-role {
     font-size: 0.85rem;
-    color: var(--text); /* FIX: Tokenized (#554e5c) */
+    color: var(--text);
     margin: 0 0 0.35rem 0;
     line-height: 1.4;
   }
@@ -131,21 +119,18 @@
     display: block;
   }
 
-  /* Solid Brand Fuchsia Buttons — Fully Isolated Against Leaking Page Gray Filters */
   .desktop-member-card .member-action-btn {
     width: fit-content;
     padding: 0.6rem 1.75rem;
     border-radius: 0.6rem;
-    font-family: var(--sans); /* FIX: Inherited global layout font family */
+    font-family: var(--sans);
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
     border: none;
     text-align: center;
-    
-    /* Strict overrides to safeguard the vibrant solid asset color scheme */
-    color: var(--bg) !important; /* FIX: Tokenized (#ffffff) */
-    background-color: var(--accent) !important; /* FIX: Tokenized (#e1007a) */
+    color: var(--bg) !important;
+    background-color: var(--accent) !important;
     filter: none !important; 
     opacity: 1 !important;
     
@@ -153,9 +138,8 @@
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   }
 
-  /* Clean solid-shift rendering for desktop cursor hovers */
   .desktop-member-card .member-action-btn:hover {
-    background-color: #bc0064 !important; /* Hover shade can stay local or map to a secondary dark-accent token */
+    background-color: #bc0064 !important;
     box-shadow: 0 6px 16px rgba(225, 0, 122, 0.28);
     transform: translateY(-1px);
   }

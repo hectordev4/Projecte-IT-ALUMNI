@@ -1,19 +1,15 @@
-/* ==========================================================================
-   GLOBAL FILTER COMPONENT: Root Variables & Mobile-First Constraints
-   ========================================================================== */
 
 .global-filter-component {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Increased gap for better visual separation */
+  gap: 1.5rem;
   width: 100%;
-  padding: 1rem 1.25rem; /* Added top/bottom padding */
+  padding: 1rem 1.25rem;
   box-sizing: border-box;
   background-color: var(--bg);
   border-bottom: 0.0625rem solid var(--border);
 }
 
-/* 1. Unified Search Bar (Mobile Default) */
 .global-filter-component .component-search-wrapper {
   display: flex;
   align-items: center;
@@ -23,7 +19,7 @@
   padding: 0.75rem 1rem;
   gap: 0.5rem;
   width: 100%;
-  max-width: 100%; /* Allows search to fill mobile width comfortably */
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -31,7 +27,7 @@
   display: flex;
   gap: 1.3rem;
   overflow-x: auto;
-  padding-bottom: 0.5rem; /* Space for scrollbar */
+  padding-bottom: 0.5rem;
 }
 
 .global-filter-component .search-lens {
@@ -49,25 +45,21 @@
   color: var(--text-h);
 }
 
-/* 2. Sub-Filter Container */
 .component-sub-filters-container {
   width: 100%;
 }
 
-/* ==========================================================================
-   MODE: NETWORKING (Tabs)
-   ========================================================================== */
 .global-filter-component.mode-networking .component-filter-tabs {
   display: flex;
   align-items: center;
-  gap: 1rem; /* More space between tabs */
+  gap: 1rem;
 }
 
 .global-filter-component.mode-networking .filter-tab-btn {
   background: transparent;
   border: none;
   font-family: var(--sans);
-  font-size: 0.9rem; /* Slightly larger for readability */
+  font-size: 0.9rem;
   color: var(--text);
   padding: 0.25rem 0;
   font-weight: 500;
@@ -80,13 +72,10 @@
   border-bottom: 0.125rem solid var(--accent);
 }
 
-/* ==========================================================================
-   MODE: JOBS (Dropdown Matrix)
-   ========================================================================== */
 .global-filter-component.mode-jobs .jobs-dropdown-controls-group {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem; /* More vertical space on mobile */
+  gap: 1rem;
   width: 100%;
 }
 
@@ -102,15 +91,11 @@
   appearance: none;
 }
 
-/* ==========================================================================
-   DESKTOP ALIGNMENT (48rem / 768px+)
-   ========================================================================== */
 @media (min-width: 48rem) {
   .global-filter-component {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* Added lateral margin/padding for the "bleed" sides */
     padding: 0.5rem 2.5rem 1.5rem 2.5rem; 
   }
 
@@ -123,16 +108,16 @@
   .global-filter-component .component-sub-filters-container {
     width: auto;
     order: 2;
-    margin-left: 2rem; /* Clear gap between search and filters */
+    margin-left: 2rem;
   }
 
   .global-filter-component.mode-networking .filter-label-text {
     display: inline-block;
-    margin-right: 1.5rem; /* More breathing room */
+    margin-right: 1.5rem;
   }
 
   .global-filter-component.mode-jobs .jobs-dropdown-controls-group {
-    grid-template-columns: repeat(3, 11rem); /* Standardized width */
-    gap: 1.5rem; /* Generous gap between dropdowns */
+    grid-template-columns: repeat(3, 11rem);
+    gap: 1.5rem;
   }
 }

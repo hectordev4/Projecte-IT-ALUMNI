@@ -4,7 +4,7 @@
   justify-content: space-between;
   width: 100%;
   background-color: var(--bg);
-  padding: 0.75rem 1.25rem; /* Uniform horizontal layout margin offset safety padding */
+  padding: 0.75rem 1.25rem;
   box-sizing: border-box;
 }
 

@@ -1,15 +1,11 @@
 import { PageManager } from '../managers/pageManager';
 import '../../styles/components/footer.css';
 
-/**
- * Global application layout footer component.
- * @param pageManager - The core app router instance to intercept link navigation events.
- */
 export function setupFooter(pageManager: PageManager): HTMLElement {
   const footer = document.createElement('footer');
   footer.className = 'main-footer';
 
-  const currentYear = new Date().getFullYear(); // Dynamically outputs the correct year (2026)
+  const currentYear = new Date().getFullYear();
 
   footer.innerHTML = `
     <div class="footer-container">
@@ -65,14 +61,12 @@ export function setupFooter(pageManager: PageManager): HTMLElement {
     </div>
   `;
 
-  // Intercept the "Oportunitats laborals" anchor tag to drive the active application router
   const jobsLink = footer.querySelector('[data-footer-route="jobs"]');
   jobsLink?.addEventListener('click', (e) => {
     e.preventDefault();
     pageManager.switchPage('jobs');
   });
 
-  // Intercept other static informational links to prevent hash pollution
   footer.querySelectorAll('[data-footer-anchor]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();

@@ -11,13 +11,12 @@ export interface CardOptions {
 export function createCard(variant: CardVariant, user: User, options: CardOptions = {}): HTMLElement {
   const cardElement = document.createElement('div');
 
-  // --- 1. INVISIBLE UTILITY VARIANT ---
   if (variant === 'invisible') {
     cardElement.className = 'alumni-card-invisible';
     return cardElement;
   }
 
-  // --- 2. MOBILE COMPONENT VARIANT (Entire object is clickable) ---
+
   if (variant === 'mobile') {
     cardElement.className = 'alumni-profile-card';
     cardElement.setAttribute('role', 'button');
@@ -33,12 +32,9 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
       <div class="profile-avatar-block"></div>
     `;
 
-// Interactive Trigger Setup (No event arguments required since we only forward the user data)
     const handleMobileClick = () => {
       if (options.onClick) {
         options.onClick(user);
-      } else {
-        console.log(`Mobile card object clicked for: ${user.name}`);
       }
     };
 
@@ -48,7 +44,7 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
 
     cardElement.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault(); // Prevents page scrolling on spacebar tap
+        e.preventDefault();
         handleMobileClick();
       }
     });
@@ -56,7 +52,6 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
     return cardElement;
   }
 
-  // --- 3. DESKTOP COMPONENT VARIANT ---
   cardElement.className = 'desktop-member-card';
   const actionLabel = options.buttonText || 'Message';
 
@@ -72,9 +67,7 @@ export function createCard(variant: CardVariant, user: User, options: CardOption
     actionBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (options.onClick) {
-        options.onClick(user); // FIX: Explicitly forward the active user object back to the caller
-      } else {
-        console.log(`Desktop action "${actionLabel}" fired for: ${user.name}`);
+        options.onClick(user);
       }
     });
   }

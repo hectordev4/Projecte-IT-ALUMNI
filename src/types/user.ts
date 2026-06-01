@@ -6,11 +6,8 @@ export interface UserActivity {
   timeStamp: string;
 }
 
-/**
- * Baseline contract definition for platform professional member profiles.
- */
 export interface User {
-  id: number | string; // Accommodates both legacy number IDs and your new mock string IDs cleanly
+  id: number | string;
   name: string;
   job: string;
   location: string;
@@ -20,10 +17,6 @@ export interface User {
   connections: number;
 }
 
-/**
- * Root wrapper schema representing the incoming user payload database stream container.
- * This explicitly structures your users.json file to eliminate implicit 'any' lookups.
- */
 export interface UsersPageDataPayload {
   users: User[];
 }

@@ -1,13 +1,9 @@
-/* ==========================================================================
-   COMPONENT STYLES: HOME LANDING TESTIMONIAL CARDS
-   ========================================================================== */
 
-/* Outer card layout container box */
 .home-testimonial-card {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid var(--border); /* Utilizing your global root border variable */
+  border: 1px solid var(--border);
   border-radius: 1.5rem;
   padding: 2.25rem 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
@@ -16,7 +12,6 @@
   width: 100%;
 }
 
-/* Header horizontal alignment boundary */
 .testimonial-header {
   display: flex;
   align-items: center;
@@ -25,32 +20,28 @@
   width: 100%;
 }
 
-/* Fixes the avatar size so the background-image div actually renders */
 .testimonial-avatar-circle {
   display: block;
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  flex-shrink: 0; /* Keeps it perfectly circular in responsive layouts */
+  flex-shrink: 0;
 }
 
-/* Vertical text meta alignment stack */
 .testimonial-meta {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* User profile display headline */
 .testimonial-user-name {
   font-size: 1.35rem;
   font-weight: 700;
-  color: var(--text-h); /* Utilizing your global dark header text variable */
+  color: var(--text-h);
   margin: 0 0 0.15rem 0;
   letter-spacing: -0.02em;
 }
 
-/* Forces the golden evaluation stars over base text inheritance layers */
 .testimonial-stars {
   color: #ffc107; 
   font-size: 1.25rem;
@@ -59,10 +50,9 @@
   display: block;
 }
 
-/* Description/Feedback text quote region */
 .testimonial-quote {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: var(--text); /* Utilizing your global primary body text variable */
+  color: var(--text);
   margin: 0;
 }

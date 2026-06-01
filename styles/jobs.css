@@ -1,10 +1,7 @@
-/* ==========================================================================
-   MOBILE VIEWS (Centered 85% Width Cards)
-   ========================================================================== */
 .jobs-mobile-container {
   display: flex; 
   flex-direction: column;
-  padding: 1.5rem 0; /* Vertical padding, no horizontal padding on container */
+  padding: 1.5rem 0; 
   background-color: var(--bg);
   width: 100%;
 }
@@ -16,12 +13,11 @@
 .mobile-jobs-feed {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the cards */
+  align-items: center; 
   gap: 1.25rem;
   width: 100%;
 }
 
-/* Standalone Card */
 .mobile-job-item-card.grid-card-style {
   display: flex;
   flex-direction: column;
@@ -29,7 +25,7 @@
   border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1.5rem;
-  width: 85%; /* The magic 85% width */
+  width: 85%; 
   max-width: 400px;
   box-shadow: var(--shadow);
   cursor: pointer;
@@ -42,9 +38,6 @@
   transform: scale(0.98);
 }
 
-/* ==========================================================================
-   SHARED TYPOGRAPHY & TAGS
-   ========================================================================== */
 .job-card-main-info {
   display: flex;
   flex-direction: column;
@@ -111,7 +104,6 @@
   font-weight: 600;
 }
 
-/* Messages */
 .jobs-feed-status-msg,
 .jobs-feed-empty-alert,
 .jobs-feed-error-msg {
@@ -123,9 +115,6 @@
   width: 100%;
 }
 
-/* ==========================================================================
-   DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
-   ========================================================================== */
 @media (min-width: 48rem) {
   .jobs-mobile-container {
     display: none;
@@ -142,7 +131,7 @@
 
   .desktop-jobs-split-layout {
     display: grid;
-    grid-template-columns: 2.5fr 1.2fr; /* Main grid area vs Sidebar */
+    grid-template-columns: 2.5fr 1.2fr; 
     gap: 3.5rem;
     align-items: start;
     width: 100%;
@@ -152,9 +141,7 @@
     grid-template-columns: 1fr !important;
   }
 
-  /* Removed the "card" container from the main section 
-     so the grid floats directly on the background 
-  */
+  
   .jobs-board-main-section {
     display: flex;
     flex-direction: column;
@@ -176,26 +163,26 @@
     margin: 0;
   }
 
-  /* 3-COLUMN GRID SYSTEM */
+  
   .desktop-jobs-grid-view {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 1.5rem;
     width: 100%;
   }
 
-  /* Desktop Grid Card Layout */
+  
   .desktop-job-grid-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes content to top and actions to bottom */
+    justify-content: space-between; 
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: var(--shadow);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 100%; /* Ensures all cards in a row match height */
+    height: 100%; 
     box-sizing: border-box;
   }
 
@@ -208,7 +195,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: 1.5rem; /* Space between content and bottom actions */
+    margin-bottom: 1.5rem; 
   }
 
   .card-bottom-actions {
@@ -217,7 +204,7 @@
     align-items: center;
     border-top: 1px solid var(--border);
     padding-top: 1rem;
-    margin-top: auto; /* Forces this to stick to the bottom */
+    margin-top: auto; 
   }
 
   .jobs-suggestions-sidebar-section {
@@ -251,7 +238,6 @@
   }
 }
 
-/* Fallback for smaller desktop screens: scale down to 2 columns if things get tight */
 @media (min-width: 48rem) and (max-width: 70rem) {
   .desktop-jobs-grid-view {
     grid-template-columns: repeat(2, 1fr); 

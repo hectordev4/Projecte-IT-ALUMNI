@@ -18,16 +18,13 @@ export async function getNetworkingPageData(
   activeFilter: string = 'Popular',
   searchQuery: string = ''
 ): Promise<NetworkingDataPayload> {
-  // 1. Fetch data through the generic base layer pointing directly to your object payload wrapper
   const payload = await fetchLocalData<UsersPageDataPayload>('/data/users.json');
   
-  // Safe extraction of the encapsulated profiles collection array
   const allUsers = payload.users || [];
   
   const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
   const cleanQuery = searchQuery.toLowerCase().trim();
 
-  // 2. Process Core Dynamic Global Activities Feed Array List
   let rawActivitiesList = allUsers.reduce((acc, user) => {
     if (user.activities && user.activities.activity) {
       acc.push({
@@ -39,19 +36,16 @@ export async function getNetworkingPageData(
     return acc;
   }, [] as { userName: string; text: string; rawDateString: string }[]);
 
-  // CRITICAL FIX: Match the text input queries directly against user names inside the log feed!
   if (cleanQuery.length > 0) {
     rawActivitiesList = rawActivitiesList.filter(act => 
       act.userName.toLowerCase().includes(cleanQuery)
     );
   }
 
-  // Sort chronologically (Newest items up top)
   const sortedActivities = rawActivitiesList.sort((a, b) => 
     parseCustomTimestamp(b.rawDateString).getTime() - parseCustomTimestamp(a.rawDateString).getTime()
   );
 
-  // 3. Filter Main Profile Cards List Array
   let filteredUsers = allUsers;
   if (cleanQuery.length > 0) {
     filteredUsers = allUsers.filter(user => user.name.toLowerCase().includes(cleanQuery));
@@ -64,7 +58,6 @@ export async function getNetworkingPageData(
     mainProfilesResult = shuffle(filteredUsers);
   }
 
-  // 4. Keep suggestions sidebar locked onto high connection count metrics
   const sortedByPopularity = [...allUsers].sort((a, b) => b.connections - a.connections);
 
   return {
