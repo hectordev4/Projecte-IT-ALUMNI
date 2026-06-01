@@ -1,0 +1,412 @@
+{
+  "jobs": [
+    {
+      "id": "job-01",
+      "title": "Junior Frontend Developer",
+      "companyId": "comp-01",
+      "companyName": "TechCatalyst Solutions",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["React", "TypeScript", "TailwindCSS", "Vite"],
+      "dateString": "Fa 2 dies",
+      "applicationUrl": "https://techcatalyst.example.com/careers/jr-frontend"
+    },
+    {
+      "id": "job-02",
+      "title": "Senior React Engineer",
+      "companyId": "comp-02",
+      "companyName": "PixelPerfect Studio",
+      "location": "Girona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["React", "Next.js", "Redux Toolkit", "TypeScript", "Jest"],
+      "dateString": "Fa 1 dia"
+    },
+    {
+      "id": "job-03",
+      "title": "Python Data Engineer",
+      "companyId": "comp-03",
+      "companyName": "DataStream Logistics",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["Python", "Apache Spark", "SQL", "Pandas", "Airflow"],
+      "dateString": "Fa 4 dies"
+    },
+    {
+      "id": "job-04",
+      "title": "Backend Python / Django Developer",
+      "companyId": "comp-04",
+      "companyName": "MediCore Healthtech",
+      "location": "Sant Cugat (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Python", "Django", "PostgreSQL", "REST API", "Docker"],
+      "dateString": "Fa 3 dies",
+      "applicationUrl": "https://medicore.example.com/jobs/backend-django"
+    },
+    {
+      "id": "job-05",
+      "title": "DevOps Infrastructure Engineer",
+      "companyId": "comp-05",
+      "companyName": "CloudScale Systems",
+      "location": "Barcelona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["AWS", "Terraform", "Kubernetes", "Docker", "CI/CD"],
+      "dateString": "Fa 5 dies"
+    },
+    {
+      "id": "job-06",
+      "title": "Cybersecurity Analyst",
+      "companyId": "comp-06",
+      "companyName": "CyberGuard Iberian",
+      "location": "Remot (Global)",
+      "jobType": "Full-time",
+      "techStackTags": ["Linux", "Wireshark", "Python", "SIEM", "Penetration Testing"],
+      "dateString": "Fa 6 dies",
+      "applicationUrl": "https://cyberguard.example.com/careers/sec-analyst"
+    },
+    {
+      "id": "job-07",
+      "title": "Fintech Fullstack Node & React Developer",
+      "companyId": "comp-07",
+      "companyName": "FinVantage Labs",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Node.js", "React", "TypeScript", "MongoDB", "Express"],
+      "dateString": "Ahir"
+    },
+    {
+      "id": "job-08",
+      "title": "Data Scientist & ML Intern",
+      "companyId": "comp-08",
+      "companyName": "EcoSphere AgriTech",
+      "location": "Lleida (Presencial)",
+      "jobType": "Internship",
+      "techStackTags": ["Python", "Scikit-Learn", "TensorFlow", "Jupyter", "SQL"],
+      "dateString": "Fa 1 setmana"
+    },
+    {
+      "id": "job-09",
+      "title": "EdTech PHP Developer",
+      "companyId": "comp-09",
+      "companyName": "EduPulse Media",
+      "location": "Mataró (Híbrid)",
+      "jobType": "Part-time",
+      "techStackTags": ["PHP", "Laravel", "MySQL", "JavaScript", "Blade"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-10",
+      "title": "C++ Quantum Simulator Engineer",
+      "companyId": "comp-10",
+      "companyName": "QuantumAlpha Engine",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["C++", "Python", "CUDA", "Linux", "Git"],
+      "dateString": "Fa 2 dies",
+      "applicationUrl": "https://quantumalpha.example.com/apply/simulator"
+    },
+    {
+      "id": "job-11",
+      "title": "Mobile Unity Game Developer",
+      "companyId": "comp-11",
+      "companyName": "NeuraLink Gaming",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["C#", "Unity", "iOS", "Android", "WebGL"],
+      "dateString": "Fa 5 dies"
+    },
+    {
+      "id": "job-12",
+      "title": "E-Commerce Database Administrator (DBA)",
+      "companyId": "comp-12",
+      "companyName": "ZetaCommerce Ventures",
+      "location": "Sabadell (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["MySQL", "Redis", "Database Optimization", "Linux", "Replication"],
+      "dateString": "Fa 4 dies"
+    },
+    {
+      "id": "job-13",
+      "title": "Embedded Systems Firmware Developer",
+      "companyId": "comp-13",
+      "companyName": "VeloCity Micromobility",
+      "location": "Barcelona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["C", "FreeRTOS", "Microcontrollers", "I2C/SPI", "Git"],
+      "dateString": "Fa 2 setmanes"
+    },
+    {
+      "id": "job-14",
+      "title": "Robotics Software Automation Engineer",
+      "companyId": "comp-14",
+      "companyName": "Apex Automatons",
+      "location": "Terrassa (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["ROS", "Python", "C++", "Linux", "Simulation"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-15",
+      "title": "Computer Vision AI Research Engineer",
+      "companyId": "comp-15",
+      "companyName": "DeepVision AI",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Python", "PyTorch", "OpenCV", "Docker", "NVIDIA CUDA"],
+      "dateString": "Fa 1 dia",
+      "applicationUrl": "https://deepvision.example.com/careers/cv-engineer"
+    },
+    {
+      "id": "job-16",
+      "title": "SaaS Integration Specialist",
+      "companyId": "comp-16",
+      "companyName": "OmniChannel Flows",
+      "location": "Remot (Europa)",
+      "jobType": "Contract",
+      "techStackTags": ["Node.js", "REST APIs", "GraphQL", "Webhooks", "TypeScript"],
+      "dateString": "Fa 2 dies"
+    },
+    {
+      "id": "job-17",
+      "title": "Web3 Smart Contract Architect",
+      "companyId": "comp-19",
+      "companyName": "Titanium Block Labs",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Solidity", "Ethereum", "Hardhat", "TypeScript", "Ethers.js"],
+      "dateString": "Ahir",
+      "applicationUrl": "https://titaniumblock.example.com/careers/solidity-architect"
+    },
+    {
+      "id": "job-18",
+      "title": "Audio Signal Processing (DSP) Engineer",
+      "companyId": "comp-20",
+      "companyName": "SonicWave Acoustics",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["MATLAB", "C++", "Python", "DSP", "Audio Engineering"],
+      "dateString": "Fa 1 setmana"
+    },
+    {
+      "id": "job-19",
+      "title": "Vue.js Frontend Creator",
+      "companyId": "comp-09",
+      "companyName": "EduPulse Media",
+      "location": "Mataró (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Vue.js", "Pinia", "JavaScript", "CSS Modules", "HTML5"],
+      "dateString": "Fa 5 dies"
+    },
+    {
+      "id": "job-20",
+      "title": "Cloud Security Architect",
+      "companyId": "comp-06",
+      "companyName": "CyberGuard Iberian",
+      "location": "Remot (Global)",
+      "jobType": "Full-time",
+      "techStackTags": ["AWS", "Azure", "IAM", "Compliance", "Cloud Security"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-21",
+      "title": "UI Developer & Designer",
+      "companyId": "comp-02",
+      "companyName": "PixelPerfect Studio",
+      "location": "Girona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["HTML5", "SASS", "JavaScript", "Figma", "Bootstrap"],
+      "dateString": "Fa 6 dies"
+    },
+    {
+      "id": "job-22",
+      "title": "Data Warehouse Architect",
+      "companyId": "comp-03",
+      "companyName": "DataStream Logistics",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["Snowflake", "dbt", "SQL", "BigQuery", "Data Modeling"],
+      "dateString": "Fa 2 dies"
+    },
+    {
+      "id": "job-23",
+      "title": "Site Reliability Engineer (SRE)",
+      "companyId": "comp-05",
+      "companyName": "CloudScale Systems",
+      "location": "Barcelona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["Prometheus", "Grafana", "Linux", "Python", "Kubernetes"],
+      "dateString": "Ahir"
+    },
+    {
+      "id": "job-24",
+      "title": "Java Spring Boot Specialist",
+      "companyId": "comp-07",
+      "companyName": "FinVantage Labs",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Java", "Spring Boot", "Microservices", "PostgreSQL", "Kafka"],
+      "dateString": "Fa 4 dies"
+    },
+    {
+      "id": "job-25",
+      "title": "Three.js 3D Web Engineer",
+      "companyId": "comp-17",
+      "companyName": "PropTech Connect",
+      "location": "Castelló de la Plana (Híbrid)",
+      "jobType": "Contract",
+      "techStackTags": ["JavaScript", "Three.js", "WebGL", "CSS3", "Vite"],
+      "dateString": "Fa 1 setmana",
+      "applicationUrl": "https://proptechconnect.example.com/apply/3d-web"
+    },
+    {
+      "id": "job-26",
+      "title": "Go/Golang Backend Systems Engineer",
+      "companyId": "comp-10",
+      "companyName": "QuantumAlpha Engine",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Go", "gRPC", "Docker", "Protocol Buffers", "Redis"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-27",
+      "title": "iOS Native Engineer",
+      "companyId": "comp-11",
+      "companyName": "NeuraLink Gaming",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["Swift", "SwiftUI", "Combine", "XCode", "CoreData"],
+      "dateString": "Fa 2 dies"
+    },
+    {
+      "id": "job-28",
+      "title": "Fullstack Ruby on Rails Developer",
+      "companyId": "comp-12",
+      "companyName": "ZetaCommerce Ventures",
+      "location": "Sabadell (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["Ruby", "Ruby on Rails", "PostgreSQL", "JavaScript", "Hotwire"],
+      "dateString": "Fa 5 dies"
+    },
+    {
+      "id": "job-29",
+      "title": "Senior Angular Developer",
+      "companyId": "comp-01",
+      "companyName": "TechCatalyst Solutions",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Angular", "TypeScript", "RxJS", "NgRx", "SASS"],
+      "dateString": "Fa 4 dies"
+    },
+    {
+      "id": "job-30",
+      "title": "IoT Node.js Integration Developer",
+      "companyId": "comp-13",
+      "companyName": "VeloCity Micromobility",
+      "location": "Barcelona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["Node.js", "MQTT", "Websockets", "Redis", "Docker"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-31",
+      "title": "PLC Systems Automation Programmer",
+      "companyId": "comp-14",
+      "companyName": "Apex Automatons",
+      "location": "Terrassa (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["PLC", "SCADA", "Industrial Ethernet", "C++", "HMI"],
+      "dateString": "Fa 6 dies"
+    },
+    {
+      "id": "job-32",
+      "title": "Quantitative Developer (Python/SQL)",
+      "companyId": "comp-07",
+      "companyName": "FinVantage Labs",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Python", "SQL", "NumPy", "Pandas", "Time-Series"],
+      "dateString": "Ahir"
+    },
+    {
+      "id": "job-33",
+      "title": "Android Mobile Platform Engineer",
+      "companyId": "comp-11",
+      "companyName": "NeuraLink Gaming",
+      "location": "Remot (Espanya)",
+      "jobType": "Full-time",
+      "techStackTags": ["Kotlin", "Jetpack Compose", "Coroutines", "Dagger Hilt", "Retrofit"],
+      "dateString": "Fa 4 dies"
+    },
+    {
+      "id": "job-34",
+      "title": "QA Automation Engineer",
+      "companyId": "comp-04",
+      "companyName": "MediCore Healthtech",
+      "location": "Sant Cugat (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Cypress", "Selenium", "JavaScript", "GitHub Actions", "Mocha"],
+      "dateString": "Fa 2 dies"
+    },
+    {
+      "id": "job-35",
+      "title": "NoSQL Database Engineer",
+      "companyId": "comp-16",
+      "companyName": "OmniChannel Flows",
+      "location": "Remot (Europa)",
+      "jobType": "Full-time",
+      "techStackTags": ["MongoDB", "Elasticsearch", "Redis", "Node.js", "Cluster Sharding"],
+      "dateString": "Ahir"
+    },
+    {
+      "id": "job-36",
+      "title": "Business Intelligence (BI) Analyst",
+      "companyId": "comp-12",
+      "companyName": "ZetaCommerce Ventures",
+      "location": "Sabadell (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["PowerBI", "SQL", "DAX", "Excel", "Data Governance"],
+      "dateString": "Fa 5 dies"
+    },
+    {
+      "id": "job-37",
+      "title": "Next.js Frontend Engineer",
+      "companyId": "comp-15",
+      "companyName": "DeepVision AI",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Next.js", "React", "TypeScript", "TailwindCSS", "GraphQL"],
+      "dateString": "Fa 3 dies"
+    },
+    {
+      "id": "job-38",
+      "title": "Sustainable Systems Linux Admin",
+      "companyId": "comp-18",
+      "companyName": "Biomimetic Energy",
+      "location": "Tarragona (Presencial)",
+      "jobType": "Full-time",
+      "techStackTags": ["Linux", "Bash Scripting", "Docker", "Networking", "Security Monitoring"],
+      "dateString": "Fa 1 setmana",
+      "applicationUrl": "https://biomimetic.example.com/apply/linux-admin"
+    },
+    {
+      "id": "job-39",
+      "title": "Rust Core Systems Engineer",
+      "companyId": "comp-10",
+      "companyName": "QuantumAlpha Engine",
+      "location": "Barcelona (Híbrid)",
+      "jobType": "Full-time",
+      "techStackTags": ["Rust", "WebAssembly", "Linux", "Concurrency", "Git"],
+      "dateString": "Fa 2 dies"
+    },
+    {
+      "id": "job-40",
+      "title": "E-Commerce Frontend Developer",
+      "companyId": "comp-16",
+      "companyName": "OmniChannel Flows",
+      "location": "Remot (Europa)",
+      "jobType": "Full-time",
+      "techStackTags": ["React", "JavaScript", "TailwindCSS", "HTML5", "Shopify API"],
+      "dateString": "Fa 4 dies"
+    }
+  ]
+}

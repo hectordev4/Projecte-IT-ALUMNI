@@ -1,0 +1,184 @@
+{
+  "companies": [
+    {
+      "id": "comp-01",
+      "companyName": "TechCatalyst Solutions",
+      "location": "Barcelona (Híbrid)",
+      "address": "Carrer de Pallars, 108, Poblenou, 08018 Barcelona",
+      "industry": "Software Development & Artificial Intelligence",
+      "website": "https://techcatalyst.example.com",
+      "logoUrl": "/assets/logos/techcatalyst.svg"
+    },
+    {
+      "id": "comp-02",
+      "companyName": "PixelPerfect Studio",
+      "location": "Girona (Presencial)",
+      "address": "Carrer de la Creu, 12, 17002 Girona",
+      "industry": "UI/UX Design & Frontend Development",
+      "website": "https://pixelperfect.example.com",
+      "logoUrl": "/assets/logos/pixelperfect.svg"
+    },
+    {
+      "id": "comp-03",
+      "companyName": "DataStream Logistics",
+      "location": "Remot (Espanya)",
+      "address": "Passeig de Gràcia, 45, L'Eixample, 08007 Barcelona",
+      "industry": "Data Analytics & Supply Chain IoT",
+      "website": "https://datastream.example.com",
+      "logoUrl": "/assets/logos/datastream.svg"
+    },
+    {
+      "id": "comp-04",
+      "companyName": "MediCore Healthtech",
+      "location": "Sant Cugat (Híbrid)",
+      "address": "Avinguda de l'Alcalde Barnils, 64, 08174 Sant Cugat del Vallès",
+      "industry": "Biomedical Software & Telehealth",
+      "website": "https://medicore.example.com",
+      "logoUrl": "/assets/logos/medicore.svg"
+    },
+    {
+      "id": "comp-05",
+      "companyName": "CloudScale Systems",
+      "location": "Barcelona (Presencial)",
+      "address": "Avinguda Diagonal, 590, San Gervasi, 08021 Barcelona",
+      "industry": "Cloud Infrastructure & DevOps Solutions",
+      "website": "https://cloudscale.example.com",
+      "logoUrl": "/assets/logos/cloudscale.svg"
+    },
+    {
+      "id": "comp-06",
+      "companyName": "CyberGuard Iberian",
+      "location": "Remot (Global)",
+      "address": "Via Laietana, 32, Ciutat Vella, 08003 Barcelona",
+      "industry": "Cybersecurity & Incident Response Management",
+      "website": "https://cyberguard.example.com",
+      "logoUrl": "/assets/logos/cyberguard.svg"
+    },
+    {
+      "id": "comp-07",
+      "companyName": "FinVantage Labs",
+      "location": "Barcelona (Híbrid)",
+      "address": "Carrer de Tuset, 23, Sarrià-Sant Gervasi, 08006 Barcelona",
+      "industry": "Fintech & Automated Algo-Trading Platforms",
+      "website": "https://finvantage.example.com",
+      "logoUrl": "/assets/logos/finvantage.svg"
+    },
+    {
+      "id": "comp-08",
+      "companyName": "EcoSphere AgriTech",
+      "location": "Lleida (Presencial)",
+      "address": "Parc Científic i Tecnològic Agroalimentari, 25003 Lleida",
+      "industry": "Sustainable Smart Farming Software",
+      "website": "https://ecosphere.example.com",
+      "logoUrl": "/assets/logos/ecosphere.svg"
+    },
+    {
+      "id": "comp-09",
+      "companyName": "EduPulse Media",
+      "location": "Mataró (Híbrid)",
+      "address": "Avinguda d'Ernest Lluch, 32, TecnoCampus, 08302 Mataró",
+      "industry": "EdTech & Interactive Gamified Classrooms",
+      "website": "https://edupulse.example.com",
+      "logoUrl": "/assets/logos/edupulse.svg"
+    },
+    {
+      "id": "comp-10",
+      "companyName": "QuantumAlpha Engine",
+      "location": "Barcelona (Híbrid)",
+      "address": "Carrer de Marina, 16, Port Olímpic, 08005 Barcelona",
+      "industry": "Quantum Computing Consulting & Modeling",
+      "website": "https://quantumalpha.example.com",
+      "logoUrl": "/assets/logos/quantumalpha.svg"
+    },
+    {
+      "id": "comp-11",
+      "companyName": "NeuraLink Gaming",
+      "location": "Remot (Espanya)",
+      "address": "Carrer de Balmes, 129, L'Eixample, 08008 Barcelona",
+      "industry": "Web3 & Immersive Mobile Game Frameworks",
+      "website": "https://neuralinkgaming.example.com",
+      "logoUrl": "/assets/logos/neuralink.svg"
+    },
+    {
+      "id": "comp-12",
+      "companyName": "ZetaCommerce Ventures",
+      "location": "Sabadell (Presencial)",
+      "address": "Carrer de Tres Creus, 86, 08202 Sabadell",
+      "industry": "E-Commerce Logistics & Analytics Engines",
+      "website": "https://zetacommerce.example.com",
+      "logoUrl": "/assets/logos/zetacommerce.svg"
+    },
+    {
+      "id": "comp-13",
+      "companyName": "VeloCity Micromobility",
+      "location": "Barcelona (Presencial)",
+      "address": "Carrer de Pujades, 51, Poblenou, 08005 Barcelona",
+      "industry": "Smart Urban Transit & Embedded Hardware",
+      "website": "https://velocity.example.com",
+      "logoUrl": "/assets/logos/velocity.svg"
+    },
+    {
+      "id": "comp-14",
+      "companyName": "Apex Automatons",
+      "location": "Terrassa (Híbrid)",
+      "address": "Carrer de Colom, 114, 08222 Terrassa",
+      "industry": "Industrial Robotic Automation Systems",
+      "website": "https://apexautomatons.example.com",
+      "logoUrl": "/assets/logos/apex.svg"
+    },
+    {
+      "id": "comp-15",
+      "companyName": "DeepVision AI",
+      "location": "Barcelona (Híbrid)",
+      "address": "Gran Via de les Corts Catalanes, 585, 08007 Barcelona",
+      "industry": "Computer Vision & Medical Diagnostic Modeling",
+      "website": "https://deepvision.example.com",
+      "logoUrl": "/assets/logos/deepvision.svg"
+    },
+    {
+      "id": "comp-16",
+      "companyName": "OmniChannel Flows",
+      "location": "Remot (Europa)",
+      "address": "Carrer d'Aragó, 204, L'Eixample, 08011 Barcelona",
+      "industry": "SaaS Customer Communication Integrations",
+      "website": "https://omnichannel.example.com",
+      "logoUrl": "/assets/logos/omnichannel.svg"
+    },
+    {
+      "id": "comp-17",
+      "companyName": "PropTech Connect",
+      "location": "Castelló de la Plana (Híbrid)",
+      "address": "Avinguda del Rei En Jaume, 2, 12001 Castelló de la Plana",
+      "industry": "Real Estate Virtual Modeling Platforms",
+      "website": "https://proptechconnect.example.com",
+      "logoUrl": "/assets/logos/proptech.svg"
+    },
+    {
+      "id": "comp-18",
+      "companyName": "Biomimetic Energy",
+      "location": "Tarragona (Presencial)",
+      "address": "Autovia de Salou, s/n, Complex Industrial, 43006 Tarragona",
+      "industry": "Clean Green Hydrogen & Sustainable Storage",
+      "website": "https://biomimetic.example.com",
+      "logoUrl": "/assets/logos/biomimetic.svg"
+    },
+    {
+      "id": "comp-19",
+      "companyName": "Titanium Block Labs",
+      "location": "Barcelona (Híbrid)",
+      "address": "Placeta del Comerç, 4, El Born, 08003 Barcelona",
+      "industry": "Decentralized Smart Contract Architecture",
+      "website": "https://titaniumblock.example.com",
+      "logoUrl": "/assets/logos/titanium.svg"
+    },
+    {
+      "id": "comp-20",
+      "companyName": "SonicWave Acoustics",
+      "location": "Remot (Espanya)",
+      "address": "Carrer de Muntaner, 240, Sarrià-Sant Gervasi, 08021 Barcelona",
+      "industry": "DSP Sound Engineering & Auditory Wearables",
+      "website": "https://sonicwave.example.com",
+      "logoUrl": "/assets/logos/sonicwave.svg"
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+/* ==========================================================================
+   MOBILE VIEWS (Default Baseline Page Layout)
+   ========================================================================== */
+.networking-mobile-container {
+  display: flex; /* Removed !important so media queries can override it */
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  background-color: var(--bg);
+  gap: 1.25rem;
+  width: 100%;
+}
+
+/* Hide desktop container on mobile */
+.networking-desktop-container {
+  display: none; 
+}
+
+.mobile-profile-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* --- TYPE 4: MOBILE RECENT ACTIVITY CARD ENTRY --- */
+.mobile-activity-log-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--sans);
+}
+
+.mobile-activity-log-card .log-indicator-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--accent); /* Fuchsia activity indicator token */
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.mobile-activity-log-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-h);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.mobile-activity-log-card p strong {
+  font-weight: 600;
+}
+
+.mobile-activity-log-card .log-timestamp {
+  font-size: 0.75rem;
+  color: #a19ba8;
+  white-space: nowrap;
+  align-self: flex-start;
+  padding-top: 0.15rem;
+}
+
+/* Status loading and empty notification typography layouts */
+.feed-status-msg,
+.feed-empty-alert,
+.feed-error-msg {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--text);
+  text-align: center;
+  padding: 2rem 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* ==========================================================================
+   DESKTOP RESPONSIVE MECHANICS (48rem / 768px and up)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  /* 1. HIDE MOBILE CARDS ON DESKTOP */
+  .networking-mobile-container {
+    display: none; 
+  }
+
+  /* 2. REVEAL DESKTOP CONTAINER */
+  .networking-desktop-container {
+    display: block; 
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 5%;
+    width: 100%;
+    background-color: var(--bg);
+  }
+
+  #desktop-main-workspace-target {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+  }
+
+  /* Structural wrapper for Mode A & B split-panel dashboards */
+  .desktop-split-layout {
+    display: grid;
+    grid-template-columns: 2.5fr 1.2fr;
+    gap: 3.5rem;
+    align-items: start;
+    width: 100%;
+  }
+
+  /* Mode B: Primary Explorer Grid Layout */
+  .popular-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  /* Suggestions Sidebar retains its solid card look */
+  .suggestions-sidebar-section {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* 3. INVISIBLE CARDS: Activity Timeline Section loses borders/background */
+  .activity-timeline-section {
+    display: flex;
+    flex-direction: column;
+    background: transparent; 
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Mode A: Enforces single column display parameters when activity expands */
+  .desktop-split-layout.activity-log-mode-active {
+    grid-template-columns: 2.5fr 1.2fr;
+  }
+
+  .suggestion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .section-block-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-h);
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Space between invisible activity rows */
+  }
+
+  .timeline-list li {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Separate entry lines for the full timeline table framework */
+  .timeline-date-group-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    list-style: none;
+  }
+
+  .timeline-log-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+  }
+
+  .timeline-log-row:last-child {
+    border-bottom: none;
+  }
+
+  .timeline-meta {
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .timeline-meta strong {
+    color: var(--text-h);
+    font-weight: 600;
+  }
+
+  .timeline-time-tag {
+    font-size: 0.8rem;
+    color: #a19ba8;
+    font-weight: 500;
+    white-space: nowrap;
+    padding-left: 1.5rem;
+  }
+}
